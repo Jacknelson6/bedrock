@@ -236,6 +236,29 @@ Mono accent:    Geist Mono, JetBrains Mono, IBM Plex Mono
                 Use for: labels, badges, category tags, metadata
 ```
 
+**Font setup (REQUIRED — `font-display` is NOT a default Tailwind class):**
+
+In `tailwind.config.ts`:
+```ts
+fontFamily: {
+  display: ['var(--font-display)', 'system-ui', 'sans-serif'],
+  body: ['var(--font-body)', 'system-ui', 'sans-serif'],
+  mono: ['var(--font-mono)', 'monospace'],
+},
+```
+In the root layout (Next.js example with `next/font`):
+```tsx
+import { Inter } from 'next/font/google';
+import localFont from 'next/font/local';
+
+const display = localFont({ src: './fonts/CabinetGrotesk-Bold.woff2', variable: '--font-display' });
+const body = Inter({ subsets: ['latin'], variable: '--font-body' });
+const mono = localFont({ src: './fonts/GeistMono-Regular.woff2', variable: '--font-mono' });
+
+// In <html>: className={`${display.variable} ${body.variable} ${mono.variable}`}
+```
+If the project already has fonts configured, map existing CSS vars to `font-display`/`font-body`/`font-mono` in Tailwind config. Don't install new fonts unless the user asks.
+
 Typography scale:
 ```
 Hero headline:       font-display text-5xl sm:text-7xl lg:text-8xl tracking-tighter leading-[0.9]
@@ -286,26 +309,26 @@ DON'T: Use full-opacity backgrounds on floating elements (use backdrop-blur + lo
   </div>
 </div>
 
-// ✅ BEDROCK — This is what you should produce
-<section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden">
-  <div className="absolute inset-0 -z-10">
-    <Aurora colorStops={["#3b82f6", "#8b5cf6", "#06b6d4"]} speed={0.5} opacity={0.3} />
-  </div>
-  <div className="text-center max-w-5xl mx-auto px-4">
-    <TextEffect as="h1" per="word" preset="blur"
-      className="text-5xl md:text-7xl font-bold tracking-tight">
-      Ship products that users love
-    </TextEffect>
-    <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: 0.4, ...ENTRANCE }}
-      className="mt-6 text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto">
+// ✅ BEDROCK — Typography-led, left-aligned, restrained
+<section className="min-h-[90vh] flex flex-col justify-center px-6 md:px-12">
+  <div className="max-w-6xl">
+    <p className="font-mono text-sm text-muted-foreground tracking-wider uppercase mb-8">
+      Now in public beta
+    </p>
+    <h1 className="font-display text-5xl sm:text-7xl lg:text-8xl tracking-tighter leading-[0.9]">
+      Ship products<br />
+      <span className="text-muted-foreground">that users love</span>
+    </h1>
+    <motion.p initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: 0.3, ...ENTRANCE }}
+      className="mt-8 text-lg md:text-xl text-muted-foreground max-w-xl leading-relaxed">
       The modern platform for teams who build fast.
     </motion.p>
-    <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: 0.7, ...ENTRANCE }} className="mt-10 flex gap-4 justify-center">
-      <Magnetic intensity={0.2}>
-        <a href="/start" className="px-8 py-4 bg-primary text-primary-foreground rounded-full text-lg font-medium">
-          Get Started
+    <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: 0.5, ...ENTRANCE }} className="mt-10 flex gap-4">
+      <Magnetic intensity={0.15}>
+        <a href="/start" className="px-7 py-3.5 bg-foreground text-background rounded-full text-sm font-medium">
+          Start building
         </a>
       </Magnetic>
     </motion.div>
@@ -314,12 +337,13 @@ DON'T: Use full-opacity backgrounds on floating elements (use backdrop-blur + lo
 ```
 
 **What's different:**
-- Aurora ambient bg vs static gradient (alive vs dead)
-- TextEffect with per-word blur vs plain h1 (entrance vs instant)
-- Staggered timing (0ms→400ms→700ms) vs everything at once
-- Magnetic CTA vs plain button (interactive vs static)
-- Semantic color tokens vs raw hex (adaptable vs hardcoded)
-- `tracking-tight` + proper type scale vs generic sizing
+- **Left-aligned** vs centered (editorial vs generic)
+- **No background animation** — typography IS the design (restraint > decoration)
+- **Two-tone headline** (foreground + muted) vs raw white text on gradient
+- **Monospace badge** adds third typographic voice vs no texture
+- **`tracking-tighter leading-[0.9]`** vs default tracking/leading (tight = premium)
+- **`bg-foreground text-background`** button vs raw hex colors (theme-adaptive)
+- Staggered timing with spring physics vs everything at once
 
 ### ❌ Vibe-Coded Cards vs ✅ Bedrock Cards
 
@@ -334,27 +358,29 @@ DON'T: Use full-opacity backgrounds on floating elements (use backdrop-blur + lo
   ))}
 </div>
 
-// ✅ BEDROCK
+// ✅ BEDROCK — Unified grid as one block, not scattered cards
 <InView variants={SCROLL_ENTER} viewOptions={{ once: true, margin: "-50px" }}>
-  <AnimatedGroup preset="blur" className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+  <AnimatedGroup preset="blur"
+    className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-border/40 rounded-2xl overflow-hidden border border-border/30">
     {features.map(f => (
-      <GlowHoverCard key={f.title} className="p-8">
-        <f.icon className="w-10 h-10 text-primary mb-4" />
-        <h3 className="text-xl font-semibold mb-2">{f.title}</h3>
-        <p className="text-muted-foreground">{f.description}</p>
-      </GlowHoverCard>
+      <div key={f.title} className="p-8 md:p-10 bg-background">
+        <f.icon className="w-8 h-8 text-foreground/60" />
+        <h3 className="text-lg font-semibold mt-5 tracking-tight">{f.title}</h3>
+        <p className="text-sm text-muted-foreground mt-2 leading-relaxed">{f.description}</p>
+      </div>
     ))}
   </AnimatedGroup>
 </InView>
 ```
 
 **What's different:**
-- InView triggers entrance on scroll vs always visible
-- AnimatedGroup with blur stagger vs instant render
-- GlowHoverCard with cursor-following glow vs basic shadow
+- **`gap-px` with `bg-border/40`** = hairline dividers, not floating cards with shadows
+- **`overflow-hidden rounded-2xl`** = grid is ONE block, not scattered pieces
+- **`border-border/30`** = barely-there border, not full opacity
+- **Icons `text-foreground/60`** = understated, not garish `text-primary`
+- **No GlowHoverCard** — restraint for informational cards (save glow for interactive)
+- InView + AnimatedGroup for scroll-triggered staggered entrance
 - Responsive grid (1→2→3 cols) vs hardcoded 3
-- `gap-8` + `p-8` vs `gap-6` + `p-6` (premium spacing)
-- Semantic text-muted-foreground vs raw gray-600
 
 ### ❌ Vibe-Coded Numbers vs ✅ Bedrock Numbers
 
@@ -364,9 +390,10 @@ DON'T: Use full-opacity backgrounds on floating elements (use backdrop-blur + lo
 
 // ✅ BEDROCK
 <InView variants={SCROLL_ENTER} viewOptions={{ once: true }}>
-  <div className="text-4xl md:text-5xl font-bold tabular-nums">
-    <AnimatedNumber value={10000} springOptions={{ stiffness: 100, damping: 30 }} />+
+  <div className="font-display text-3xl md:text-5xl font-bold tracking-tighter tabular-nums">
+    <AnimatedNumber value={10000} springOptions={{ stiffness: 80, damping: 25 }} />+
   </div>
+  <p className="mt-2 text-sm text-muted-foreground">Active users</p>
 </InView>
 ```
 
@@ -498,10 +525,13 @@ Before implementing ANY component, detect the project environment by examining t
 # Motion (most components need this)
 npm install motion clsx tailwind-merge
 
-# Three.js (3D/WebGL components)
+# Three.js (Globe, Hyperspeed, Threads, Beams, ShapeBlur)
 npm install three @react-three/fiber @react-three/drei
 
-# GSAP (some SmoothUI components)
+# OGL (Aurora, some ReactBits backgrounds)
+npm install ogl
+
+# GSAP (some SmoothUI + ReactBits components like BlobCursor)
 npm install gsap
 
 # Icons (common across components)
@@ -512,7 +542,7 @@ npm install lucide-react
 
 ## Component Catalog
 
-### Text Effects (24 components)
+### Text Effects (23 components)
 Read `references/text-effects.md` before implementing.
 
 | Component | Source | Dep | Use For |
@@ -538,29 +568,27 @@ Read `references/text-effects.md` before implementing.
 | **DecryptedText** | ReactBits | motion | Character-by-character decrypt |
 | **CircularText** | ReactBits | CSS | Text in a circle layout |
 | **CountUp** | ReactBits | motion | Animated number counting |
-| **FlipText** | ReactBits | motion | 3D character flip entrance |
 | **FuzzyText** | ReactBits | CSS | Glitch/fuzzy text effect |
 | **TrueFocus** | ReactBits | motion | Focus highlight across words |
 
-### Backgrounds (15 components)
+### Backgrounds (14 components)
 Read `references/backgrounds.md` before implementing.
 
 | Component | Source | Dep | Use For |
 |-----------|--------|-----|---------|
-| **Aurora** | ReactBits | CSS | ⭐ Northern lights gradient (hero bg) |
+| **Aurora** | ReactBits | ogl | ⭐ Northern lights gradient (hero bg) |
 | **Particles** | ReactBits | three | Interactive particle field |
-| **Beams** | ReactBits | CSS | Light beam rays |
+| **Beams** | ReactBits | three | Light beam rays |
 | **Hyperspeed** | ReactBits | three | Warp-speed starfield |
 | **GridMotion** | ReactBits | motion | Animated image/content grid |
 | **Noise** | ReactBits | CSS | Grain texture overlay |
 | **Squares** | ReactBits | CSS | Animated square grid |
 | **Waves** | ReactBits | CSS | Flowing wave lines |
 | **Threads** | ReactBits | three | 3D flowing threads |
-| **BlobCursor** | ReactBits | CSS | Blob follows cursor |
+| **BlobCursor** | ReactBits | gsap | Blob follows cursor |
 | **LetterGlitch** | ReactBits | CSS | Glitching character bg |
-| **ShapeBlur** | ReactBits | CSS | Blurred shapes (Stripe-style) |
-| **StarBorder** | AnimateUI | motion | Sparkle border animation |
-| **AnimatedGradient** | AnimateUI | motion | Color-cycling gradient |
+| **ShapeBlur** | ReactBits | three | Blurred shapes (Stripe-style) |
+| **StarBorder** | ReactBits | motion | Sparkle border animation |
 | **BorderTrail** | Motion Primitives | motion | Animated border trail |
 
 ### Interactive Elements (15 components)
@@ -598,7 +626,7 @@ Read `references/cards-content.md` before implementing.
 | **AppleInvites** | SmoothUI | motion | Apple-style invitation card |
 | **ContributionGraph** | SmoothUI | motion | GitHub heatmap |
 | **AnimatedList** | ReactBits | motion | Staggered list entrance |
-| **Tilted** | ReactBits | CSS | CSS 3D tilt card |
+| **TiltedCard** | ReactBits | CSS | CSS 3D tilt card |
 | **PixelCard** | ReactBits | CSS | Pixel dissolve card |
 | **SpotlightCard** | ReactBits | motion | Spotlight hover card |
 
@@ -659,17 +687,16 @@ Read `references/layout-navigation.md` before implementing.
 | **Disclosure** | Motion Primitives | motion | Single expand/collapse |
 | **InView** | Motion Primitives | motion | Scroll-triggered animation |
 | **TransitionPanel** | Motion Primitives | motion | Panel transitions |
-| **Skeleton** | SmoothUI | motion | Loading placeholder |
+| **SkeletonLoader** | SmoothUI | motion | Loading placeholder |
 | **NotificationBadge** | SmoothUI | motion | Animated badge |
 | **ReviewsCarousel** | SmoothUI | motion | Testimonial slider |
 
-### 3D & WebGL (8 components)
+### 3D & WebGL (7 components)
 Read `references/threed-webgl.md` before implementing.
 
 | Component | Source | Dep | Use For |
 |-----------|--------|-----|---------|
-| **Globe** | ReactBits | three | ⭐ Interactive 3D globe |
-| **Hyperspeed** | ReactBits | three | Warp-speed starfield |
+| **Hyperspeed** | ReactBits | three | ⭐ Warp-speed starfield |
 | **Threads** | ReactBits | three | 3D flowing threads |
 | **SiriOrb** | SmoothUI | motion | Siri-style orb (no Three.js!) |
 | **AgentAvatar** | SmoothUI | motion | AI agent avatar |
@@ -679,41 +706,29 @@ Read `references/threed-webgl.md` before implementing.
 
 ---
 
-## Implementation Workflow (Follow Every Time)
+## Implementation Workflow
 
-**You MUST use the Read and Grep tools at each step. Do NOT skip source lookup.**
+**5 steps. Do NOT skip source lookup — that's the whole point of this skill.**
 
 ```
-Step 1: IDENTIFY    → Match request to catalog tables below.
-                      For "build a landing page" → Read ~/.claude/skills/bedrock/templates/saas-landing.md
+Step 1: PLAN        → Read the relevant template (saas-landing.md, hero-section.md, etc.)
+                      Choose variants per section. Identify which catalog components you need.
 
-Step 2: READ REF    → Read the reference guide for each component category you'll use:
-                      Read ~/.claude/skills/bedrock/references/text-effects.md
-                      Read ~/.claude/skills/bedrock/references/backgrounds.md
-                      (etc. — one per category)
+Step 2: DETECT      → Check package.json for framework, existing deps, and ui conventions.
+                      Install missing deps. Create cn() if needed.
 
-Step 3: DETECT      → Check target project: package.json, framework, existing deps.
-
-Step 4: FIND SOURCE → For EVERY component:
-                      a) Grep source file for line number (NEVER read the full file):
+Step 3: FIND SOURCE → For EVERY component (this is non-negotiable):
+                      a) Grep source file for line number:
                          Grep pattern="=== FILE:.*TextEffect" path="~/.claude/skills/bedrock/source/motion-primitives-components.txt" -n=true
-                      b) Read with offset+limit (max 300 lines per component):
+                      b) Read with offset+limit (max 300 lines):
                          Read path offset=LINE_NUMBER limit=200
-                      c) Grep docs file for props (use -A for context):
-                         Grep pattern="## TextEffect" path="...docs.txt" -A=50
-                      ⚠️ DO NOT SKIP THIS. DO NOT WRITE FROM MEMORY. DO NOT READ FULL FILES.
+                      ⚠️ DO NOT WRITE FROM MEMORY. DO NOT READ FULL SOURCE FILES.
 
-Step 5: INSTALL     → Auto-install missing deps.
-                      Read ~/.claude/skills/bedrock/references/dependency-map.md
+Step 4: IMPLEMENT   → Adapt source to project: add 'use client', fix imports, match conventions.
+                      Apply SSR patterns for Three.js/WebGL (dynamic import, ssr: false).
 
-Step 6: UTILITIES   → Create cn() helper if missing (clsx + tailwind-merge).
-
-Step 7: PRERENDER   → Apply SSR/prerender patterns:
-                      Read ~/.claude/skills/bedrock/references/ssr-prerender.md
-
-Step 8: IMPLEMENT   → Adapt source to project: add 'use client', fix imports, match conventions.
-
-Step 9: COMPOSE     → Wire into page with scroll triggers, stagger, and motion rhythm.
+Step 5: COMPOSE     → Wire sections into page with scroll triggers (InView), stagger timing,
+                      and variable spacing. Run the smell test (see above).
 ```
 
 ---
