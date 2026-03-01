@@ -24,12 +24,16 @@ See `templates/` for complete SaaS page blueprints.
 
 ---
 
-## How This Skill Is Structured
+## CRITICAL: How to Access Bedrock's Files
+
+All Bedrock files live at `~/.claude/skills/bedrock/`. When this skill is loaded, **only this SKILL.md is in your context**. You MUST use the Read and Grep tools to access everything else.
+
+### Skill Directory: `~/.claude/skills/bedrock/`
 
 ```
-bedrock/
-├── SKILL.md                    ← You are here. Catalog + rules + decision framework.
-├── references/                 ← Category guides. Read BEFORE implementing.
+~/.claude/skills/bedrock/
+├── SKILL.md                    ← You are here (loaded into context automatically)
+├── references/                 ← Category guides — Read tool BEFORE implementing
 │   ├── text-effects.md
 │   ├── backgrounds.md
 │   ├── interactive-elements.md
@@ -40,33 +44,72 @@ bedrock/
 │   ├── layout-navigation.md
 │   ├── threed-webgl.md
 │   ├── dependency-map.md
-│   └── ssr-prerender.md        ← SSR, SEO, and prerender patterns
-├── templates/                  ← Full page composition blueprints
+│   └── ssr-prerender.md
+├── templates/                  ← Full page blueprints — Read tool for page builds
 │   ├── saas-landing.md
 │   ├── hero-section.md
 │   ├── features-grid.md
 │   └── dashboard-shell.md
-├── source/                     ← Raw scraped component source (populated by Claude Code)
-│   ├── animate-ui-components.txt
-│   ├── smoothui-components.txt
-│   ├── motion-primitives-components.txt
-│   ├── reactbits-components.txt
-│   ├── animate-ui-docs.txt
-│   ├── smoothui-docs.txt
-│   ├── motion-primitives-docs.txt
-│   └── reactbits-docs.txt
+├── source/                     ← ACTUAL SOURCE CODE — Grep/Read to find components
+│   ├── animate-ui-components.txt     (626 components, 71K lines)
+│   ├── smoothui-components.txt       (314 components, 41K lines)
+│   ├── motion-primitives-components.txt (157 components, 11.5K lines)
+│   ├── reactbits-components.txt      (123 components, 41K lines)
+│   ├── animate-ui-docs.txt           (props, API, usage examples)
+│   ├── smoothui-docs.txt             (props, API, usage examples)
+│   ├── motion-primitives-docs.txt    (props, API, usage examples)
+│   └── reactbits-docs.txt            (props, API, usage examples)
 └── scripts/
-    └── detect-project.sh       ← Project environment detection
+    └── detect-project.sh
 ```
 
-### How to use the source files
+### How to Find and Use Component Source Code
 
-The `source/` directory contains the complete scraped source code and documentation from all four libraries. When implementing a component:
+**This is the core value of Bedrock.** The `source/` directory contains the REAL implementation source code scraped from all four libraries. Do NOT write components from memory or training data — find the exact source.
 
-1. Read the relevant `references/*.md` file to understand which component to use and why
-2. Search the appropriate `source/*-components.txt` file for the exact component source
-3. Search the corresponding `source/*-docs.txt` file for usage examples and prop details
-4. Adapt the source to the target project (framework directives, import paths, SSR handling)
+**Step-by-step for every component you implement:**
+
+1. **Find the component in the catalog below** → note which library it's from (e.g., "Motion Primitives")
+2. **Read the reference guide** using the Read tool:
+   ```
+   Read ~/.claude/skills/bedrock/references/text-effects.md
+   ```
+3. **Search the source file** for the exact component using Grep:
+   ```
+   Grep pattern="TextEffect" path="~/.claude/skills/bedrock/source/motion-primitives-components.txt"
+   ```
+   Each component in the source files is delimited by `// === FILE: path/to/ComponentName.tsx ===`
+4. **Read the component source** — use the Read tool with offset/limit to grab the full component:
+   ```
+   Read ~/.claude/skills/bedrock/source/motion-primitives-components.txt (at the line Grep found)
+   ```
+5. **Check the docs file** for props and usage:
+   ```
+   Grep pattern="## TextEffect" path="~/.claude/skills/bedrock/source/motion-primitives-docs.txt"
+   ```
+6. **Adapt** the source to the target project (add `'use client'`, fix imports, match conventions)
+
+### Source File → Library Mapping
+
+| When catalog says... | Search this source file | Check this docs file |
+|---------------------|------------------------|---------------------|
+| **Motion Primitives** | `~/.claude/skills/bedrock/source/motion-primitives-components.txt` | `~/.claude/skills/bedrock/source/motion-primitives-docs.txt` |
+| **SmoothUI** | `~/.claude/skills/bedrock/source/smoothui-components.txt` | `~/.claude/skills/bedrock/source/smoothui-docs.txt` |
+| **ReactBits** | `~/.claude/skills/bedrock/source/reactbits-components.txt` | `~/.claude/skills/bedrock/source/reactbits-docs.txt` |
+| **AnimateUI** | `~/.claude/skills/bedrock/source/animate-ui-components.txt` | `~/.claude/skills/bedrock/source/animate-ui-docs.txt` |
+
+### Source File Format
+
+Every source file uses this delimiter pattern:
+```
+// === FILE: path/to/ComponentName.tsx ===
+[full component source code here]
+
+// === FILE: path/to/NextComponent.tsx ===
+[next component...]
+```
+
+Use `Grep pattern="=== FILE:.*ComponentName" path="..."` to find the start of any component, then Read from that line.
 
 ---
 
@@ -373,16 +416,36 @@ Read `references/threed-webgl.md` before implementing.
 
 ## Implementation Workflow (Follow Every Time)
 
+**You MUST use the Read and Grep tools at each step. Do NOT skip source lookup.**
+
 ```
-Step 1: IDENTIFY    → Match request to catalog. For "build a landing page," read templates/.
-Step 2: READ REF    → Load references/*.md for the relevant categories.
-Step 3: DETECT      → Check package.json, framework, existing deps.
-Step 4: FIND SOURCE → Search source/*-components.txt for exact component code.
-                      Search source/*-docs.txt for usage examples and props.
-Step 5: INSTALL     → Auto-install missing deps (see references/dependency-map.md).
-Step 6: UTILITIES   → Create cn() helper if missing.
-Step 7: PRERENDER   → Apply SSR/prerender patterns (see references/ssr-prerender.md).
-Step 8: IMPLEMENT   → Write component with proper directives, types, imports.
+Step 1: IDENTIFY    → Match request to catalog tables below.
+                      For "build a landing page" → Read ~/.claude/skills/bedrock/templates/saas-landing.md
+
+Step 2: READ REF    → Read the reference guide for each component category you'll use:
+                      Read ~/.claude/skills/bedrock/references/text-effects.md
+                      Read ~/.claude/skills/bedrock/references/backgrounds.md
+                      (etc. — one per category)
+
+Step 3: DETECT      → Check target project: package.json, framework, existing deps.
+
+Step 4: FIND SOURCE → For EVERY component, search its source file:
+                      Grep pattern="=== FILE:.*TextEffect" path="~/.claude/skills/bedrock/source/motion-primitives-components.txt"
+                      Then Read the file at that line offset to get full source.
+                      Also check the docs file for props:
+                      Grep pattern="## TextEffect" path="~/.claude/skills/bedrock/source/motion-primitives-docs.txt"
+                      ⚠️ DO NOT SKIP THIS STEP. DO NOT WRITE FROM MEMORY.
+
+Step 5: INSTALL     → Auto-install missing deps.
+                      Read ~/.claude/skills/bedrock/references/dependency-map.md
+
+Step 6: UTILITIES   → Create cn() helper if missing (clsx + tailwind-merge).
+
+Step 7: PRERENDER   → Apply SSR/prerender patterns:
+                      Read ~/.claude/skills/bedrock/references/ssr-prerender.md
+
+Step 8: IMPLEMENT   → Adapt source to project: add 'use client', fix imports, match conventions.
+
 Step 9: COMPOSE     → Wire into page with scroll triggers, stagger, and motion rhythm.
 ```
 
@@ -392,17 +455,17 @@ Step 9: COMPOSE     → Wire into page with scroll triggers, stagger, and motion
 
 | User Says | You Do |
 |-----------|--------|
-| "Build a landing page" | Read `templates/saas-landing.md`, implement full page |
+| "Build a landing page" | `Read ~/.claude/skills/bedrock/templates/saas-landing.md` → implement full page |
 | "Make this look better" | Add InView scroll triggers, TextEffect on headlines, GlowHoverCard on cards |
-| "Add animation to X" | Find X in catalog, read reference, implement from source |
-| "Hero section" | Read `templates/hero-section.md` |
-| "Feature grid" | Read `templates/features-grid.md` |
-| "I need a cool background" | `references/backgrounds.md` → Aurora or Particles |
-| "Animated text" | `references/text-effects.md` → TextEffect (default) |
-| "Hover effects" | `references/interactive-elements.md` → GlowEffect or Tilt |
+| "Add animation to X" | Find X in catalog → `Grep` source file → `Read` component → implement |
+| "Hero section" | `Read ~/.claude/skills/bedrock/templates/hero-section.md` |
+| "Feature grid" | `Read ~/.claude/skills/bedrock/templates/features-grid.md` |
+| "I need a cool background" | `Read ~/.claude/skills/bedrock/references/backgrounds.md` → Aurora or Particles |
+| "Animated text" | `Read ~/.claude/skills/bedrock/references/text-effects.md` → TextEffect (default) |
+| "Hover effects" | `Read ~/.claude/skills/bedrock/references/interactive-elements.md` → GlowEffect or Tilt |
 | "Make it premium" | Add Magnetic on buttons, GlowHoverCard on cards, TextShimmer on CTAs |
-| "Dashboard UI" | Read `templates/dashboard-shell.md` |
-| "3D globe" or "WebGL" | `references/threed-webgl.md` → Globe with SSR: false |
+| "Dashboard UI" | `Read ~/.claude/skills/bedrock/templates/dashboard-shell.md` |
+| "3D globe" or "WebGL" | `Read ~/.claude/skills/bedrock/references/threed-webgl.md` → Globe with SSR: false |
 
 ---
 
