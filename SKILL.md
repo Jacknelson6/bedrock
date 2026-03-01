@@ -130,13 +130,24 @@ Use `Grep pattern="=== FILE:.*ComponentName" path="..."` to find the start of an
 
 These rules exist to prevent falling back to generic code when Bedrock components are available.
 
+### MANDATORY TEMPLATE-FIRST WORKFLOW
+**When building a full page or section, you MUST:**
+1. `Read ~/.claude/skills/bedrock/templates/saas-landing.md` (or the relevant template) FIRST
+2. Use the template as your base structure — do NOT design your own layout
+3. Adapt the template's content (text, colors, data) to the user's project
+4. Only deviate from the template structure if the user explicitly requests it
+5. If no template exists for the request, compose using the catalog — but always wrap sections in `InView` and use the Motion Timing system below
+
+**You are an assembler, not an architect.** The templates encode the composition knowledge. Your job is to adapt them to the project, not reinvent them.
+
 ### ALWAYS DO:
+- **Read a template before building ANY page or section** — templates are the source of truth for composition
 - Check this catalog before writing ANY animated component
 - Use the exact source code from the `source/` files, adapted to the project
 - Read the relevant `references/*.md` before implementing a category
 - Run project detection before installing dependencies
 - Apply SSR/prerender patterns from `references/ssr-prerender.md`
-- Use composition patterns from `templates/` for full-page builds
+- Apply the Design Token System below for all color, spacing, and timing decisions
 
 ### NEVER DO:
 - Write a custom text animation when TextEffect, BlurText, or any Bedrock text component exists
@@ -149,6 +160,196 @@ These rules exist to prevent falling back to generic code when Bedrock component
 - Render Three.js/WebGL components server-side — always dynamic import with `{ ssr: false }`
 - Ship a landing page without scroll-triggered animations — use InView on every section
 - Use `max-height` CSS hack for expand/collapse — use Motion's height animation
+
+---
+
+## Design Token System
+
+**These tokens are non-negotiable.** When you see yourself typing a raw value for spacing, timing, or color — stop and use a token. This is what separates premium from vibe-coded.
+
+### Spacing Scale (use for padding, margins, gaps)
+```
+--space-xs:   0.5rem   (8px)    ← icon gaps, badge padding
+--space-sm:   0.75rem  (12px)   ← tight element spacing
+--space-md:   1rem     (16px)   ← default element gap
+--space-lg:   1.5rem   (24px)   ← card padding, form gaps
+--space-xl:   2rem     (32px)   ← section sub-spacing
+--space-2xl:  3rem     (48px)   ← between content blocks
+--space-3xl:  4rem     (64px)   ← between major sections
+--space-4xl:  6rem     (96px)   ← section top/bottom padding (py-24)
+--space-5xl:  8rem     (128px)  ← hero vertical padding
+```
+
+**Section padding is ALWAYS `py-24` (96px).** Hero is `min-h-screen`. Never use `py-12` or `py-16` for major sections — it looks cramped.
+
+### Motion Timing Tokens
+```tsx
+// MICRO: Buttons, toggles, hover states (instant feel)
+const MICRO = { type: "spring", stiffness: 400, damping: 30 } as const;
+
+// ENTRANCE: Cards, text, sections appearing (smooth reveal)
+const ENTRANCE = { type: "spring", stiffness: 200, damping: 25 } as const;
+
+// AMBIENT: Backgrounds, decorative elements (gentle drift)
+const AMBIENT = { type: "spring", stiffness: 100, damping: 20 } as const;
+
+// STAGGER: Delay between siblings in a group
+const STAGGER_FAST = 0.04;   // 40ms — rapid cascade (logo bars)
+const STAGGER_NORMAL = 0.08; // 80ms — standard (feature cards)
+const STAGGER_SLOW = 0.15;   // 150ms — dramatic (pricing cards)
+
+// SCROLL ENTRANCE: Standard InView animation
+const SCROLL_ENTER = {
+  hidden: { opacity: 0, y: 30 },
+  visible: { opacity: 1, y: 0, transition: ENTRANCE },
+};
+```
+
+**Use these constants. Do NOT type `{ opacity: 0, y: 20, transition: { duration: 0.3 } }` inline.** That's vibe coding. Duration-based animations feel robotic. Spring-based animations feel alive.
+
+### Typography Scale
+```
+Hero headline:       text-5xl md:text-7xl font-bold tracking-tight
+Section headline:    text-3xl md:text-4xl font-bold
+Card title:          text-xl font-semibold
+Body large:          text-xl md:text-2xl text-muted-foreground
+Body:                text-base text-muted-foreground
+Small/label:         text-sm text-muted-foreground
+```
+
+**Headlines are ALWAYS `tracking-tight`.** Body text is ALWAYS `text-muted-foreground`. Never use gray-500 or gray-600 directly — use the semantic color tokens.
+
+### Color Discipline
+```
+DO:  Use semantic tokens — bg-background, text-foreground, text-muted-foreground, bg-muted, bg-primary, text-primary-foreground, border-border
+DO:  Limit accent colors to 1-2 from the brand palette
+DO:  Use opacity for depth (bg-muted/30, border-border/50)
+DO:  Aurora/gradient backgrounds use 3 colors max, opacity 0.2-0.4
+
+DON'T: Use raw hex codes (no #3b82f6 in components — use CSS vars or Tailwind tokens)
+DON'T: Use more than 2 gradient stops in text
+DON'T: Mix warm and cool tones in the same gradient
+DON'T: Use full-opacity backgrounds on floating elements (use backdrop-blur + low opacity)
+```
+
+---
+
+## Anti-Pattern Gallery: Vibe-Coded vs Bedrock
+
+**Study these. If your output matches the LEFT column, you're using training data. Fix it.**
+
+### ❌ Vibe-Coded Hero vs ✅ Bedrock Hero
+
+```tsx
+// ❌ VIBE-CODED — This is what training data produces
+<div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-600 to-blue-500">
+  <div className="text-center">
+    <h1 className="text-6xl font-bold text-white">Welcome to Our Product</h1>
+    <p className="mt-4 text-xl text-white/80">The best solution for your needs</p>
+    <button className="mt-8 px-6 py-3 bg-white text-purple-600 rounded-lg hover:bg-gray-100">
+      Get Started
+    </button>
+  </div>
+</div>
+
+// ✅ BEDROCK — This is what you should produce
+<section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden">
+  <div className="absolute inset-0 -z-10">
+    <Aurora colorStops={["#3b82f6", "#8b5cf6", "#06b6d4"]} speed={0.5} opacity={0.3} />
+  </div>
+  <div className="text-center max-w-5xl mx-auto px-4">
+    <TextEffect as="h1" per="word" preset="blur"
+      className="text-5xl md:text-7xl font-bold tracking-tight">
+      Ship products that users love
+    </TextEffect>
+    <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: 0.4, ...ENTRANCE }}
+      className="mt-6 text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto">
+      The modern platform for teams who build fast.
+    </motion.p>
+    <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: 0.7, ...ENTRANCE }} className="mt-10 flex gap-4 justify-center">
+      <Magnetic intensity={0.2}>
+        <a href="/start" className="px-8 py-4 bg-primary text-primary-foreground rounded-full text-lg font-medium">
+          Get Started
+        </a>
+      </Magnetic>
+    </motion.div>
+  </div>
+</section>
+```
+
+**What's different:**
+- Aurora ambient bg vs static gradient (alive vs dead)
+- TextEffect with per-word blur vs plain h1 (entrance vs instant)
+- Staggered timing (0ms→400ms→700ms) vs everything at once
+- Magnetic CTA vs plain button (interactive vs static)
+- Semantic color tokens vs raw hex (adaptable vs hardcoded)
+- `tracking-tight` + proper type scale vs generic sizing
+
+### ❌ Vibe-Coded Cards vs ✅ Bedrock Cards
+
+```tsx
+// ❌ VIBE-CODED
+<div className="grid grid-cols-3 gap-6">
+  {features.map(f => (
+    <div key={f.title} className="p-6 bg-white rounded-xl shadow-md hover:shadow-lg transition">
+      <h3 className="text-lg font-bold">{f.title}</h3>
+      <p className="mt-2 text-gray-600">{f.description}</p>
+    </div>
+  ))}
+</div>
+
+// ✅ BEDROCK
+<InView variants={SCROLL_ENTER} viewOptions={{ once: true, margin: "-50px" }}>
+  <AnimatedGroup preset="blur" className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+    {features.map(f => (
+      <GlowHoverCard key={f.title} className="p-8">
+        <f.icon className="w-10 h-10 text-primary mb-4" />
+        <h3 className="text-xl font-semibold mb-2">{f.title}</h3>
+        <p className="text-muted-foreground">{f.description}</p>
+      </GlowHoverCard>
+    ))}
+  </AnimatedGroup>
+</InView>
+```
+
+**What's different:**
+- InView triggers entrance on scroll vs always visible
+- AnimatedGroup with blur stagger vs instant render
+- GlowHoverCard with cursor-following glow vs basic shadow
+- Responsive grid (1→2→3 cols) vs hardcoded 3
+- `gap-8` + `p-8` vs `gap-6` + `p-6` (premium spacing)
+- Semantic text-muted-foreground vs raw gray-600
+
+### ❌ Vibe-Coded Numbers vs ✅ Bedrock Numbers
+
+```tsx
+// ❌ VIBE-CODED
+<div className="text-4xl font-bold">10,000+</div>
+
+// ✅ BEDROCK
+<InView variants={SCROLL_ENTER} viewOptions={{ once: true }}>
+  <div className="text-4xl md:text-5xl font-bold tabular-nums">
+    <AnimatedNumber value={10000} springOptions={{ stiffness: 100, damping: 30 }} />+
+  </div>
+</InView>
+```
+
+### The Vibe-Coded Smell Test
+
+**If your output has ANY of these, you're falling back to training data. Stop and fix it:**
+
+1. `bg-gradient-to-br from-purple-600 to-blue-500` — use Aurora or AnimatedGradient
+2. `hover:shadow-lg transition` — use GlowHoverCard or GlowEffect
+3. `animate-bounce` or `animate-pulse` — use Motion springs
+4. `setTimeout(() => setVisible(true), 500)` — use motion `transition.delay`
+5. Raw color values (text-gray-600, bg-white) — use semantic tokens
+6. `transition-all duration-300` — use `transition={{ type: "spring", ... }}`
+7. Static numbers — use AnimatedNumber or SlidingNumber
+8. No scroll triggers — wrap every section in InView
+9. `@keyframes fadeIn` — use motion `initial`/`animate`
+10. Uniform spacing (py-12 everywhere) — use the spacing scale
 
 ---
 
