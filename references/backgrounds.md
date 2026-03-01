@@ -3,27 +3,28 @@
 One background effect per viewport section max. Layer them for depth (base + texture).
 
 ## Performance Tiers
-**CSS-only (<1KB):** Aurora, Beams, Noise, Squares, Waves, BlobCursor, LetterGlitch, ShapeBlur
-**Motion (2-10KB):** GridMotion, AnimatedGradient, BorderTrail, StarBorder
-**Three.js (50KB+):** Particles, Hyperspeed, Threads — always lazy-load, ssr: false
+**CSS-only (<1KB):** Noise, Squares, Waves, LetterGlitch
+**OGL WebGL (<5KB):** Aurora (requires `ogl` package)
+**Motion (2-10KB):** GridMotion, BorderTrail, StarBorder
+**Three.js (50KB+):** Particles, Hyperspeed, Threads, Beams, ShapeBlur — always lazy-load, ssr: false
+**GSAP:** BlobCursor (requires `gsap` package)
 
 ## When to Use What
 | Need | Component |
 |------|-----------|
-| Elegant hero bg | **Aurora** ⭐ (northern lights, CSS-only) |
+| Elegant hero bg | **Aurora** ⭐ (northern lights, OGL WebGL) |
 | Tech/SaaS hero | **Particles** (interactive field, Three.js) |
-| Cinematic rays | **Beams** (light beams, CSS) |
+| Cinematic rays | **Beams** (light beams, Three.js) |
 | Dramatic hero | **Hyperspeed** (warp speed, Three.js) |
 | Image/content grid bg | **GridMotion** (Motion) |
 | Subtle texture | **Noise** (grain overlay, CSS) |
 | Geometric pattern | **Squares** (animated grid, CSS) |
 | Organic flow | **Waves** (sine lines, CSS) |
 | Abstract 3D lines | **Threads** (flowing lines, Three.js) |
-| Cursor interaction | **BlobCursor** (follows mouse, CSS) |
+| Cursor interaction | **BlobCursor** (follows mouse, GSAP) |
 | Cyberpunk aesthetic | **LetterGlitch** (glitch chars, CSS) |
-| Soft SaaS bg | **ShapeBlur** (blurred blobs, CSS) |
-| Sparkle border | **StarBorder** (AnimateUI, Motion) |
-| Color-cycling bg | **AnimatedGradient** (AnimateUI, Motion) |
+| Soft SaaS bg | **ShapeBlur** (blurred blobs, Three.js) |
+| Sparkle border | **StarBorder** (ReactBits, Motion) |
 | Animated border | **BorderTrail** (Motion Primitives) |
 
 ## Layering Recipes
@@ -33,4 +34,4 @@ One background effect per viewport section max. Layer them for depth (base + tex
 **Cyberpunk:** LetterGlitch (0.15) + Beams (low opacity)
 
 ## SSR Notes
-Backgrounds are decorative — no indexable content. Three.js backgrounds MUST use `dynamic(() => import(...), { ssr: false })`.
+Backgrounds are decorative — no indexable content. Three.js AND OGL backgrounds MUST use `dynamic(() => import(...), { ssr: false })`.

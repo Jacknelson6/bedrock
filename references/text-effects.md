@@ -91,9 +91,6 @@ Static text in circle layout. CSS-only.
 ### CountUp (ReactBits)
 Count from start to end value. One-directional count animation.
 
-### FlipText (ReactBits)
-3D flip per character. Eye-catching for short headlines.
-
 ### FuzzyText (ReactBits)
 Fuzzy/glitch rendering. CSS-only. Edgy aesthetic.
 

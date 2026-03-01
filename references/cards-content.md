@@ -11,7 +11,7 @@
 | Invitation style | **AppleInvites** (SmoothUI) |
 | GitHub heatmap | **ContributionGraph** (SmoothUI) |
 | Staggered list | **AnimatedList** (ReactBits) |
-| CSS 3D tilt | **Tilted** (ReactBits) — lighter than Motion Tilt |
+| CSS 3D tilt | **TiltedCard** (ReactBits) — lighter than Motion Tilt |
 | Pixel dissolve | **PixelCard** (ReactBits) |
 | Spotlight hover | **SpotlightCard** (ReactBits) |
 

@@ -11,27 +11,28 @@ Use sparingly. One WebGL element per page max. Always lazy-load.
 
 ## Components
 
-| Need | Component | Three.js? | Bundle Size |
-|------|-----------|-----------|-------------|
-| Interactive globe | **Globe** ⭐ (ReactBits) | Yes | ~150KB |
-| Warp speed stars | **Hyperspeed** (ReactBits) | Yes | ~150KB |
-| Flowing 3D lines | **Threads** (ReactBits) | Yes | ~150KB |
-| AI orb (no Three!) | **SiriOrb** (SmoothUI) | No | ~0KB |
-| Bot avatar | **AgentAvatar** (SmoothUI) | No | ~0KB |
-| AI branching viz | **AIBranch** (SmoothUI) | No | ~0KB |
-| Grid loading | **GridLoader** (SmoothUI) | No | ~0KB |
-| Star particles | **GithubStarsAnimation** (SmoothUI) | No | ~0KB |
+| Need | Component | Dep | Bundle Size |
+|------|-----------|-----|-------------|
+| Warp speed stars | **Hyperspeed** ⭐ (ReactBits) | three | ~150KB |
+| Flowing 3D lines | **Threads** (ReactBits) | three | ~150KB |
+| Cinematic rays | **Beams** (ReactBits) | three | ~150KB |
+| Blurred shapes | **ShapeBlur** (ReactBits) | three | ~150KB |
+| AI orb (no Three!) | **SiriOrb** (SmoothUI) | motion | ~0KB |
+| Bot avatar | **AgentAvatar** (SmoothUI) | motion | ~0KB |
+| AI branching viz | **AIBranch** (SmoothUI) | motion | ~0KB |
+| Grid loading | **GridLoader** (SmoothUI) | motion | ~0KB |
+| Star particles | **GithubStarsAnimation** (SmoothUI) | motion | ~0KB |
 
 **SiriOrb is the secret weapon** — achieves convincing 3D with pure CSS/Motion. Use when you want "3D-looking" without the Three.js payload.
 
 ## Dynamic Import Pattern (Next.js)
 ```tsx
 import dynamic from 'next/dynamic';
-const Globe = dynamic(() => import('@/components/globe'), {
+const HeavyComponent = dynamic(() => import('@/components/heavy-component'), {
   ssr: false,
   loading: () => (
     <div className="w-full h-[500px] bg-muted animate-pulse rounded-lg"
-         aria-label="Interactive 3D globe" />
+         aria-label="Loading 3D content" />
   ),
 });
 ```

@@ -127,7 +127,7 @@ Use when the product is visual or the brand energy is high.
 <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden px-6">
   <div className="absolute inset-0 -z-10">
     {/* Choose ONE: Aurora for organic, Particles for tech, plain gradient for subtle */}
-    <Aurora colorStops={["var(--color-primary)", "#8b5cf6", "#06b6d4"]} speed={0.4} opacity={0.25} />
+    <Aurora colorStops={["#3b82f6", "#8b5cf6", "#06b6d4"]} speed={0.4} opacity={0.25} />
   </div>
 
   <div className="text-center max-w-4xl">
@@ -536,10 +536,12 @@ For B2B with many short quotes:
       Questions & answers
     </h2>
 
-    <Accordion type="single" defaultValue="faq-0">
+    {/* Uses Motion Primitives Accordion — NOT shadcn/Radix API */}
+    <Accordion expandedValue={expanded} onValueChange={setExpanded}
+      className="space-y-0">
       {items.map((item, i) => (
-        <AccordionItem key={i} value={`faq-${i}`} className="border-b border-border/50 py-1">
-          <AccordionTrigger className="text-left text-base font-medium py-5 hover:no-underline">
+        <AccordionItem key={i} value={`faq-${i}`} className="border-b border-border/50">
+          <AccordionTrigger className="text-left text-base font-medium py-5">
             {item.question}
           </AccordionTrigger>
           <AccordionContent className="text-muted-foreground leading-relaxed pb-5">
@@ -575,10 +577,8 @@ This is where ONE dramatic animation earns its place. After a page of restraint,
 
 ```tsx
 <section className="py-24 md:py-40 px-6 relative overflow-hidden">
-  {/* Ambient background — ONLY here, not in other sections */}
-  <div className="absolute inset-0 -z-10">
-    <AnimatedGradient colors={["var(--color-primary)", "#8b5cf6"]} speed={4} blur={120} />
-  </div>
+  {/* Ambient background — ONLY here, not in other sections. Use a CSS gradient for performance. */}
+  <div className="absolute inset-0 -z-10 bg-gradient-to-br from-primary/20 via-purple-500/10 to-background" />
 
   <div className="max-w-3xl mx-auto text-center relative">
     <InView variants={{ hidden: { opacity: 0, y: 32 }, visible: { opacity: 1, y: 0 } }}
@@ -638,16 +638,84 @@ export function Navbar() {
           ))}
         </div>
 
-        <a href="/start" className="px-5 py-2 bg-foreground text-background rounded-full text-sm font-medium">
+        <a href="/start" className="hidden md:inline-flex px-5 py-2 bg-foreground text-background rounded-full text-sm font-medium">
           Get started
         </a>
+
+        {/* Mobile hamburger */}
+        <button onClick={() => setOpen(!open)} className="md:hidden p-2" aria-label="Menu">
+          <div className="space-y-1.5">
+            <span className={`block w-5 h-px bg-foreground transition-transform ${open ? 'rotate-45 translate-y-[7px]' : ''}`} />
+            <span className={`block w-5 h-px bg-foreground transition-opacity ${open ? 'opacity-0' : ''}`} />
+            <span className={`block w-5 h-px bg-foreground transition-transform ${open ? '-rotate-45 -translate-y-[7px]' : ''}`} />
+          </div>
+        </button>
       </div>
+
+      {/* Mobile menu */}
+      {open && (
+        <motion.div initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }}
+          className="md:hidden px-6 pb-6 pt-2 space-y-4">
+          {navLinks.map(link => (
+            <a key={link.href} href={link.href} className="block text-sm text-muted-foreground">
+              {link.label}
+            </a>
+          ))}
+          <a href="/start" className="block text-center py-3 bg-foreground text-background rounded-full text-sm font-medium">
+            Get started
+          </a>
+        </motion.div>
+      )}
     </motion.nav>
   );
 }
 ```
 
 **No AnimatedBackground on nav links** unless the site has 5+ nav items that need active state indication. For 3-4 links, simple text color change is cleaner.
+
+---
+
+### FOOTER — Minimal, Clean
+
+```tsx
+<footer className="border-t border-border/30 py-12 md:py-16 px-6">
+  <div className="max-w-7xl mx-auto">
+    <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
+      <div className="col-span-2 md:col-span-1">
+        <a href="/" className="font-display text-lg font-bold tracking-tight">ProductName</a>
+        <p className="mt-3 text-sm text-muted-foreground max-w-xs">
+          Brief one-line description of the product.
+        </p>
+      </div>
+      {footerLinks.map(group => (
+        <div key={group.title}>
+          <p className="font-mono text-xs tracking-widest uppercase text-muted-foreground mb-4">
+            {group.title}
+          </p>
+          <ul className="space-y-3">
+            {group.links.map(link => (
+              <li key={link.href}>
+                <a href={link.href} className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+                  {link.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+    <div className="mt-12 pt-8 border-t border-border/20 flex flex-col md:flex-row justify-between items-center gap-4">
+      <p className="text-xs text-muted-foreground">© {new Date().getFullYear()} ProductName. All rights reserved.</p>
+      <div className="flex gap-6">
+        <a href="/privacy" className="text-xs text-muted-foreground hover:text-foreground transition-colors">Privacy</a>
+        <a href="/terms" className="text-xs text-muted-foreground hover:text-foreground transition-colors">Terms</a>
+      </div>
+    </div>
+  </div>
+</footer>
+```
+
+**Key:** Monospace category labels (third voice). Compact padding. No animation — the footer is utility, not spectacle.
 
 ---
 
@@ -681,7 +749,8 @@ app/
         ├── testimonials.tsx    ← 'use client' — choose a pattern
         ├── pricing.tsx         ← 'use client' — AnimatedNumber, AnimatedToggle
         ├── faq.tsx             ← 'use client' — Accordion
-        └── footer-cta.tsx      ← 'use client' — AnimatedGradient, Magnetic
+        ├── footer-cta.tsx      ← 'use client' — Magnetic
+        └── footer.tsx          ← Server Component (no animation needed)
 ```
 
 ---

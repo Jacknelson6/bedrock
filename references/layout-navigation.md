@@ -10,7 +10,7 @@
 | Single disclosure | **Disclosure** (Motion Primitives) |
 | Scroll-triggered anim | **InView** ⭐ (Motion Primitives) — Intersection Observer |
 | Panel transitions | **TransitionPanel** (Motion Primitives) — AnimatePresence |
-| Loading skeleton | **Skeleton** (SmoothUI) — shimmer placeholder |
+| Loading skeleton | **SkeletonLoader** (SmoothUI) — shimmer placeholder |
 | Notification count | **NotificationBadge** (SmoothUI) — spring badge |
 | Testimonial slider | **ReviewsCarousel** (SmoothUI) |
 

@@ -126,6 +126,8 @@ Every source file uses this delimiter pattern:
 
 Use `Grep pattern="=== FILE:.*ComponentName" path="..."` to find the start of any component, then Read from that line.
 
+⚠️ **PascalCase→kebab-case:** The catalog uses PascalCase names (e.g., InView, TiltedCard, SkeletonLoader) but source files use kebab-case paths (e.g., `in-view.tsx`, `tilted-card.tsx`). When grepping, **lowercase and hyphenate**: `Grep pattern="=== FILE:.*in-view"` NOT `"=== FILE:.*InView"`.
+
 ---
 
 ## Enforcement Rules
@@ -401,7 +403,7 @@ DON'T: Use full-opacity backgrounds on floating elements (use backdrop-blur + lo
 
 **If your output has ANY of these, you're falling back to training data. Stop and fix it:**
 
-1. `bg-gradient-to-br from-purple-600 to-blue-500` — use Aurora or AnimatedGradient, or better: NO background
+1. `bg-gradient-to-br from-purple-600 to-blue-500` — use Aurora, or better: NO background
 2. `hover:shadow-lg transition` — use GlowHoverCard or clean border hover
 3. `animate-bounce` or `animate-pulse` — use Motion springs, or better: no animation at all
 4. `setTimeout(() => setVisible(true), 500)` — use motion `transition.delay`
@@ -465,7 +467,7 @@ Section 3:  Scroll-triggered — social proof slides (InfiniteSlider for logos)
 Section 4:  Scroll-triggered — pricing numbers animate (AnimatedNumber on InView)
 Section 5:  Scroll-triggered — testimonials carousel (ReviewsCarousel)
 Footer CTA: Scroll-triggered — text effect + magnetic button
-Throughout: ScrollProgress bar at top, subtle ProgressiveBlur at section edges
+Optional: ScrollProgress bar at top (use for content-heavy pages, skip for short landing pages)
 ```
 
 ---
@@ -525,7 +527,7 @@ Before implementing ANY component, detect the project environment by examining t
 # Motion (most components need this)
 npm install motion clsx tailwind-merge
 
-# Three.js (Globe, Hyperspeed, Threads, Beams, ShapeBlur)
+# Three.js (Hyperspeed, Threads, Beams, ShapeBlur, Particles)
 npm install three @react-three/fiber @react-three/drei
 
 # OGL (Aurora, some ReactBits backgrounds)
@@ -744,10 +746,14 @@ Step 5: COMPOSE     → Wire sections into page with scroll triggers (InView), s
 | "Feature grid" | `Read ~/.claude/skills/bedrock/templates/features-grid.md` → choose layout for feature hierarchy |
 | "I need a cool background" | `Read ~/.claude/skills/bedrock/references/backgrounds.md` → but first ask: does it NEED a background? |
 | "Animated text" | `Read ~/.claude/skills/bedrock/references/text-effects.md` → but first: is the typography strong enough without animation? |
+| "Pricing section" | `Read ~/.claude/skills/bedrock/templates/saas-landing.md` → Pricing section + AnimatedNumber + AnimatedToggle |
+| "FAQ" | `Read ~/.claude/skills/bedrock/templates/saas-landing.md` → FAQ section + Accordion (Motion Primitives) |
+| "Testimonials" | `Read ~/.claude/skills/bedrock/templates/saas-landing.md` → 3 testimonial patterns |
+| "Modal" or "dialog" | Catalog → MorphingDialog (Motion Primitives) or BasicModal (SmoothUI) |
 | "Hover effects" | `Read ~/.claude/skills/bedrock/references/interactive-elements.md` → GlowEffect or Tilt for key cards only |
 | "Make it premium" | Fix typography first (font pairing, tracking-tighter, leading-[0.9]). Then vary spacing. Then add 1-2 strategic animations. |
 | "Dashboard UI" | `Read ~/.claude/skills/bedrock/templates/dashboard-shell.md` |
-| "3D globe" or "WebGL" | `Read ~/.claude/skills/bedrock/references/threed-webgl.md` → Globe with SSR: false |
+| "3D" or "WebGL" | `Read ~/.claude/skills/bedrock/references/threed-webgl.md` → Hyperspeed/SiriOrb with SSR: false |
 
 ---
 
