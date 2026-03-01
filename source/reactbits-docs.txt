@@ -1,0 +1,3539 @@
+================================================================================
+REACTBITS COMPONENT DOCUMENTATION
+Source: https://reactbits.dev | GitHub: https://github.com/DavidHDev/react-bits
+================================================================================
+
+126+ animated, interactive React components.
+Each component available in 4 variants: JS-CSS, JS-Tailwind, TS-CSS, TS-Tailwind.
+Install via: npx jsrepo add <component-name>
+
+
+################################################################################
+# TEXT ANIMATIONS (23 components)
+################################################################################
+
+
+## SplitText
+
+Description: Splits text into characters / words for staggered entrance animation.
+Dependencies: gsap, @gsap/react
+
+Props:
+| Prop                        | Type     | Default        |
+|-----------------------------|----------|----------------|
+| text                        | string   | (required)     |
+| duration                    | number   | 0.6            |
+| delay                       | number   | 100            |
+| ease                        | string   | "power3.out"   |
+| splitType                   | string   | "chars"        |
+| from                        | object   | { opacity: 0, y: 40 } |
+| to                          | object   | { opacity: 1, y: 0 }  |
+| className                   | string   | —              |
+| textAlign                   | string   | —              |
+| threshold                   | number   | 0.1            |
+| rootMargin                  | string   | "-100px"       |
+| onLetterAnimationComplete   | function | —              |
+
+Usage:
+```jsx
+<SplitText
+  text="Hello World!"
+  duration={0.6}
+  delay={100}
+  ease="power3.out"
+  splitType="chars"
+  from={{ opacity: 0, y: 40 }}
+  to={{ opacity: 1, y: 0 }}
+  threshold={0.1}
+  rootMargin="-100px"
+  onLetterAnimationComplete={() => console.log('done')}
+/>
+```
+
+--------------------------------------------------------------------------------
+
+## BlurText
+
+Description: Text starts blurred then crisply resolves for a soft-focus reveal effect.
+Dependencies: motion
+
+Props:
+| Prop                  | Type     | Default  |
+|-----------------------|----------|----------|
+| text                  | string   | (required) |
+| delay                 | number   | 150      |
+| animateBy             | string   | "words"  |
+| direction             | string   | "top"    |
+| onAnimationComplete   | function | —        |
+| className             | string   | —        |
+
+Usage:
+```jsx
+<BlurText
+  text="Hello World!"
+  delay={150}
+  animateBy="words"
+  direction="top"
+  onAnimationComplete={() => console.log('done')}
+  className="text-2xl"
+/>
+```
+
+--------------------------------------------------------------------------------
+
+## CircularText
+
+Description: Layouts characters around a circle with optional rotation animation.
+Dependencies: motion
+
+Props:
+| Prop         | Type   | Default  |
+|--------------|--------|----------|
+| text         | string | (required) |
+| onHover      | string | —        |
+| spinDuration | number | —        |
+| className    | string | —        |
+
+Usage:
+```jsx
+<CircularText
+  text="REACT*BITS*COMPONENTS*"
+  onHover="speedUp"
+  spinDuration={20}
+  className="custom-class"
+/>
+```
+
+--------------------------------------------------------------------------------
+
+## ShinyText
+
+Description: Metallic sheen sweeps across text producing a reflective highlight.
+Dependencies: motion
+
+Props:
+| Prop         | Type    | Default    |
+|--------------|---------|------------|
+| text         | string  | (required) |
+| speed        | number  | 2          |
+| delay        | number  | 0          |
+| color        | string  | "#b5b5b5"  |
+| shineColor   | string  | "#ffffff"  |
+| spread       | number  | 120        |
+| direction    | string  | "left"     |
+| yoyo         | boolean | false      |
+| pauseOnHover | boolean | false      |
+
+Usage:
+```jsx
+<ShinyText
+  text="Shiny Text"
+  speed={2}
+  delay={0}
+  color="#b5b5b5"
+  shineColor="#ffffff"
+  spread={120}
+  direction="left"
+  yoyo={false}
+  pauseOnHover={false}
+/>
+```
+
+--------------------------------------------------------------------------------
+
+## GradientText
+
+Description: Animated gradient sweep across live text with speed and color control.
+Dependencies: (none)
+
+Props:
+| Prop           | Type       | Default  |
+|----------------|------------|----------|
+| colors         | string[]   | (required) |
+| animationSpeed | number     | (required) |
+| showBorder     | boolean    | false    |
+| className      | string     | —        |
+| children       | ReactNode  | (required) |
+
+Usage:
+```jsx
+<GradientText
+  colors={["#40ffaa", "#4079ff", "#40ffaa", "#4079ff", "#40ffaa"]}
+  animationSpeed={3}
+  showBorder={false}
+  className="custom-class"
+>
+  Add a splash of color!
+</GradientText>
+```
+
+--------------------------------------------------------------------------------
+
+## DecryptedText
+
+Description: Hacker-style decryption cycling random glyphs until resolving to real text.
+Dependencies: motion
+
+Props:
+| Prop               | Type   | Default     |
+|--------------------|--------|-------------|
+| text               | string | (required)  |
+| speed              | number | —           |
+| maxIterations      | number | —           |
+| characters         | string | "ABCD1234!?" |
+| className          | string | —           |
+| parentClassName    | string | —           |
+| encryptedClassName | string | —           |
+| animateOn          | string | "hover"     |
+| revealDirection    | string | —           |
+
+Usage:
+```jsx
+<DecryptedText
+  text="Hover me!"
+  speed={100}
+  maxIterations={20}
+  characters="ABCD1234!?"
+  animateOn="view"
+  revealDirection="center"
+/>
+```
+
+--------------------------------------------------------------------------------
+
+## TextPressure
+
+Description: Characters scale / warp interactively based on pointer pressure zone.
+Dependencies: (none, requires variable font)
+
+Props:
+| Prop        | Type    | Default |
+|-------------|---------|---------|
+| text        | string  | —       |
+| flex        | boolean | —       |
+| alpha       | boolean | —       |
+| stroke      | boolean | —       |
+| width       | boolean | —       |
+| weight      | boolean | —       |
+| italic      | boolean | —       |
+| textColor   | string  | —       |
+| strokeColor | string  | —       |
+| minFontSize | number  | —       |
+
+Usage:
+```jsx
+<div style={{ position: 'relative', height: '300px' }}>
+  <TextPressure
+    text="Hello!"
+    flex={true}
+    alpha={false}
+    stroke={false}
+    width={true}
+    weight={true}
+    italic={true}
+    textColor="#ffffff"
+    strokeColor="#ff0000"
+    minFontSize={36}
+  />
+</div>
+```
+
+Note: Ensure your font supports variable font properties for optimal results.
+
+--------------------------------------------------------------------------------
+
+## FuzzyText
+
+Description: Vibrating fuzzy text with controllable hover intensity.
+Dependencies: (none)
+
+Props:
+| Prop           | Type      | Default |
+|----------------|-----------|---------|
+| baseIntensity  | number    | 0.2     |
+| hoverIntensity | number    | —       |
+| enableHover    | boolean   | —       |
+| children       | ReactNode | —       |
+
+Usage:
+```jsx
+<FuzzyText baseIntensity={0.2} hoverIntensity={0.8} enableHover={true}>
+  404
+</FuzzyText>
+```
+
+--------------------------------------------------------------------------------
+
+## TrueFocus
+
+Description: Applies dynamic blur / clarity based over a series of words in order.
+Dependencies: motion
+
+Props:
+| Prop                    | Type    | Default |
+|-------------------------|---------|---------|
+| sentence                | string  | —       |
+| manualMode              | boolean | false   |
+| blurAmount              | number  | 5       |
+| borderColor             | string  | "red"   |
+| animationDuration       | number  | 2       |
+| pauseBetweenAnimations  | number  | 1       |
+
+Usage:
+```jsx
+<TrueFocus
+  sentence="True Focus"
+  manualMode={false}
+  blurAmount={5}
+  borderColor="red"
+  animationDuration={2}
+  pauseBetweenAnimations={1}
+/>
+```
+
+--------------------------------------------------------------------------------
+
+## FallingText
+
+Description: Characters fall with gravity + bounce creating a playful entrance.
+Dependencies: matter-js
+
+Props:
+| Prop                     | Type     | Default       |
+|--------------------------|----------|---------------|
+| text                     | string   | (required)    |
+| highlightWords           | string[] | []            |
+| highlightClass           | string   | ""            |
+| trigger                  | string   | "hover"       |
+| backgroundColor          | string   | "transparent" |
+| wireframes               | boolean  | false         |
+| gravity                  | number   | 0.56          |
+| fontSize                 | string   | "2rem"        |
+| mouseConstraintStiffness | number   | 0.9           |
+
+Usage:
+```jsx
+<FallingText
+  text="React Bits is a library of animated and interactive components"
+  highlightWords={["React", "Bits", "animated"]}
+  highlightClass="highlighted"
+  trigger="hover"
+  gravity={0.56}
+  fontSize="2rem"
+/>
+```
+
+--------------------------------------------------------------------------------
+
+## TextCursor
+
+Description: Make any text element follow your cursor, leaving a trail of copies behind it.
+Dependencies: motion
+
+Props:
+| Prop                 | Type    | Default |
+|----------------------|---------|---------|
+| text                 | string  | —       |
+| spacing              | number  | 80      |
+| followMouseDirection | boolean | true    |
+| randomFloat          | boolean | true    |
+| exitDuration         | number  | 0.3     |
+| removalInterval      | number  | 20      |
+| maxPoints            | number  | 10      |
+
+Usage:
+```jsx
+<TextCursor
+  text="Hello!"
+  spacing={80}
+  followMouseDirection={true}
+  randomFloat={true}
+  exitDuration={0.3}
+  removalInterval={20}
+  maxPoints={10}
+/>
+```
+
+--------------------------------------------------------------------------------
+
+## ScrollFloat
+
+Description: Text gently floats / parallax shifts on scroll.
+Dependencies: gsap
+
+Props:
+| Prop              | Type      | Default |
+|-------------------|-----------|---------|
+| animationDuration | number    | —       |
+| ease              | string    | —       |
+| scrollStart       | string    | —       |
+| scrollEnd         | string    | —       |
+| stagger           | number    | —       |
+| children          | ReactNode | —       |
+
+Usage:
+```jsx
+<ScrollFloat
+  animationDuration={1}
+  ease="back.inOut(2)"
+  scrollStart="center bottom+=50%"
+  scrollEnd="bottom bottom-=40%"
+  stagger={0.03}
+>
+  React Bits
+</ScrollFloat>
+```
+
+--------------------------------------------------------------------------------
+
+## ScrollReveal
+
+Description: Text gently unblurs and reveals on scroll.
+Dependencies: gsap
+
+Props:
+| Prop         | Type    | Default |
+|--------------|---------|---------|
+| baseOpacity  | number  | —       |
+| enableBlur   | boolean | —       |
+| baseRotation | number  | —       |
+| blurStrength | number  | —       |
+
+Usage:
+```jsx
+<ScrollReveal baseOpacity={0} enableBlur={true} baseRotation={5} blurStrength={10}>
+  Your text content here
+</ScrollReveal>
+```
+
+--------------------------------------------------------------------------------
+
+## ASCIIText
+
+Description: Renders text with an animated ASCII background for a retro feel.
+Dependencies: three
+
+Props:
+| Prop          | Type    | Default |
+|---------------|---------|---------|
+| text          | string  | —       |
+| enableWaves   | boolean | —       |
+| asciiFontSize | number  | —       |
+
+Usage:
+```jsx
+<ASCIIText text="hello_world" enableWaves={true} asciiFontSize={8} />
+```
+
+--------------------------------------------------------------------------------
+
+## ScrambledText
+
+Description: Detects cursor position and applies a distortion effect to text.
+Dependencies: gsap
+
+Props:
+| Prop          | Type      | Default |
+|---------------|-----------|---------|
+| className     | string    | —       |
+| radius        | number    | —       |
+| duration      | number    | —       |
+| speed         | number    | —       |
+| scrambleChars | string    | —       |
+| children      | ReactNode | —       |
+
+Usage:
+```jsx
+<ScrambledText
+  className="scrambled-text-demo"
+  radius={100}
+  duration={1.2}
+  speed={0.5}
+  scrambleChars=".:}"
+>
+  Lorem ipsum dolor sit amet...
+</ScrambledText>
+```
+
+--------------------------------------------------------------------------------
+
+## RotatingText
+
+Description: Cycles through multiple phrases with 3D rotate / flip transitions.
+Dependencies: motion
+
+Props:
+| Prop                | Type     | Default                                      |
+|---------------------|----------|----------------------------------------------|
+| texts               | string[] | (required)                                   |
+| mainClassName       | string   | (required)                                   |
+| staggerFrom         | string   | (required)                                   |
+| initial             | object   | { y: "100%" }                                |
+| animate             | object   | { y: 0 }                                     |
+| exit                | object   | { y: "-120%" }                               |
+| staggerDuration     | number   | 0.025                                        |
+| splitLevelClassName | string   | (required)                                   |
+| transition          | object   | { type: "spring", damping: 30, stiffness: 400 } |
+| rotationInterval    | number   | 2000                                         |
+
+Usage:
+```jsx
+<RotatingText
+  texts={['React', 'Bits', 'Is', 'Cool!']}
+  mainClassName="px-2 bg-cyan-300 text-black overflow-hidden py-0.5 rounded-lg"
+  staggerFrom="last"
+  rotationInterval={2000}
+/>
+```
+
+--------------------------------------------------------------------------------
+
+## GlitchText
+
+Description: RGB split and distortion glitch effect with jitter effects.
+Dependencies: (none)
+
+Props:
+| Prop          | Type      | Default |
+|---------------|-----------|---------|
+| speed         | number    | 1       |
+| enableShadows | boolean   | true    |
+| enableOnHover | boolean   | true    |
+| className     | string    | —       |
+| children      | ReactNode | —       |
+
+Usage:
+```jsx
+<GlitchText speed={1} enableShadows={true} enableOnHover={true} className="custom-class">
+  React Bits
+</GlitchText>
+```
+
+--------------------------------------------------------------------------------
+
+## ScrollVelocity
+
+Description: Text marquee animation - speed and distortion scale with user's scroll velocity.
+Dependencies: motion
+
+Props:
+| Prop      | Type     | Default |
+|-----------|----------|---------|
+| texts     | string[] | (required) |
+| velocity  | number   | (required) |
+| className | string   | —       |
+
+Usage:
+```jsx
+<ScrollVelocity
+  texts={['React Bits', 'Scroll Down']}
+  velocity={100}
+  className="custom-scroll-text"
+/>
+```
+
+--------------------------------------------------------------------------------
+
+## VariableProximity
+
+Description: Letter styling changes continuously with pointer distance mapping.
+Dependencies: motion
+
+Props:
+| Prop                        | Type               | Default  |
+|-----------------------------|--------------------|----------|
+| label                       | string             | —        |
+| className                   | string             | —        |
+| fromFontVariationSettings   | string             | —        |
+| toFontVariationSettings     | string             | —        |
+| containerRef                | React.RefObject    | —        |
+| radius                      | number             | —        |
+| falloff                     | string             | "linear" |
+
+Usage:
+```jsx
+const containerRef = useRef(null);
+
+<div ref={containerRef} style={{ position: 'relative' }}>
+  <VariableProximity
+    label="Hover me!"
+    className="variable-proximity-demo"
+    fromFontVariationSettings="'wght' 400, 'opsz' 9"
+    toFontVariationSettings="'wght' 1000, 'opsz' 40"
+    containerRef={containerRef}
+    radius={100}
+    falloff="linear"
+  />
+</div>
+```
+
+--------------------------------------------------------------------------------
+
+## CountUp
+
+Description: Animated number counter supporting formatting and decimals.
+Dependencies: motion
+
+Props:
+| Prop      | Type   | Default |
+|-----------|--------|---------|
+| from      | number | —       |
+| to        | number | —       |
+| separator | string | —       |
+| direction | string | "up"    |
+| duration  | number | —       |
+| className | string | —       |
+
+Usage:
+```jsx
+<CountUp from={0} to={100} separator="," direction="up" duration={1} className="count-up-text" />
+```
+
+--------------------------------------------------------------------------------
+
+## CurvedLoop
+
+Description: Flowing looping text path along a customizable curve with drag interaction.
+Dependencies: (none)
+
+Props:
+| Prop        | Type    | Default |
+|-------------|---------|---------|
+| marqueeText | string  | (required) |
+| speed       | number  | —       |
+| curveAmount | number  | —       |
+| direction   | string  | "left"  |
+| interactive | boolean | false   |
+| className   | string  | —       |
+
+Usage:
+```jsx
+<CurvedLoop
+  marqueeText="Be * Creative * With * React * Bits *"
+  speed={3}
+  curveAmount={500}
+  direction="right"
+  interactive={true}
+  className="custom-text-style"
+/>
+```
+
+--------------------------------------------------------------------------------
+
+## TextType
+
+Description: Typewriter effect with blinking cursor and adjustable typing cadence.
+Dependencies: gsap
+
+Props:
+| Prop            | Type     | Default |
+|-----------------|----------|---------|
+| text            | string[] | (required) |
+| typingSpeed     | number   | 75      |
+| pauseDuration   | number   | 1500    |
+| showCursor      | boolean  | true    |
+| cursorCharacter | string   | "|"     |
+
+Usage:
+```jsx
+<TextType
+  text={["Text typing effect", "for your websites", "Happy coding!"]}
+  typingSpeed={75}
+  pauseDuration={1500}
+  showCursor={true}
+  cursorCharacter="|"
+/>
+```
+
+--------------------------------------------------------------------------------
+
+## Shuffle
+
+Description: Animated text reveal where characters shuffle before settling.
+Dependencies: gsap, @gsap/react
+
+Props:
+| Prop                  | Type    | Default      |
+|-----------------------|---------|--------------|
+| text                  | string  | —            |
+| shuffleDirection      | string  | —            |
+| duration              | number  | 0.35         |
+| animationMode         | string  | "evenodd"    |
+| shuffleTimes          | number  | 1            |
+| ease                  | string  | "power3.out" |
+| stagger               | number  | 0.03         |
+| threshold             | number  | 0.1          |
+| triggerOnce           | boolean | true         |
+| triggerOnHover        | boolean | true         |
+| respectReducedMotion  | boolean | true         |
+
+Usage:
+```jsx
+<Shuffle
+  text="Hello World"
+  shuffleDirection="right"
+  duration={0.35}
+  animationMode="evenodd"
+  shuffleTimes={1}
+  ease="power3.out"
+  stagger={0.03}
+  threshold={0.1}
+  triggerOnce={true}
+  triggerOnHover={true}
+  respectReducedMotion={true}
+/>
+```
+
+
+################################################################################
+# ANIMATIONS (28 components)
+################################################################################
+
+
+## AnimatedContent
+
+Description: Wrapper that animates any children on scroll or mount with configurable direction, distance, duration, easing and disappear options.
+Dependencies: gsap
+
+Props:
+| Prop           | Type      | Default      |
+|----------------|-----------|--------------|
+| distance       | number    | —            |
+| direction      | string    | "horizontal" |
+| reverse        | boolean   | false        |
+| duration       | number    | 1.2          |
+| ease           | string    | "bounce.out" |
+| initialOpacity | number    | 0.2          |
+| animateOpacity | boolean   | —            |
+| scale          | number    | 1.1          |
+| threshold      | number    | 0.2          |
+| delay          | number    | 0.3          |
+| children       | ReactNode | —            |
+
+Usage:
+```jsx
+<AnimatedContent
+  distance={150}
+  direction="horizontal"
+  reverse={false}
+  duration={1.2}
+  ease="bounce.out"
+  initialOpacity={0.2}
+  animateOpacity
+  scale={1.1}
+  threshold={0.2}
+  delay={0.3}
+>
+  <div>Content to Animate</div>
+</AnimatedContent>
+```
+
+--------------------------------------------------------------------------------
+
+## FadeContent
+
+Description: Simple directional fade / slide entrance / exit wrapper with threshold-based activation.
+Dependencies: (none)
+
+Props:
+| Prop           | Type      | Default  |
+|----------------|-----------|----------|
+| blur           | boolean   | —        |
+| duration       | number    | —        |
+| easing         | string    | —        |
+| initialOpacity | number    | —        |
+| children       | ReactNode | —        |
+
+Usage:
+```jsx
+<FadeContent blur={true} duration={1000} easing="ease-out" initialOpacity={0}>
+  Content fades in
+</FadeContent>
+```
+
+--------------------------------------------------------------------------------
+
+## ElectricBorder
+
+Description: Jittery electric energy border with animated arcs, glow and adjustable intensity.
+Dependencies: (none)
+
+Props:
+| Prop      | Type      | Default |
+|-----------|-----------|---------|
+| color     | string    | —       |
+| speed     | number    | —       |
+| chaos     | number    | —       |
+| thickness | number    | —       |
+| style     | object    | —       |
+| children  | ReactNode | —       |
+
+Usage:
+```jsx
+<ElectricBorder
+  color="#7df9ff"
+  speed={1}
+  chaos={0.5}
+  thickness={2}
+  style={{ borderRadius: 16 }}
+>
+  <div><p>A glowing, animated border wrapper.</p></div>
+</ElectricBorder>
+```
+
+--------------------------------------------------------------------------------
+
+## Magnet
+
+Description: Elements magnetically ease toward the cursor then settle back with spring physics.
+Dependencies: (none)
+
+Props:
+| Prop           | Type    | Default |
+|----------------|---------|---------|
+| padding        | number  | —       |
+| disabled       | boolean | false   |
+| magnetStrength | number  | 50      |
+
+Usage:
+```jsx
+<Magnet padding={50} disabled={false} magnetStrength={50}>
+  <p>Star React Bits on GitHub!</p>
+</Magnet>
+```
+
+--------------------------------------------------------------------------------
+
+## ClickSpark
+
+Description: Creates particle spark bursts at click position.
+Dependencies: (none)
+
+Props:
+| Prop        | Type      | Default |
+|-------------|-----------|---------|
+| sparkColor  | string    | "#fff"  |
+| sparkSize   | number    | 10      |
+| sparkRadius | number    | 15      |
+| sparkCount  | number    | 8       |
+| duration    | number    | 400     |
+| children    | ReactNode | —       |
+
+Usage:
+```jsx
+<ClickSpark sparkColor="#fff" sparkSize={10} sparkRadius={15} sparkCount={8} duration={400}>
+  Click anywhere inside me!
+</ClickSpark>
+```
+
+--------------------------------------------------------------------------------
+
+## StarBorder
+
+Description: Animated star / sparkle border orbiting content with twinkle pulses.
+Dependencies: (none)
+
+Props:
+| Prop      | Type      | Default |
+|-----------|-----------|---------|
+| as        | string    | —       |
+| className | string    | —       |
+| color     | string    | —       |
+| speed     | string    | —       |
+| children  | ReactNode | —       |
+
+Usage:
+```jsx
+<StarBorder as="button" className="custom-class" color="cyan" speed="5s">
+  Star Button
+</StarBorder>
+```
+
+--------------------------------------------------------------------------------
+
+## PixelTransition
+
+Description: Pixel dissolve transition for content reveal on hover.
+Dependencies: gsap
+
+Props:
+| Prop                  | Type      | Default    |
+|-----------------------|-----------|------------|
+| firstContent          | ReactNode | (required) |
+| secondContent         | ReactNode | (required) |
+| gridSize              | number    | (required) |
+| pixelColor            | string    | (required) |
+| once                  | boolean   | false      |
+| animationStepDuration | number    | (required) |
+| className             | string    | —          |
+
+Usage:
+```jsx
+<PixelTransition
+  firstContent={<img src="cat.jpg" alt="cat" />}
+  secondContent={<div><p>Meow!</p></div>}
+  gridSize={12}
+  pixelColor="#ffffff"
+  once={false}
+  animationStepDuration={0.4}
+  className="custom-pixel-card"
+/>
+```
+
+--------------------------------------------------------------------------------
+
+## GlareHover
+
+Description: Adds a realistic moving glare highlight on hover over any element.
+Dependencies: (none)
+
+Props:
+| Prop               | Type      | Default |
+|--------------------|-----------|---------|
+| glareColor         | string    | —       |
+| glareOpacity       | number    | —       |
+| glareAngle         | number    | —       |
+| glareSize          | number    | —       |
+| transitionDuration | number    | —       |
+| playOnce           | boolean   | —       |
+| children           | ReactNode | —       |
+
+Usage:
+```jsx
+<GlareHover
+  glareColor="#ffffff"
+  glareOpacity={0.3}
+  glareAngle={-30}
+  glareSize={300}
+  transitionDuration={800}
+  playOnce={false}
+>
+  <h2>Hover Me</h2>
+</GlareHover>
+```
+
+--------------------------------------------------------------------------------
+
+## Ribbons
+
+Description: Flowing responsive ribbons/cursor trail driven by physics and pointer motion.
+Dependencies: ogl
+
+Props:
+| Prop               | Type     | Default |
+|--------------------|----------|---------|
+| baseThickness      | number   | —       |
+| colors             | string[] | —       |
+| speedMultiplier    | number   | —       |
+| maxAge             | number   | —       |
+| enableFade         | boolean  | —       |
+| enableShaderEffect | boolean  | —       |
+
+Usage:
+```jsx
+<div style={{ height: '500px', position: 'relative', overflow: 'hidden' }}>
+  <Ribbons
+    baseThickness={30}
+    colors={['#ffffff']}
+    speedMultiplier={0.5}
+    maxAge={500}
+    enableFade={false}
+    enableShaderEffect={true}
+  />
+</div>
+```
+
+--------------------------------------------------------------------------------
+
+## SplashCursor
+
+Description: Liquid splash burst at cursor with curling ripples and waves.
+Dependencies: (none)
+
+Props: No configurable props documented. Used as-is.
+
+Usage:
+```jsx
+<SplashCursor />
+```
+
+--------------------------------------------------------------------------------
+
+## BlobCursor
+
+Description: Organic blob cursor that smoothly follows the pointer with inertia and elastic morphing.
+Dependencies: gsap
+
+Props:
+| Prop                | Type     | Default                  |
+|---------------------|----------|--------------------------|
+| blobType            | string   | "circle"                 |
+| fillColor           | string   | "#5227FF"                |
+| trailCount          | number   | 3                        |
+| sizes               | number[] | [60, 125, 75]            |
+| innerSizes          | number[] | [20, 35, 25]             |
+| innerColor          | string   | "rgba(255,255,255,0.8)"  |
+| opacities           | number[] | [0.6, 0.6, 0.6]         |
+| shadowColor         | string   | "rgba(0,0,0,0.75)"      |
+| shadowBlur          | number   | 5                        |
+| shadowOffsetX       | number   | 10                       |
+| shadowOffsetY       | number   | 10                       |
+| filterStdDeviation  | number   | 30                       |
+| useFilter           | boolean  | true                     |
+| fastDuration        | number   | 0.1                      |
+| slowDuration        | number   | 0.5                      |
+| zIndex              | number   | 100                      |
+
+Usage:
+```jsx
+<BlobCursor
+  blobType="circle"
+  fillColor="#5227FF"
+  trailCount={3}
+  sizes={[60, 125, 75]}
+  innerSizes={[20, 35, 25]}
+  innerColor="rgba(255,255,255,0.8)"
+/>
+```
+
+--------------------------------------------------------------------------------
+
+## ImageTrail
+
+Description: Cursor-based image trail with several built-in variants.
+Dependencies: gsap
+
+Props:
+| Prop    | Type     | Default    |
+|---------|----------|------------|
+| items   | string[] | (required) |
+| variant | number   | (required) |
+
+Usage:
+```jsx
+<div style={{ height: '500px', position: 'relative', overflow: 'hidden' }}>
+  <ImageTrail
+    items={[
+      'https://picsum.photos/id/287/300/300',
+      'https://picsum.photos/id/1001/300/300',
+    ]}
+    variant={1}
+  />
+</div>
+```
+
+--------------------------------------------------------------------------------
+
+## PixelTrail
+
+Description: Pixelated cursor trail emitting fading squares with retro digital feel.
+Dependencies: three, @react-three/fiber, @react-three/drei
+
+Props:
+| Prop        | Type   | Default |
+|-------------|--------|---------|
+| gridSize    | number | 50      |
+| trailSize   | number | 0.1     |
+| maxAge      | number | 250     |
+| interpolate | number | 5       |
+| color       | string | "#fff"  |
+| gooeyFilter | object | —       |
+
+Usage:
+```jsx
+<div style={{ height: '500px', position: 'relative', overflow: 'hidden' }}>
+  <PixelTrail
+    gridSize={50}
+    trailSize={0.1}
+    maxAge={250}
+    interpolate={5}
+    color="#fff"
+    gooeyFilter={{ id: "custom-goo-filter", strength: 2 }}
+  />
+</div>
+```
+
+--------------------------------------------------------------------------------
+
+## MetaBalls
+
+Description: Liquid metaball blobs that merge and separate with smooth implicit surface animation.
+Dependencies: ogl
+
+Props:
+| Prop                   | Type    | Default    |
+|------------------------|---------|------------|
+| color                  | string  | "#ffffff"  |
+| cursorBallColor        | string  | "#ffffff"  |
+| cursorBallSize         | number  | 2          |
+| ballCount              | number  | 15         |
+| animationSize          | number  | 30         |
+| enableMouseInteraction | boolean | true       |
+| enableTransparency     | boolean | true       |
+| hoverSmoothness        | number  | 0.05       |
+| clumpFactor            | number  | 1          |
+| speed                  | number  | 0.3        |
+
+Usage:
+```jsx
+<MetaBalls
+  color="#ffffff"
+  cursorBallColor="#ffffff"
+  cursorBallSize={2}
+  ballCount={15}
+  animationSize={30}
+  enableMouseInteraction={true}
+  speed={0.3}
+/>
+```
+
+--------------------------------------------------------------------------------
+
+## MetallicPaint
+
+Description: Liquid metallic paint shader which can be applied to SVG elements.
+Dependencies: (none)
+
+Props:
+| Prop             | Type    | Default    |
+|------------------|---------|------------|
+| imageSrc         | string  | —          |
+| seed             | number  | 42         |
+| scale            | number  | 4          |
+| patternSharpness | number  | 1          |
+| noiseScale       | number  | 0.5        |
+| speed            | number  | 0.3        |
+| liquid           | number  | 0.75       |
+| mouseAnimation   | boolean | false      |
+| brightness       | number  | 2          |
+| contrast         | number  | 0.5        |
+| refraction       | number  | 0.01       |
+| blur             | number  | 0.015      |
+| chromaticSpread  | number  | 2          |
+| fresnel          | number  | 1          |
+| angle            | number  | 0          |
+| waveAmplitude    | number  | 1          |
+| distortion       | number  | 1          |
+| contour          | number  | 0.2        |
+| lightColor       | string  | "#ffffff"  |
+| darkColor        | string  | "#000000"  |
+| tintColor        | string  | "#feb3ff"  |
+
+Note: SVG should have padding around the shape and use black fill.
+
+Usage:
+```jsx
+<MetallicPaint imageSrc="/logo.svg" speed={0.3} liquid={0.75} mouseAnimation={true} />
+```
+
+--------------------------------------------------------------------------------
+
+## Noise
+
+Description: Animated film grain / noise overlay adding subtle texture and motion.
+Dependencies: (none)
+
+Props:
+| Prop                  | Type   | Default |
+|-----------------------|--------|---------|
+| patternSize           | number | 250     |
+| patternScaleX         | number | 1       |
+| patternScaleY         | number | 1       |
+| patternRefreshInterval| number | 2       |
+| patternAlpha          | number | 15      |
+
+Usage:
+```jsx
+<div style={{ width: '600px', height: '400px', position: 'relative', overflow: 'hidden' }}>
+  <Noise
+    patternSize={250}
+    patternScaleX={1}
+    patternScaleY={1}
+    patternRefreshInterval={2}
+    patternAlpha={15}
+  />
+</div>
+```
+
+--------------------------------------------------------------------------------
+
+## GradualBlur
+
+Description: Progressively un-blurs content based on scroll or trigger creating a cinematic reveal.
+Dependencies: mathjs
+
+Props:
+| Prop        | Type    | Default  |
+|-------------|---------|----------|
+| target      | string  | —        |
+| position    | string  | —        |
+| height      | string  | —        |
+| strength    | number  | —        |
+| divCount    | number  | —        |
+| curve       | string  | —        |
+| exponential | boolean | —        |
+| opacity     | number  | —        |
+
+Usage:
+```jsx
+<section style={{ position: 'relative', height: 500, overflow: 'hidden' }}>
+  <div style={{ height: '100%', overflowY: 'auto', padding: '6rem 2rem' }}>
+    {/* Content */}
+  </div>
+  <GradualBlur
+    target="parent"
+    position="bottom"
+    height="6rem"
+    strength={2}
+    divCount={5}
+    curve="bezier"
+    exponential={true}
+    opacity={1}
+  />
+</section>
+```
+
+--------------------------------------------------------------------------------
+
+## Crosshair
+
+Description: Custom crosshair cursor with tracking, and link hover effects.
+Dependencies: gsap
+
+Props:
+| Prop         | Type                        | Default  |
+|--------------|-----------------------------|----------|
+| containerRef | React.RefObject<HTMLElement> | window   |
+| color        | string                      | —        |
+
+Usage:
+```jsx
+const containerRef = useRef(null);
+
+<div ref={containerRef} style={{ height: '300px', overflow: 'hidden' }}>
+  <Crosshair containerRef={containerRef} color="#ffffff" />
+</div>
+```
+
+--------------------------------------------------------------------------------
+
+## ShapeBlur
+
+Description: Morphing blurred geometric shape. The effect occurs on hover.
+Dependencies: three
+
+Props:
+| Prop           | Type   | Default                      |
+|----------------|--------|------------------------------|
+| variation      | number | 0                            |
+| pixelRatioProp | number | window.devicePixelRatio || 1 |
+| shapeSize      | number | 0.5                          |
+| roundness      | number | 0.5                          |
+| borderSize     | number | 0.05                         |
+| circleSize     | number | 0.5                          |
+| circleEdge     | number | 1                            |
+
+Usage:
+```jsx
+<div style={{ position: 'relative', height: '500px', overflow: 'hidden' }}>
+  <ShapeBlur variation={0} shapeSize={0.5} roundness={0.5} borderSize={0.05} />
+</div>
+```
+
+--------------------------------------------------------------------------------
+
+## MagnetLines
+
+Description: Animated field lines bend toward the cursor.
+Dependencies: (none)
+
+Props:
+| Prop          | Type   | Default  |
+|---------------|--------|----------|
+| rows          | number | 9        |
+| columns       | number | 9        |
+| containerSize | string | "60vmin" |
+| lineColor     | string | "tomato" |
+| lineWidth     | string | "0.8vmin"|
+| lineHeight    | string | "5vmin"  |
+| baseAngle     | number | 0        |
+| style         | object | —        |
+
+Usage:
+```jsx
+<MagnetLines
+  rows={9}
+  columns={9}
+  containerSize="60vmin"
+  lineColor="tomato"
+  lineWidth="0.8vmin"
+  lineHeight="5vmin"
+  baseAngle={0}
+/>
+```
+
+--------------------------------------------------------------------------------
+
+## Cubes
+
+Description: 3D rotating cube cluster. Supports auto-rotation or hover interaction.
+Dependencies: gsap
+
+Props:
+| Prop          | Type    | Default             |
+|---------------|---------|---------------------|
+| gridSize      | number  | 8                   |
+| maxAngle      | number  | 60                  |
+| radius        | number  | 4                   |
+| borderStyle   | string  | "2px dashed #5227FF"|
+| faceColor     | string  | "#1a1a2e"           |
+| rippleColor   | string  | "#ff6b6b"           |
+| rippleSpeed   | number  | 1.5                 |
+| autoAnimate   | boolean | true                |
+| rippleOnClick | boolean | true                |
+
+Usage:
+```jsx
+<div style={{ height: '600px', position: 'relative' }}>
+  <Cubes
+    gridSize={8}
+    maxAngle={60}
+    radius={4}
+    faceColor="#1a1a2e"
+    rippleColor="#ff6b6b"
+    rippleSpeed={1.5}
+    autoAnimate={true}
+    rippleOnClick={true}
+  />
+</div>
+```
+
+--------------------------------------------------------------------------------
+
+## TargetCursor
+
+Description: A cursor follow animation with 4 corners that lock onto targets.
+Dependencies: gsap
+
+Props:
+| Prop              | Type    | Default |
+|-------------------|---------|---------|
+| spinDuration      | number  | —       |
+| hideDefaultCursor | boolean | —       |
+| parallaxOn        | boolean | —       |
+
+Note: Apply `.cursor-target` class to elements that should trigger the custom cursor.
+
+Usage:
+```jsx
+<TargetCursor spinDuration={2} hideDefaultCursor={true} parallaxOn={true} />
+<button className="cursor-target">Click me!</button>
+```
+
+--------------------------------------------------------------------------------
+
+## StickerPeel
+
+Description: Sticker corner lift + peel interaction using 3D transform and shadow depth.
+Dependencies: gsap
+
+Props:
+| Prop              | Type   | Default    |
+|-------------------|--------|------------|
+| imageSrc          | string | (required) |
+| width             | number | (required) |
+| rotate            | number | (required) |
+| peelBackHoverPct  | number | (required) |
+| peelBackActivePct | number | (required) |
+| shadowIntensity   | number | (required) |
+| lightingIntensity | number | (required) |
+| initialPosition   | object | (required) |
+
+Usage:
+```jsx
+<StickerPeel
+  imageSrc={logo}
+  width={200}
+  rotate={30}
+  peelBackHoverPct={20}
+  peelBackActivePct={40}
+  shadowIntensity={0.6}
+  lightingIntensity={0.1}
+  initialPosition={{ x: -100, y: 100 }}
+/>
+```
+
+--------------------------------------------------------------------------------
+
+## GhostCursor
+
+Description: Semi-transparent ghost cursor that smoothly follows the real cursor with a trailing effect.
+Dependencies: three
+
+Props:
+| Prop           | Type   | Default    |
+|----------------|--------|------------|
+| color          | string | "#B19EEF"  |
+| brightness     | number | 1          |
+| edgeIntensity  | number | 0          |
+| trailLength    | number | 50         |
+| inertia        | number | 0.5        |
+| grainIntensity | number | 0.05       |
+| bloomStrength  | number | 0.1        |
+| bloomRadius    | number | 1.0        |
+| bloomThreshold | number | 0.025      |
+| fadeDelayMs    | number | 1000       |
+| fadeDurationMs | number | 1500       |
+
+Usage:
+```jsx
+<div style={{ height: 600, position: 'relative' }}>
+  <GhostCursor
+    color="#B19EEF"
+    brightness={1}
+    trailLength={50}
+    inertia={0.5}
+    bloomStrength={0.1}
+    fadeDelayMs={1000}
+    fadeDurationMs={1500}
+  />
+</div>
+```
+
+--------------------------------------------------------------------------------
+
+## LaserFlow
+
+Description: Dynamic laser light that flows onto a surface, customizable effect.
+Dependencies: three
+
+Props:
+| Prop                 | Type   | Default |
+|----------------------|--------|---------|
+| horizontalBeamOffset | number | —       |
+| verticalBeamOffset   | number | —       |
+| color                | string | —       |
+
+Usage:
+```jsx
+<div style={{ height: '500px', position: 'relative', overflow: 'hidden' }}>
+  <LaserFlow horizontalBeamOffset={0} verticalBeamOffset={0} color="#FF79C6" />
+</div>
+```
+
+--------------------------------------------------------------------------------
+
+## Antigravity
+
+Description: 3D antigravity particle field that repels from the cursor with smooth motion.
+Dependencies: three, @react-three/fiber
+
+Props:
+| Prop             | Type    | Default    |
+|------------------|---------|------------|
+| count            | number  | 300        |
+| magnetRadius     | number  | 6          |
+| ringRadius       | number  | 7          |
+| waveSpeed        | number  | 0.4        |
+| waveAmplitude    | number  | 1          |
+| particleSize     | number  | 1.5        |
+| lerpSpeed        | number  | 0.05       |
+| color            | string  | "#FF9FFC"  |
+| autoAnimate      | boolean | true       |
+| particleVariance | number  | 1          |
+
+Usage:
+```jsx
+<div style={{ width: '100%', height: '400px', position: 'relative' }}>
+  <Antigravity
+    count={300}
+    magnetRadius={6}
+    waveSpeed={0.4}
+    particleSize={1.5}
+    color="#FF9FFC"
+    autoAnimate={true}
+  />
+</div>
+```
+
+--------------------------------------------------------------------------------
+
+## OrbitImages
+
+Description: SVG Path customizable orbiting images effect.
+Dependencies: motion
+
+Props:
+| Prop       | Type     | Default   |
+|------------|----------|-----------|
+| images     | string[] | (required)|
+| shape      | string   | "ellipse" |
+| radiusX    | number   | 340       |
+| radiusY    | number   | 80        |
+| rotation   | number   | -8        |
+| duration   | number   | 30        |
+| itemSize   | number   | 80        |
+| responsive | boolean  | true      |
+
+Usage:
+```jsx
+<OrbitImages
+  images={['/img1.png', '/img2.png', '/img3.png']}
+  shape="ellipse"
+  radiusX={340}
+  radiusY={80}
+  duration={30}
+  itemSize={80}
+  responsive={true}
+/>
+```
+
+--------------------------------------------------------------------------------
+
+## LogoLoop
+
+Description: Continuously looping marquee of brand or tech logos with seamless repeat and hover pause.
+Dependencies: (none)
+
+Props:
+| Prop         | Type    | Default |
+|--------------|---------|---------|
+| logos         | Array   | (required) |
+| speed         | number  | —       |
+| direction     | string  | —       |
+| logoHeight    | number  | —       |
+| gap           | number  | —       |
+| hoverSpeed    | number  | —       |
+| scaleOnHover  | boolean | —       |
+| fadeOut        | boolean | —       |
+| fadeOutColor   | string  | —       |
+| ariaLabel      | string  | —       |
+
+Logo format: `{ node: <Icon />, title: "Name", href: "url" }` or `{ src: "/logo.png", alt: "Name", href: "url" }`
+
+Usage:
+```jsx
+<LogoLoop
+  logos={[
+    { node: <SiReact />, title: "React", href: "https://react.dev" },
+  ]}
+  speed={50}
+  direction="left"
+  logoHeight={40}
+  gap={20}
+  hoverSpeed={0}
+  scaleOnHover={true}
+  fadeOut={true}
+/>
+```
+
+
+################################################################################
+# COMPONENTS (35 components)
+################################################################################
+
+
+## Stack
+
+Description: Layered stack with swipe animations, autoplay and smooth transitions.
+Dependencies: motion
+
+Props:
+| Prop             | Type        | Default |
+|------------------|-------------|---------|
+| randomRotation   | boolean     | —       |
+| sensitivity      | number      | —       |
+| sendToBackOnClick| boolean     | —       |
+| cards            | ReactNode[] | —       |
+
+Usage:
+```jsx
+<Stack
+  randomRotation={true}
+  sensitivity={180}
+  sendToBackOnClick={true}
+  cards={images.map((src, i) => (
+    <img key={i} src={src} alt={`card-${i + 1}`}
+      style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+  ))}
+/>
+```
+
+Container: 208x208px recommended.
+
+--------------------------------------------------------------------------------
+
+## Dock
+
+Description: macOS style magnifying dock with proximity scaling of icons.
+Dependencies: motion
+
+Props:
+| Prop          | Type   | Default |
+|---------------|--------|---------|
+| items         | Array  | (required) |
+| panelHeight   | number | 68      |
+| baseItemSize  | number | 50      |
+| magnification | number | 70      |
+
+Item format: `{ icon: <Icon />, label: "Name", onClick: () => {} }`
+
+Usage:
+```jsx
+<Dock
+  items={[
+    { icon: <VscHome size={18} />, label: 'Home', onClick: () => alert('Home!') },
+    { icon: <VscArchive size={18} />, label: 'Archive', onClick: () => alert('Archive!') },
+  ]}
+  panelHeight={68}
+  baseItemSize={50}
+  magnification={70}
+/>
+```
+
+--------------------------------------------------------------------------------
+
+## SpotlightCard
+
+Description: Dynamic spotlight follows cursor casting gradient illumination.
+Dependencies: (none)
+
+Props:
+| Prop           | Type      | Default |
+|----------------|-----------|---------|
+| className      | string    | —       |
+| spotlightColor | string    | —       |
+| children       | ReactNode | —       |
+
+Usage:
+```jsx
+<SpotlightCard className="custom-card" spotlightColor="rgba(0, 229, 255, 0.2)">
+  Card content here
+</SpotlightCard>
+```
+
+--------------------------------------------------------------------------------
+
+## ElasticSlider
+
+Description: Slider handle stretches elastically then snaps with spring physics.
+Dependencies: motion
+
+Props:
+| Prop          | Type      | Default |
+|---------------|-----------|---------|
+| leftIcon      | ReactNode | —       |
+| rightIcon     | ReactNode | —       |
+| startingValue | number    | —       |
+| defaultValue  | number    | —       |
+| maxValue      | number    | —       |
+| isStepped     | boolean   | —       |
+| stepSize      | number    | —       |
+
+Usage:
+```jsx
+<ElasticSlider
+  leftIcon={<MinusIcon />}
+  rightIcon={<PlusIcon />}
+  startingValue={500}
+  defaultValue={750}
+  maxValue={1000}
+  isStepped
+  stepSize={10}
+/>
+```
+
+--------------------------------------------------------------------------------
+
+## Carousel
+
+Description: Responsive carousel with touch gestures, looping and transitions.
+Dependencies: motion
+
+Props:
+| Prop           | Type    | Default |
+|----------------|---------|---------|
+| baseWidth      | number  | —       |
+| autoplay       | boolean | —       |
+| autoplayDelay  | number  | —       |
+| pauseOnHover   | boolean | —       |
+| loop           | boolean | —       |
+| round          | boolean | —       |
+
+Usage:
+```jsx
+<div style={{ height: '600px', position: 'relative' }}>
+  <Carousel
+    baseWidth={300}
+    autoplay={true}
+    autoplayDelay={3000}
+    pauseOnHover={true}
+    loop={true}
+    round={false}
+  />
+</div>
+```
+
+--------------------------------------------------------------------------------
+
+## TiltedCard
+
+Description: 3D perspective tilt card reacting to pointer.
+Dependencies: motion
+
+Props:
+| Prop                  | Type      | Default |
+|-----------------------|-----------|---------|
+| imageSrc              | string    | (required) |
+| altText               | string    | (required) |
+| captionText           | string    | (required) |
+| containerHeight       | string    | "300px" |
+| containerWidth        | string    | "300px" |
+| imageHeight           | string    | "300px" |
+| imageWidth            | string    | "300px" |
+| rotateAmplitude       | number    | 12      |
+| scaleOnHover          | number    | 1.2     |
+| showMobileWarning     | boolean   | false   |
+| showTooltip           | boolean   | true    |
+| displayOverlayContent | boolean   | true    |
+| overlayContent        | ReactNode | —       |
+
+Usage:
+```jsx
+<TiltedCard
+  imageSrc="/photo.jpg"
+  altText="Photo"
+  captionText="My Card"
+  rotateAmplitude={12}
+  scaleOnHover={1.2}
+  showTooltip={true}
+/>
+```
+
+--------------------------------------------------------------------------------
+
+## AnimatedList
+
+Description: List items enter with staggered motion variants for polished reveals.
+Dependencies: motion
+
+Props:
+| Prop                   | Type     | Default |
+|------------------------|----------|---------|
+| items                  | Array    | (required) |
+| onItemSelect           | Function | (required) |
+| showGradients          | boolean  | false   |
+| enableArrowNavigation  | boolean  | false   |
+| displayScrollbar       | boolean  | false   |
+
+Usage:
+```jsx
+<AnimatedList
+  items={['Item 1', 'Item 2', 'Item 3']}
+  onItemSelect={(item, index) => console.log(item, index)}
+  showGradients={true}
+  enableArrowNavigation={true}
+  displayScrollbar={true}
+/>
+```
+
+--------------------------------------------------------------------------------
+
+## Masonry
+
+Description: Responsive masonry layout with animated reflow + gaps optimization.
+Dependencies: gsap
+
+Props:
+| Prop             | Type    | Default      |
+|------------------|---------|--------------|
+| items            | Array   | (required)   |
+| ease             | string  | "power3.out" |
+| duration         | number  | 0.6          |
+| stagger          | number  | 0.05         |
+| animateFrom      | string  | "bottom"     |
+| scaleOnHover     | boolean | true         |
+| hoverScale       | number  | 0.95         |
+| blurToFocus      | boolean | true         |
+| colorShiftOnHover| boolean | false        |
+
+Item format: `{ id: "1", img: "url", url: "link", height: 400 }`
+
+Usage:
+```jsx
+<Masonry
+  items={items}
+  ease="power3.out"
+  duration={0.6}
+  stagger={0.05}
+  animateFrom="bottom"
+  scaleOnHover={true}
+  hoverScale={0.95}
+  blurToFocus={true}
+/>
+```
+
+--------------------------------------------------------------------------------
+
+## Folder
+
+Description: Interactive folder opens to reveal nested content smooth motion.
+Dependencies: (none)
+
+Props:
+| Prop      | Type   | Default |
+|-----------|--------|---------|
+| size      | number | —       |
+| color     | string | —       |
+| className | string | —       |
+
+Usage:
+```jsx
+<Folder size={2} color="#5227FF" className="custom-folder" />
+```
+
+--------------------------------------------------------------------------------
+
+## Counter
+
+Description: Flexible animated counter supporting increments + easing.
+Dependencies: motion
+
+Props:
+| Prop       | Type     | Default |
+|------------|----------|---------|
+| value      | number   | —       |
+| places     | number[] | —       |
+| fontSize   | number   | —       |
+| padding    | number   | —       |
+| gap        | number   | —       |
+| textColor  | string   | —       |
+| fontWeight | number   | —       |
+
+Usage:
+```jsx
+<Counter
+  value={1}
+  places={[100, 10, 1]}
+  fontSize={80}
+  padding={5}
+  gap={10}
+  textColor="white"
+  fontWeight={900}
+/>
+```
+
+--------------------------------------------------------------------------------
+
+## Stepper
+
+Description: Animated multi-step progress indicator with active state transitions.
+Dependencies: motion
+
+Props:
+| Prop                 | Type     | Default |
+|----------------------|----------|---------|
+| initialStep          | number   | —       |
+| onStepChange         | function | —       |
+| onFinalStepCompleted | function | —       |
+| backButtonText       | string   | —       |
+| nextButtonText       | string   | —       |
+
+Child: `<Step>` wraps individual step content.
+
+Usage:
+```jsx
+<Stepper
+  initialStep={1}
+  onStepChange={(step) => console.log(step)}
+  onFinalStepCompleted={() => console.log("Done!")}
+  backButtonText="Previous"
+  nextButtonText="Next"
+>
+  <Step><h2>Welcome</h2></Step>
+  <Step><h2>Step 2</h2></Step>
+  <Step><h2>Final</h2></Step>
+</Stepper>
+```
+
+--------------------------------------------------------------------------------
+
+## PixelCard
+
+Description: Card content revealed through pixel expansion transition.
+Dependencies: (none)
+
+Props:
+| Prop    | Type      | Default |
+|---------|-----------|---------|
+| variant | string    | —       |
+| children| ReactNode | —       |
+
+Usage:
+```jsx
+<PixelCard variant="pink">
+  <div style={{ position: 'absolute' }}>Card content</div>
+</PixelCard>
+```
+
+--------------------------------------------------------------------------------
+
+## DecayCard
+
+Description: Hover parallax effect that disintegrates the content of a card.
+Dependencies: gsap
+
+Props:
+| Prop     | Type      | Default |
+|----------|-----------|---------|
+| width    | number    | —       |
+| height   | number    | —       |
+| image    | string    | —       |
+| children | ReactNode | —       |
+
+Usage:
+```jsx
+<DecayCard width={200} height={300} image="https://picsum.photos/300/400?grayscale">
+  <h2>Decay Card</h2>
+</DecayCard>
+```
+
+--------------------------------------------------------------------------------
+
+## BounceCards
+
+Description: Cards bounce that bounce in on mount.
+Dependencies: gsap
+
+Props:
+| Prop              | Type     | Default |
+|-------------------|----------|---------|
+| className         | string   | —       |
+| images            | string[] | —       |
+| containerWidth    | number   | —       |
+| containerHeight   | number   | —       |
+| animationDelay    | number   | —       |
+| animationStagger  | number   | —       |
+| easeType          | string   | —       |
+| transformStyles   | string[] | —       |
+| enableHover       | boolean  | —       |
+
+Usage:
+```jsx
+<BounceCards
+  images={imageArray}
+  containerWidth={500}
+  containerHeight={250}
+  animationDelay={1}
+  animationStagger={0.08}
+  easeType="elastic.out(1, 0.5)"
+  transformStyles={transformArray}
+  enableHover={false}
+/>
+```
+
+--------------------------------------------------------------------------------
+
+## InfiniteMenu
+
+Description: Horizontally looping menu effect that scrolls endlessly with seamless wrap.
+Dependencies: gl-matrix
+
+Props:
+| Prop  | Type  | Default    |
+|-------|-------|------------|
+| items | Array | (required) |
+
+Item format: `{ image: string, link: string, title: string, description: string }`
+
+Usage:
+```jsx
+<div style={{ height: '600px', position: 'relative' }}>
+  <InfiniteMenu items={[
+    { image: 'url', link: 'https://...', title: 'Item 1', description: 'Description' }
+  ]} />
+</div>
+```
+
+--------------------------------------------------------------------------------
+
+## FlyingPosters
+
+Description: 3D posters rotate on scroll infinitely.
+Dependencies: ogl
+
+Props:
+| Prop  | Type     | Default    |
+|-------|----------|------------|
+| items | string[] | (required) |
+
+Usage:
+```jsx
+<div style={{ height: '600px', position: 'relative' }}>
+  <FlyingPosters items={[
+    'https://picsum.photos/500/500?grayscale',
+    'https://picsum.photos/600/600?grayscale',
+  ]} />
+</div>
+```
+
+--------------------------------------------------------------------------------
+
+## FlowingMenu
+
+Description: Liquid flowing active indicator glides between menu items.
+Dependencies: gsap
+
+Props:
+| Prop  | Type  | Default    |
+|-------|-------|------------|
+| items | Array | (required) |
+
+Item format: `{ link: string, text: string, image: string }`
+
+Usage:
+```jsx
+<div style={{ height: '600px', position: 'relative' }}>
+  <FlowingMenu items={[
+    { link: '#', text: 'Mojave', image: 'https://picsum.photos/600/400?random=1' },
+    { link: '#', text: 'Sonoma', image: 'https://picsum.photos/600/400?random=2' },
+  ]} />
+</div>
+```
+
+--------------------------------------------------------------------------------
+
+## CircularGallery
+
+Description: Circular orbit gallery rotating images.
+Dependencies: ogl
+
+Props:
+| Prop        | Type   | Default    |
+|-------------|--------|------------|
+| bend        | number | 3          |
+| textColor   | string | "#ffffff"  |
+| borderRadius| number | 0.05       |
+| scrollEase  | number | 0.02       |
+
+Usage:
+```jsx
+<div style={{ height: '600px', position: 'relative' }}>
+  <CircularGallery bend={3} textColor="#ffffff" borderRadius={0.05} scrollEase={0.02} />
+</div>
+```
+
+--------------------------------------------------------------------------------
+
+## Lanyard
+
+Description: Swinging 3D lanyard / badge card with realistic inertial motion.
+Dependencies: three, meshline, @react-three/fiber, @react-three/drei, @react-three/rapier
+
+Props:
+| Prop     | Type               | Default    |
+|----------|--------------------|------------|
+| position | [number, number, number] | (required) |
+| gravity  | [number, number, number] | (required) |
+
+Note: Requires card.glb and lanyard.png assets.
+
+Usage:
+```jsx
+<Lanyard position={[0, 0, 20]} gravity={[0, -40, 0]} />
+```
+
+--------------------------------------------------------------------------------
+
+## GlassIcons
+
+Description: Icon set styled with frosted glass blur.
+Dependencies: (none)
+
+Props:
+| Prop      | Type   | Default |
+|-----------|--------|---------|
+| items     | Array  | (required) |
+| className | string | —       |
+
+Item format: `{ icon: <Icon />, color: string, label: string }`
+
+Usage:
+```jsx
+<GlassIcons items={[
+  { icon: <FiFileText />, color: 'blue', label: 'Files' },
+  { icon: <FiBook />, color: 'purple', label: 'Books' },
+]} className="custom-class" />
+```
+
+--------------------------------------------------------------------------------
+
+## GooeyNav
+
+Description: Navigation indicator morphs with gooey blob transitions between items.
+Dependencies: (none)
+
+Props:
+| Prop               | Type   | Default                      |
+|--------------------|--------|------------------------------|
+| items              | Array  | (required)                   |
+| particleCount      | number | 15                           |
+| particleDistances  | Array  | [90, 10]                     |
+| particleR          | number | 100                          |
+| initialActiveIndex | number | 0                            |
+| animationTime      | number | 600                          |
+| timeVariance       | number | 300                          |
+| colors             | Array  | [1, 2, 3, 1, 2, 3, 1, 4]    |
+
+Item format: `{ label: string, href: string }`
+
+Usage:
+```jsx
+<GooeyNav
+  items={[
+    { label: "Home", href: "#" },
+    { label: "About", href: "#" },
+  ]}
+  particleCount={15}
+  animationTime={600}
+/>
+```
+
+--------------------------------------------------------------------------------
+
+## ChromaGrid
+
+Description: A responsive grid of grayscale tiles. Hovering the grid reveals their colors.
+Dependencies: gsap
+
+Props:
+| Prop    | Type   | Default      |
+|---------|--------|--------------|
+| items   | Array  | (required)   |
+| radius  | number | 300          |
+| damping | number | 0.45         |
+| fadeOut  | number | 0.6          |
+| ease    | string | "power3.out" |
+
+Item format: `{ image, title, subtitle, handle, borderColor, gradient, url }`
+
+Usage:
+```jsx
+<ChromaGrid items={items} radius={300} damping={0.45} fadeOut={0.6} ease="power3.out" />
+```
+
+--------------------------------------------------------------------------------
+
+## ProfileCard
+
+Description: Animated profile card glare with 3D hover effect.
+Dependencies: (none)
+
+Props:
+| Prop             | Type     | Default |
+|------------------|----------|---------|
+| name             | string   | —       |
+| title            | string   | —       |
+| handle           | string   | —       |
+| status           | string   | —       |
+| contactText      | string   | —       |
+| avatarUrl        | string   | —       |
+| showUserInfo     | boolean  | true    |
+| enableTilt       | boolean  | true    |
+| enableMobileTilt | boolean  | false   |
+| onContactClick   | function | —       |
+
+Usage:
+```jsx
+<ProfileCard
+  name="Javi A. Torres"
+  title="Software Engineer"
+  handle="javicodes"
+  status="Online"
+  contactText="Contact Me"
+  avatarUrl="/avatar.jpg"
+  enableTilt={true}
+  onContactClick={() => console.log('Contact clicked')}
+/>
+```
+
+--------------------------------------------------------------------------------
+
+## CardSwap
+
+Description: Cards animate position swapping with smooth layout transitions.
+Dependencies: gsap
+
+Props:
+| Prop             | Type    | Default |
+|------------------|---------|---------|
+| cardDistance      | number  | —       |
+| verticalDistance  | number  | —       |
+| delay            | number  | —       |
+| pauseOnHover     | boolean | —       |
+
+Child: `<Card>` wraps individual card content.
+
+Usage:
+```jsx
+<CardSwap cardDistance={60} verticalDistance={70} delay={5000} pauseOnHover={false}>
+  <Card><h3>Card 1</h3></Card>
+  <Card><h3>Card 2</h3></Card>
+  <Card><h3>Card 3</h3></Card>
+</CardSwap>
+```
+
+--------------------------------------------------------------------------------
+
+## ModelViewer
+
+Description: Three.js model viewer with orbit controls and lighting presets.
+Dependencies: three, @react-three/fiber, @react-three/drei
+
+Props:
+| Prop   | Type   | Default    |
+|--------|--------|------------|
+| url    | string | (required) |
+| width  | number | (required) |
+| height | number | (required) |
+
+Usage:
+```jsx
+<ModelViewer
+  url="https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/main/2.0/ToyCar/glTF-Binary/ToyCar.glb"
+  width={400}
+  height={400}
+/>
+```
+
+--------------------------------------------------------------------------------
+
+## FluidGlass
+
+Description: Glassmorphism container with animated liquid distortion refraction.
+Dependencies: three, @react-three/fiber, @react-three/drei, maath
+
+Props:
+| Prop      | Type   | Default |
+|-----------|--------|---------|
+| mode      | string | —       |
+| lensProps | object | —       |
+| barProps  | object | —       |
+| cubeProps | object | —       |
+
+lensProps: `{ scale: 0.25, ior: 1.15, thickness: 5, chromaticAberration: 0.1, anisotropy: 0.01 }`
+
+Mode options: "lens", "bar", "cube"
+
+Usage:
+```jsx
+<div style={{ height: '600px', position: 'relative' }}>
+  <FluidGlass mode="lens" lensProps={{ scale: 0.25, ior: 1.15 }} />
+</div>
+```
+
+Note: Requires 3D models in public/assets/3d/ (lens.glb, bar.glb, cube.glb).
+
+--------------------------------------------------------------------------------
+
+## MagicBento
+
+Description: Interactive bento grid tiles expand + animate with various options.
+Dependencies: gsap
+
+Props:
+| Prop             | Type    | Default         |
+|------------------|---------|-----------------|
+| textAutoHide     | boolean | true            |
+| enableStars      | boolean | true            |
+| enableSpotlight  | boolean | true            |
+| enableBorderGlow | boolean | true            |
+| enableTilt       | boolean | true            |
+| enableMagnetism  | boolean | true            |
+| clickEffect      | boolean | true            |
+| spotlightRadius  | number  | 300             |
+| particleCount    | number  | 12              |
+| glowColor        | string  | "132, 0, 255"  |
+
+Usage:
+```jsx
+<MagicBento
+  textAutoHide={true}
+  enableStars={true}
+  enableSpotlight={true}
+  enableBorderGlow={true}
+  enableTilt={true}
+  enableMagnetism={true}
+  clickEffect={true}
+  spotlightRadius={300}
+  particleCount={12}
+  glowColor="132, 0, 255"
+/>
+```
+
+--------------------------------------------------------------------------------
+
+## ScrollStack
+
+Description: Overlapping card stack reveals on scroll with depth layering.
+Dependencies: lenis
+
+Child components: `<ScrollStackItem>` wraps individual cards.
+
+Usage:
+```jsx
+<ScrollStack>
+  <ScrollStackItem><h2>Card 1</h2></ScrollStackItem>
+  <ScrollStackItem><h2>Card 2</h2></ScrollStackItem>
+  <ScrollStackItem><h2>Card 3</h2></ScrollStackItem>
+</ScrollStack>
+```
+
+--------------------------------------------------------------------------------
+
+## GlassSurface
+
+Description: Advanced Apple-style glass surface with real-time distortion + lighting.
+Dependencies: (none)
+
+Props:
+| Prop            | Type      | Default |
+|-----------------|-----------|---------|
+| width           | number    | —       |
+| height          | number    | —       |
+| borderRadius    | number    | —       |
+| className       | string    | —       |
+| displace        | number    | —       |
+| distortionScale | number    | —       |
+| redOffset       | number    | —       |
+| greenOffset     | number    | —       |
+| blueOffset      | number    | —       |
+| brightness      | number    | —       |
+| opacity         | number    | —       |
+| mixBlendMode    | string    | —       |
+| children        | ReactNode | —       |
+
+Usage:
+```jsx
+<GlassSurface
+  width={300}
+  height={200}
+  borderRadius={24}
+  displace={15}
+  distortionScale={-150}
+  redOffset={5}
+  greenOffset={15}
+  blueOffset={25}
+  brightness={60}
+  opacity={0.8}
+  mixBlendMode="screen"
+>
+  <h2>Glass Surface Content</h2>
+</GlassSurface>
+```
+
+--------------------------------------------------------------------------------
+
+## PillNav
+
+Description: Minimal pill nav with sliding active highlight + smooth easing.
+Dependencies: gsap
+
+Props:
+| Prop                 | Type   | Default        |
+|----------------------|--------|----------------|
+| logo                 | string | —              |
+| logoAlt              | string | —              |
+| items                | Array  | —              |
+| activeHref           | string | —              |
+| className            | string | —              |
+| ease                 | string | "power2.easeOut"|
+| baseColor            | string | "#000000"      |
+| pillColor            | string | "#ffffff"      |
+| hoveredPillTextColor | string | "#ffffff"      |
+| pillTextColor        | string | "#000000"      |
+
+Item format: `{ label: string, href: string }`
+
+Usage:
+```jsx
+<PillNav
+  logo="/logo.png"
+  logoAlt="Logo"
+  items={[{ label: "Home", href: "/" }]}
+  activeHref="/"
+  baseColor="#000000"
+  pillColor="#ffffff"
+/>
+```
+
+--------------------------------------------------------------------------------
+
+## CardNav
+
+Description: Expandable navigation bar with card panels revealing nested links.
+Dependencies: gsap
+
+Props:
+| Prop            | Type   | Default    |
+|-----------------|--------|------------|
+| logo            | string | (required) |
+| logoAlt         | string | (required) |
+| items           | Array  | (required) |
+| baseColor       | string | (required) |
+| menuColor       | string | (required) |
+| buttonBgColor   | string | (required) |
+| buttonTextColor | string | (required) |
+| ease            | string | (required) |
+
+Item format: `{ label, bgColor, textColor, links: [{ label, ariaLabel }] }`
+
+--------------------------------------------------------------------------------
+
+## BubbleMenu
+
+Description: Floating circular expanding menu with staggered item reveal.
+Dependencies: gsap
+
+Props:
+| Prop              | Type      | Default          |
+|-------------------|-----------|------------------|
+| logo              | ReactNode | —                |
+| items             | Array     | —                |
+| menuAriaLabel     | string    | —                |
+| menuBg            | string    | "#ffffff"        |
+| menuContentColor  | string    | "#111111"        |
+| useFixedPosition  | boolean   | false            |
+| animationEase     | string    | "back.out(1.5)"  |
+| animationDuration | number    | 0.5              |
+| staggerDelay      | number    | 0.12             |
+
+Item format: `{ label, href, ariaLabel, rotation, hoverStyles: { bgColor, textColor } }`
+
+--------------------------------------------------------------------------------
+
+## DomeGallery
+
+Description: Immersive 3D dome gallery projecting images on a hemispheric surface.
+Dependencies: @use-gesture/react
+
+Usage:
+```jsx
+<div style={{ width: '100vw', height: '100vh' }}>
+  <DomeGallery />
+</div>
+```
+
+--------------------------------------------------------------------------------
+
+## StaggeredMenu
+
+Description: Menu with staggered item animations and smooth transitions on open/close.
+Dependencies: gsap
+
+Props:
+| Prop                    | Type     | Default |
+|-------------------------|----------|---------|
+| position                | string   | —       |
+| items                   | Array    | —       |
+| socialItems             | Array    | —       |
+| displaySocials          | boolean  | false   |
+| displayItemNumbering    | boolean  | false   |
+| menuButtonColor         | string   | —       |
+| openMenuButtonColor     | string   | —       |
+| changeMenuColorOnOpen   | boolean  | false   |
+| colors                  | Array    | —       |
+| logoUrl                 | string   | —       |
+| accentColor             | string   | —       |
+| onMenuOpen              | function | —       |
+| onMenuClose             | function | —       |
+
+--------------------------------------------------------------------------------
+
+## ReflectiveCard
+
+Description: Card with dynamic webcam reflection and glare effects that respond to cursor movement.
+Dependencies: lucide-react
+
+Props:
+| Prop                 | Type   | Default              |
+|----------------------|--------|----------------------|
+| overlayColor         | string | "rgba(0, 0, 0, 0.2)"|
+| blurStrength         | number | 10                   |
+| glassDistortion      | number | 15                   |
+| metalness            | number | 0.8                  |
+| roughness            | number | 0.5                  |
+| displacementStrength | number | 25                   |
+| noiseScale           | number | 1.5                  |
+| specularConstant     | number | 2.0                  |
+| grayscale            | number | 0.5                  |
+| color                | string | "#ffffff"            |
+
+Usage:
+```jsx
+<ReflectiveCard
+  overlayColor="rgba(0, 0, 0, 0.2)"
+  blurStrength={10}
+  glassDistortion={15}
+  metalness={0.8}
+  roughness={0.5}
+  color="#ffffff"
+/>
+```
+
+
+################################################################################
+# BACKGROUNDS (36 components)
+################################################################################
+
+
+## Silk
+
+Description: Smooth waves background with soft lighting.
+Dependencies: three, @react-three/fiber
+
+Props:
+| Prop           | Type   | Default   |
+|----------------|--------|-----------|
+| speed          | number | 5         |
+| scale          | number | 1         |
+| color          | string | "#7B7481" |
+| noiseIntensity | number | 1.5       |
+| rotation       | number | 0         |
+
+Usage:
+```jsx
+<Silk speed={5} scale={1} color="#7B7481" noiseIntensity={1.5} rotation={0} />
+```
+
+--------------------------------------------------------------------------------
+
+## Aurora
+
+Description: Flowing aurora gradient background.
+Dependencies: ogl
+
+Props:
+| Prop       | Type     | Default                            |
+|------------|----------|------------------------------------|
+| colorStops | string[] | ["#3A29FF", "#FF94B4", "#FF3232"]  |
+| blend      | number   | 0.5                                |
+| amplitude  | number   | 1.0                                |
+| speed      | number   | 0.5                                |
+
+Usage:
+```jsx
+<Aurora colorStops={["#3A29FF", "#FF94B4", "#FF3232"]} blend={0.5} amplitude={1.0} speed={0.5} />
+```
+
+--------------------------------------------------------------------------------
+
+## Squares
+
+Description: Animated squares with scaling + direction customization.
+Dependencies: (none)
+
+Props:
+| Prop           | Type   | Default |
+|----------------|--------|---------|
+| speed          | number | —       |
+| squareSize     | number | —       |
+| direction      | string | —       |
+| borderColor    | string | —       |
+| hoverFillColor | string | —       |
+
+Direction options: "up", "down", "left", "right", "diagonal"
+
+Usage:
+```jsx
+<Squares speed={0.5} squareSize={40} direction="diagonal" borderColor="#fff" hoverFillColor="#222" />
+```
+
+--------------------------------------------------------------------------------
+
+## Hyperspeed
+
+Description: Animated lines continuously moving to simulate hyperspace travel on click hold.
+Dependencies: three, postprocessing
+
+Props (via effectOptions object):
+| Prop                          | Type     | Default              |
+|-------------------------------|----------|----------------------|
+| onSpeedUp                     | Function | () => {}             |
+| onSlowDown                    | Function | () => {}             |
+| distortion                    | string   | "turbulentDistortion"|
+| length                        | number   | 400                  |
+| roadWidth                     | number   | 10                   |
+| islandWidth                   | number   | 2                    |
+| lanesPerRoad                  | number   | 4                    |
+| fov                           | number   | 90                   |
+| fovSpeedUp                    | number   | 150                  |
+| speedUp                       | number   | 2                    |
+| carLightsFade                 | number   | 0.4                  |
+| totalSideLightSticks          | number   | 20                   |
+| lightPairsPerRoadWay          | number   | 40                   |
+| shoulderLinesWidthPercentage  | number   | 0.05                 |
+| brokenLinesWidthPercentage    | number   | 0.1                  |
+| brokenLinesLengthPercentage   | number   | 0.5                  |
+| lightStickWidth               | [min,max]| [0.12, 0.5]         |
+| lightStickHeight              | [min,max]| [1.3, 1.7]          |
+| movingAwaySpeed               | [min,max]| [60, 80]            |
+| movingCloserSpeed             | [min,max]| [-120, -160]        |
+| carLightsLength               | [min,max]| [12, 80]            |
+| carLightsRadius               | [min,max]| [0.05, 0.14]        |
+| carWidthPercentage            | [min,max]| [0.3, 0.5]          |
+| carShiftX                     | [min,max]| [-0.8, 0.8]         |
+| carFloorSeparation            | [min,max]| [0, 5]              |
+| colors.roadColor              | hex      | 0x080808             |
+| colors.islandColor            | hex      | 0x0a0a0a             |
+| colors.background             | hex      | 0x000000             |
+| colors.shoulderLines          | hex      | 0xFFFFFF             |
+| colors.brokenLines            | hex      | 0xFFFFFF             |
+| colors.leftCars               | hex[]    | [0xD856BF, ...]      |
+| colors.rightCars              | hex[]    | [0x03B3C3, ...]      |
+| colors.sticks                 | hex      | 0x03B3C3             |
+
+Note: Memoize effectOptions with useMemo to avoid re-renders.
+
+Usage:
+```jsx
+<Hyperspeed effectOptions={{ speedUp: 2, fov: 90, colors: { roadColor: 0x080808 } }} />
+```
+
+--------------------------------------------------------------------------------
+
+## Iridescence
+
+Description: Slick iridescent shader with shifting waves.
+Dependencies: ogl
+
+Props:
+| Prop       | Type      | Default  |
+|------------|-----------|----------|
+| color      | number[]  | [1,1,1]  |
+| mouseReact | boolean   | false    |
+| amplitude  | number    | 0.1      |
+| speed      | number    | 1.0      |
+
+Usage:
+```jsx
+<Iridescence color={[1, 1, 1]} mouseReact={false} amplitude={0.1} speed={1.0} />
+```
+
+--------------------------------------------------------------------------------
+
+## Waves
+
+Description: Layered lines that form smooth wave patterns with animation.
+Dependencies: (none)
+
+Props:
+| Prop            | Type   | Default                    |
+|-----------------|--------|----------------------------|
+| lineColor       | string | "#fff"                     |
+| backgroundColor | string | "rgba(255, 255, 255, 0.2)" |
+| waveSpeedX      | number | 0.02                       |
+| waveSpeedY      | number | 0.01                       |
+| waveAmpX        | number | 40                         |
+| waveAmpY        | number | 20                         |
+| friction        | number | 0.9                        |
+| tension         | number | 0.01                       |
+| maxCursorMove   | number | 120                        |
+| xGap            | number | 12                         |
+| yGap            | number | 36                         |
+
+Usage:
+```jsx
+<Waves
+  lineColor="#fff"
+  waveSpeedX={0.02}
+  waveSpeedY={0.01}
+  waveAmpX={40}
+  waveAmpY={20}
+  friction={0.9}
+  tension={0.01}
+  maxCursorMove={120}
+  xGap={12}
+  yGap={36}
+/>
+```
+
+--------------------------------------------------------------------------------
+
+## Particles
+
+Description: Configurable particle system.
+Dependencies: ogl
+
+Props:
+| Prop                 | Type     | Default              |
+|----------------------|----------|----------------------|
+| particleColors       | string[] | ["#ffffff","#ffffff"] |
+| particleCount        | number   | 200                  |
+| particleSpread       | number   | 10                   |
+| speed                | number   | 0.1                  |
+| particleBaseSize     | number   | 100                  |
+| moveParticlesOnHover | boolean  | true                 |
+| alphaParticles       | boolean  | false                |
+| disableRotation      | boolean  | false                |
+
+Usage:
+```jsx
+<div style={{ width: '100%', height: '600px', position: 'relative' }}>
+  <Particles
+    particleColors={['#ffffff', '#ffffff']}
+    particleCount={200}
+    particleSpread={10}
+    speed={0.1}
+    moveParticlesOnHover={true}
+  />
+</div>
+```
+
+--------------------------------------------------------------------------------
+
+## LiquidChrome
+
+Description: Liquid metallic chrome shader with flowing reflective surface.
+Dependencies: ogl
+
+Props:
+| Prop        | Type      | Default       |
+|-------------|-----------|---------------|
+| baseColor   | number[]  | [0.1,0.1,0.1] |
+| speed       | number    | 1             |
+| amplitude   | number    | 0.6           |
+| interactive | boolean   | true          |
+
+Usage:
+```jsx
+<div style={{ width: '100%', height: '600px', position: 'relative' }}>
+  <LiquidChrome baseColor={[0.1, 0.1, 0.1]} speed={1} amplitude={0.6} interactive={true} />
+</div>
+```
+
+--------------------------------------------------------------------------------
+
+## Ballpit
+
+Description: Physics ball pit simulation with bouncing colorful spheres.
+Dependencies: three
+
+Props:
+| Prop         | Type    | Default |
+|--------------|---------|---------|
+| count        | number  | —       |
+| gravity      | number  | —       |
+| friction     | number  | —       |
+| wallBounce   | number  | —       |
+| followCursor | boolean | —       |
+
+Usage:
+```jsx
+<div style={{ position: 'relative', overflow: 'hidden', minHeight: '500px', width: '100%' }}>
+  <Ballpit count={200} gravity={0.7} friction={0.8} wallBounce={0.95} followCursor={true} />
+</div>
+```
+
+--------------------------------------------------------------------------------
+
+## GridMotion
+
+Description: Perspective moving grid lines based on cursor position.
+Dependencies: gsap
+
+Props:
+| Prop  | Type                        | Default    |
+|-------|-----------------------------|------------|
+| items | Array<string \| JSX.Element>| (required) |
+
+Items can be text strings, JSX elements, or image URLs.
+
+Usage:
+```jsx
+<GridMotion items={[
+  'Item 1',
+  <div key="jsx">Custom Content</div>,
+  'https://images.unsplash.com/photo-...',
+]} />
+```
+
+--------------------------------------------------------------------------------
+
+## GridDistortion
+
+Description: Warped grid mesh distorts smoothly reacting to cursor.
+Dependencies: three
+
+Props:
+| Prop       | Type   | Default |
+|------------|--------|---------|
+| imageSrc   | string | —       |
+| grid       | number | 10      |
+| mouse      | number | 0.1     |
+| strength   | number | 0.15    |
+| relaxation | number | 0.9     |
+| className  | string | —       |
+
+Usage:
+```jsx
+<div style={{ width: '100%', height: '600px', position: 'relative' }}>
+  <GridDistortion
+    imageSrc="https://picsum.photos/1920/1080?grayscale"
+    grid={10}
+    mouse={0.1}
+    strength={0.15}
+    relaxation={0.9}
+  />
+</div>
+```
+
+--------------------------------------------------------------------------------
+
+## LetterGlitch
+
+Description: Matrix style letter animation.
+Dependencies: (none)
+
+Props:
+| Prop             | Type    | Default |
+|------------------|---------|---------|
+| glitchSpeed      | number  | 50      |
+| centerVignette   | boolean | true    |
+| outerVignette    | boolean | false   |
+| smooth           | boolean | true    |
+
+Usage:
+```jsx
+<LetterGlitch glitchSpeed={50} centerVignette={true} outerVignette={false} smooth={true} />
+```
+
+--------------------------------------------------------------------------------
+
+## Orb
+
+Description: Floating energy orb with customizable hover effect.
+Dependencies: ogl
+
+Props:
+| Prop            | Type    | Default |
+|-----------------|---------|---------|
+| hoverIntensity  | number  | 0.5     |
+| rotateOnHover   | boolean | true    |
+| hue             | number  | 0       |
+| forceHoverState | boolean | false   |
+
+Usage:
+```jsx
+<div style={{ width: '100%', height: '600px', position: 'relative' }}>
+  <Orb hoverIntensity={0.5} rotateOnHover={true} hue={0} forceHoverState={false} />
+</div>
+```
+
+--------------------------------------------------------------------------------
+
+## Balatro
+
+Description: The balatro shader, fully customizable and interactive.
+Dependencies: ogl
+
+Props:
+| Prop             | Type    | Default |
+|------------------|---------|---------|
+| isRotate         | boolean | false   |
+| mouseInteraction | boolean | true    |
+| pixelFilter      | number  | 700     |
+
+Usage:
+```jsx
+<Balatro isRotate={false} mouseInteraction={true} pixelFilter={700} />
+```
+
+--------------------------------------------------------------------------------
+
+## Threads
+
+Description: Animated pattern of lines forming a fabric-like motion.
+Dependencies: ogl
+
+Props:
+| Prop                   | Type    | Default |
+|------------------------|---------|---------|
+| amplitude              | number  | 1       |
+| distance               | number  | 0       |
+| enableMouseInteraction | boolean | true    |
+
+Usage:
+```jsx
+<div style={{ width: '100%', height: '600px', position: 'relative' }}>
+  <Threads amplitude={1} distance={0} enableMouseInteraction={true} />
+</div>
+```
+
+--------------------------------------------------------------------------------
+
+## Dither
+
+Description: Retro dithered noise shader background.
+Dependencies: three, postprocessing, @react-three/fiber, @react-three/postprocessing
+
+Props:
+| Prop                   | Type               | Default       |
+|------------------------|--------------------|---------------|
+| waveColor              | [number,number,number] | [0.5,0.5,0.5] |
+| disableAnimation       | boolean            | false         |
+| enableMouseInteraction | boolean            | true          |
+| mouseRadius            | number             | 0.3           |
+| colorNum               | number             | 4             |
+| waveAmplitude          | number             | 0.3           |
+| waveFrequency          | number             | 3             |
+| waveSpeed              | number             | 0.05          |
+
+Usage:
+```jsx
+<div style={{ width: '100%', height: '600px', position: 'relative' }}>
+  <Dither
+    waveColor={[0.5, 0.5, 0.5]}
+    enableMouseInteraction={true}
+    mouseRadius={0.3}
+    colorNum={4}
+    waveAmplitude={0.3}
+    waveFrequency={3}
+    waveSpeed={0.05}
+  />
+</div>
+```
+
+--------------------------------------------------------------------------------
+
+## Lightning
+
+Description: Procedural lightning bolts with branching and glow flicker.
+Dependencies: (none)
+
+Props:
+| Prop      | Type   | Default |
+|-----------|--------|---------|
+| hue       | number | 220     |
+| xOffset   | number | 0       |
+| speed     | number | 1       |
+| intensity | number | 1       |
+| size      | number | 1       |
+
+Usage:
+```jsx
+<div style={{ width: '100%', height: '600px', position: 'relative' }}>
+  <Lightning hue={220} xOffset={0} speed={1} intensity={1} size={1} />
+</div>
+```
+
+--------------------------------------------------------------------------------
+
+## DotGrid
+
+Description: Animated dot grid with cursor interactions.
+Dependencies: gsap
+
+Props:
+| Prop           | Type   | Default   |
+|----------------|--------|-----------|
+| dotSize        | number | 10        |
+| gap            | number | 15        |
+| baseColor      | string | "#5227FF" |
+| activeColor    | string | "#5227FF" |
+| proximity      | number | 120       |
+| shockRadius    | number | 250       |
+| shockStrength  | number | 5         |
+| resistance     | number | 750       |
+| returnDuration | number | 1.5       |
+
+Usage:
+```jsx
+<div style={{ width: '100%', height: '600px', position: 'relative' }}>
+  <DotGrid dotSize={10} gap={15} baseColor="#5227FF" activeColor="#5227FF" proximity={120} />
+</div>
+```
+
+--------------------------------------------------------------------------------
+
+## Beams
+
+Description: Crossing animated ribbons with customizable properties.
+Dependencies: three, @react-three/fiber, @react-three/drei
+
+Props:
+| Prop           | Type   | Default    |
+|----------------|--------|------------|
+| beamWidth      | number | 2          |
+| beamHeight     | number | 15         |
+| beamNumber     | number | 12         |
+| lightColor     | string | "#ffffff"  |
+| speed          | number | 2          |
+| noiseIntensity | number | 1.75       |
+| scale          | number | 0.2        |
+| rotation       | number | 0          |
+
+Usage:
+```jsx
+<div style={{ width: '100%', height: '600px', position: 'relative' }}>
+  <Beams beamWidth={2} beamHeight={15} beamNumber={12} lightColor="#ffffff" speed={2} />
+</div>
+```
+
+--------------------------------------------------------------------------------
+
+## RippleGrid
+
+Description: A grid that continuously animates with a ripple effect.
+Dependencies: ogl
+
+Props:
+| Prop                   | Type    | Default    |
+|------------------------|---------|------------|
+| enableRainbow          | boolean | false      |
+| gridColor              | string  | "#ffffff"  |
+| rippleIntensity        | number  | 0.05       |
+| gridSize               | number  | 10         |
+| gridThickness          | number  | 15         |
+| mouseInteraction       | boolean | true       |
+| mouseInteractionRadius | number  | 1.2        |
+| opacity                | number  | 0.8        |
+
+Usage:
+```jsx
+<div style={{ position: 'relative', height: '500px', overflow: 'hidden' }}>
+  <RippleGrid enableRainbow={false} gridColor="#ffffff" rippleIntensity={0.05} gridSize={10} />
+</div>
+```
+
+--------------------------------------------------------------------------------
+
+## DarkVeil
+
+Description: Subtle dark background with a smooth animation and postprocessing.
+Dependencies: ogl
+
+Props: No configurable props documented.
+
+Usage:
+```jsx
+<div style={{ width: '100%', height: '600px', position: 'relative' }}>
+  <DarkVeil />
+</div>
+```
+
+--------------------------------------------------------------------------------
+
+## Galaxy
+
+Description: Parallax realistic starfield with pointer interactions.
+Dependencies: ogl
+
+Props:
+| Prop             | Type    | Default |
+|------------------|---------|---------|
+| mouseRepulsion   | boolean | false   |
+| mouseInteraction | boolean | false   |
+| density          | number  | 1.0     |
+| glowIntensity    | number  | 0.5     |
+| saturation       | number  | 1.0     |
+| hueShift         | number  | 0       |
+
+Usage:
+```jsx
+<div style={{ width: '100%', height: '600px', position: 'relative' }}>
+  <Galaxy mouseRepulsion={true} mouseInteraction={true} density={1.5} glowIntensity={0.5} />
+</div>
+```
+
+--------------------------------------------------------------------------------
+
+## LightRays
+
+Description: Volumetric light rays/beams with customizable direction.
+Dependencies: ogl
+
+Props:
+| Prop           | Type    | Default |
+|----------------|---------|---------|
+| raysOrigin     | string  | —       |
+| raysColor      | string  | —       |
+| raysSpeed      | number  | —       |
+| lightSpread    | number  | —       |
+| rayLength      | number  | —       |
+| followMouse    | boolean | —       |
+| mouseInfluence | number  | —       |
+| noiseAmount    | number  | —       |
+| distortion     | number  | —       |
+| className      | string  | —       |
+
+Usage:
+```jsx
+<div style={{ width: '100%', height: '600px', position: 'relative' }}>
+  <LightRays
+    raysOrigin="top-center"
+    raysColor="#00ffff"
+    raysSpeed={1.5}
+    lightSpread={0.8}
+    rayLength={1.2}
+    followMouse={true}
+    mouseInfluence={0.1}
+  />
+</div>
+```
+
+--------------------------------------------------------------------------------
+
+## FaultyTerminal
+
+Description: Terminal CRT scanline squares effect with flicker + noise.
+Dependencies: ogl
+
+Props:
+| Prop                | Type    | Default    |
+|---------------------|---------|------------|
+| scale               | number  | 1.5        |
+| gridMul             | array   | [2, 1]     |
+| digitSize           | number  | 1.2        |
+| timeScale           | number  | 1          |
+| pause               | boolean | false      |
+| scanlineIntensity   | number  | 1          |
+| glitchAmount        | number  | 1          |
+| flickerAmount       | number  | 1          |
+| noiseAmp            | number  | 1          |
+| chromaticAberration | number  | 0          |
+| dither              | number  | 0          |
+| curvature           | number  | 0          |
+| tint                | string  | "#ffffff"  |
+| mouseReact          | boolean | true       |
+| mouseStrength       | number  | 0.5        |
+| pageLoadAnimation   | boolean | false      |
+| brightness          | number  | 1          |
+
+Usage:
+```jsx
+<div style={{ width: '100%', height: '600px', position: 'relative' }}>
+  <FaultyTerminal scale={1.5} glitchAmount={1} scanlineIntensity={1} mouseReact={true} />
+</div>
+```
+
+--------------------------------------------------------------------------------
+
+## Plasma
+
+Description: Organic plasma gradients swirl + morph with smooth turbulence.
+Dependencies: ogl
+
+Props:
+| Prop             | Type    | Default |
+|------------------|---------|---------|
+| color            | string  | —       |
+| speed            | number  | —       |
+| direction        | string  | —       |
+| scale            | number  | —       |
+| opacity          | number  | —       |
+| mouseInteractive | boolean | —       |
+
+Usage:
+```jsx
+<div style={{ width: '100%', height: '600px', position: 'relative' }}>
+  <Plasma color="#ff6b35" speed={0.6} direction="forward" scale={1.1} opacity={0.8} mouseInteractive={true} />
+</div>
+```
+
+--------------------------------------------------------------------------------
+
+## Prism
+
+Description: Rotating prism with configurable intensity, size, and colors.
+Dependencies: ogl
+
+Props:
+| Prop           | Type   | Default  |
+|----------------|--------|----------|
+| animationType  | string | "rotate" |
+| timeScale      | number | 0.5      |
+| height         | number | 3.5      |
+| baseWidth      | number | 5.5      |
+| scale          | number | 3.6      |
+| hueShift       | number | 0        |
+| colorFrequency | number | 1        |
+| noise          | number | 0.5      |
+| glow           | number | 1        |
+
+Usage:
+```jsx
+<div style={{ width: '100%', height: '600px', position: 'relative' }}>
+  <Prism animationType="rotate" timeScale={0.5} height={3.5} scale={3.6} glow={1} />
+</div>
+```
+
+--------------------------------------------------------------------------------
+
+## GradientBlinds
+
+Description: Layered gradient blinds with spotlight and noise distortion.
+Dependencies: ogl
+
+Props:
+| Prop              | Type     | Default                  |
+|-------------------|----------|--------------------------|
+| gradientColors    | string[] | ["#FF9FFC", "#5227FF"]   |
+| angle             | number   | 0                        |
+| noise             | number   | 0.3                      |
+| blindCount        | number   | 12                       |
+| blindMinWidth     | number   | 50                       |
+| spotlightRadius   | number   | 0.5                      |
+| spotlightSoftness | number   | 1                        |
+| spotlightOpacity  | number   | 1                        |
+| mouseDampening    | number   | 0.15                     |
+| distortAmount     | number   | 0                        |
+| shineDirection    | string   | "left"                   |
+| mixBlendMode      | string   | "lighten"                |
+
+Usage:
+```jsx
+<GradientBlinds
+  gradientColors={["#FF9FFC", "#5227FF"]}
+  blindCount={12}
+  spotlightRadius={0.5}
+  mouseDampening={0.15}
+  mixBlendMode="lighten"
+/>
+```
+
+--------------------------------------------------------------------------------
+
+## Grainient
+
+Description: Grainy gradient swirls with soft wave distortion.
+Dependencies: ogl
+
+Props:
+| Prop            | Type    | Default    |
+|-----------------|---------|------------|
+| color1          | string  | "#FF9FFC"  |
+| color2          | string  | "#5227FF"  |
+| color3          | string  | "#B19EEF"  |
+| timeSpeed       | number  | 0.25       |
+| colorBalance    | number  | 0.0        |
+| warpStrength    | number  | 1.0        |
+| warpFrequency   | number  | 5.0        |
+| warpSpeed       | number  | 2.0        |
+| warpAmplitude   | number  | 50.0       |
+| blendAngle      | number  | 0.0        |
+| blendSoftness   | number  | 0.05       |
+| rotationAmount  | number  | 500.0      |
+| noiseScale      | number  | 2.0        |
+| grainAmount     | number  | 0.1        |
+| grainScale      | number  | 2.0        |
+| grainAnimated   | boolean | false      |
+| contrast        | number  | 1.5        |
+| gamma           | number  | 1.0        |
+| saturation      | number  | 1.0        |
+| centerX         | number  | 0.0        |
+| centerY         | number  | 0.0        |
+| zoom            | number  | 0.9        |
+
+Usage:
+```jsx
+<Grainient color1="#FF9FFC" color2="#5227FF" color3="#B19EEF" timeSpeed={0.25} grainAmount={0.1} />
+```
+
+--------------------------------------------------------------------------------
+
+## PrismaticBurst
+
+Description: Burst of light rays with controllable color, distortion, amount.
+Dependencies: ogl
+
+Props:
+| Prop           | Type     | Default                         |
+|----------------|----------|---------------------------------|
+| animationType  | string   | "rotate3d"                      |
+| intensity      | number   | 2                               |
+| speed          | number   | 0.5                             |
+| distort        | number   | 1.0                             |
+| paused         | boolean  | false                           |
+| offset         | object   | { x: 0, y: 0 }                 |
+| hoverDampness  | number   | 0.25                            |
+| rayCount       | number   | 24                              |
+| mixBlendMode   | string   | "lighten"                       |
+| colors         | string[] | ["#ff007a", "#4d3dff", "#ffffff"]|
+
+Usage:
+```jsx
+<div style={{ width: '100%', height: '600px', position: 'relative' }}>
+  <PrismaticBurst
+    animationType="rotate3d"
+    intensity={2}
+    speed={0.5}
+    rayCount={24}
+    colors={['#ff007a', '#4d3dff', '#ffffff']}
+  />
+</div>
+```
+
+--------------------------------------------------------------------------------
+
+## PixelBlast
+
+Description: Exploding pixel particle bursts with optional liquid postprocessing.
+Dependencies: three, postprocessing
+
+Props:
+| Prop                 | Type    | Default    |
+|----------------------|---------|------------|
+| variant              | string  | —          |
+| pixelSize            | number  | 6          |
+| color                | string  | "#B19EEF"  |
+| patternScale         | number  | 3          |
+| patternDensity       | number  | 1.2        |
+| pixelSizeJitter      | number  | 0.5        |
+| enableRipples        | boolean | false      |
+| rippleSpeed          | number  | 0.4        |
+| rippleThickness      | number  | 0.12       |
+| rippleIntensityScale | number  | 1.5        |
+| liquid               | boolean | false      |
+| liquidStrength       | number  | 0.12       |
+| liquidRadius         | number  | 1.2        |
+| liquidWobbleSpeed    | number  | 5          |
+| speed                | number  | 0.6        |
+| edgeFade             | number  | 0.25       |
+| transparent          | boolean | false      |
+
+Usage:
+```jsx
+<div style={{ width: '100%', height: '600px', position: 'relative' }}>
+  <PixelBlast variant="circle" pixelSize={6} color="#B19EEF" speed={0.6} />
+</div>
+```
+
+--------------------------------------------------------------------------------
+
+## LiquidEther
+
+Description: Interactive liquid shader with flowing distortion and customizable colors.
+Dependencies: three
+
+Props:
+| Prop              | Type     | Default                          |
+|-------------------|----------|----------------------------------|
+| colors            | string[] | ["#5227FF", "#FF9FFC", "#B19EEF"]|
+| mouseForce        | number   | 20                               |
+| cursorSize        | number   | 100                              |
+| isViscous         | boolean  | false                            |
+| viscous           | number   | 30                               |
+| iterationsViscous | number   | 32                               |
+| iterationsPoisson | number   | 32                               |
+| resolution        | number   | 0.5                              |
+| isBounce          | boolean  | false                            |
+| autoDemo          | boolean  | true                             |
+| autoSpeed         | number   | 0.5                              |
+| autoIntensity     | number   | 2.2                              |
+| takeoverDuration  | number   | 0.25                             |
+| autoResumeDelay   | number   | 3000                             |
+| autoRampDuration  | number   | 0.6                              |
+
+Usage:
+```jsx
+<div style={{ width: '100%', height: '600px', position: 'relative' }}>
+  <LiquidEther colors={["#5227FF", "#FF9FFC", "#B19EEF"]} mouseForce={20} autoDemo={true} />
+</div>
+```
+
+--------------------------------------------------------------------------------
+
+## ColorBends
+
+Description: Vibrant color bends with smooth flowing animation.
+Dependencies: three
+
+Props:
+| Prop           | Type     | Default                          |
+|----------------|----------|----------------------------------|
+| colors         | string[] | ["#ff5c7a", "#8a5cff", "#00ffd1"]|
+| rotation       | number   | 30                               |
+| speed          | number   | 0.3                              |
+| scale          | number   | 1.2                              |
+| frequency      | number   | 1.4                              |
+| warpStrength   | number   | 1.2                              |
+| mouseInfluence | number   | 0.8                              |
+| parallax       | number   | 0.6                              |
+| noise          | number   | 0.08                             |
+| transparent    | boolean  | false                            |
+
+Usage:
+```jsx
+<ColorBends
+  colors={["#ff5c7a", "#8a5cff", "#00ffd1"]}
+  rotation={30}
+  speed={0.3}
+  scale={1.2}
+  warpStrength={1.2}
+  mouseInfluence={0.8}
+  transparent
+/>
+```
+
+--------------------------------------------------------------------------------
+
+## GridScan
+
+Description: Animated grid room 3D scan effect and cool interactions.
+Dependencies: three
+
+Props:
+| Prop                | Type    | Default    |
+|---------------------|---------|------------|
+| sensitivity         | number  | 0.55       |
+| lineThickness       | number  | 1          |
+| linesColor          | string  | "#392e4e"  |
+| gridScale           | number  | 0.1        |
+| scanColor           | string  | "#FF9FFC"  |
+| scanOpacity         | number  | 0.4        |
+| enablePost          | boolean | false      |
+| bloomIntensity      | number  | 0.6        |
+| chromaticAberration | number  | 0.002      |
+| noiseIntensity      | number  | 0.01       |
+
+Usage:
+```jsx
+<div style={{ width: '100%', height: '600px', position: 'relative' }}>
+  <GridScan
+    sensitivity={0.55}
+    linesColor="#392e4e"
+    gridScale={0.1}
+    scanColor="#FF9FFC"
+    enablePost
+    bloomIntensity={0.6}
+  />
+</div>
+```
+
+--------------------------------------------------------------------------------
+
+## FloatingLines
+
+Description: 3D floating lines that react to cursor movement.
+Dependencies: three
+
+Props:
+| Prop         | Type             | Default |
+|--------------|------------------|---------|
+| enabledWaves | string[]         | —       |
+| lineCount    | number \| number[] | —     |
+| lineDistance  | number \| number[] | —     |
+| bendRadius   | number           | 5.0     |
+| bendStrength | number           | -0.5    |
+| interactive  | boolean          | true    |
+| parallax     | boolean          | true    |
+
+Wave options: "top", "middle", "bottom"
+
+Usage:
+```jsx
+<div style={{ width: '100%', height: '600px', position: 'relative' }}>
+  <FloatingLines
+    enabledWaves={['top', 'middle', 'bottom']}
+    lineCount={[10, 15, 20]}
+    lineDistance={[8, 6, 4]}
+    bendRadius={5.0}
+    bendStrength={-0.5}
+    interactive={true}
+    parallax={true}
+  />
+</div>
+```
+
+--------------------------------------------------------------------------------
+
+## LightPillar
+
+Description: Vertical pillar of light with glow effects.
+Dependencies: three
+
+Props:
+| Prop           | Type    | Default    |
+|----------------|---------|------------|
+| topColor       | string  | "#5227FF"  |
+| bottomColor    | string  | "#FF9FFC"  |
+| intensity      | number  | 1.0        |
+| rotationSpeed  | number  | 0.3        |
+| glowAmount     | number  | 0.005      |
+| pillarWidth    | number  | 3.0        |
+| pillarHeight   | number  | 0.4        |
+| noiseIntensity | number  | 0.5        |
+| pillarRotation | number  | 0          |
+| interactive    | boolean | false      |
+| mixBlendMode   | string  | "normal"   |
+
+Usage:
+```jsx
+<div style={{ width: '100%', height: '600px', position: 'relative' }}>
+  <LightPillar
+    topColor="#5227FF"
+    bottomColor="#FF9FFC"
+    intensity={1.0}
+    rotationSpeed={0.3}
+    pillarWidth={3.0}
+    pillarHeight={0.4}
+  />
+</div>
+```
+
+--------------------------------------------------------------------------------
+
+## PixelSnow
+
+Description: Falling pixelated snow effect with customizable density and speed.
+Dependencies: three
+
+Props:
+| Prop             | Type   | Default    |
+|------------------|--------|------------|
+| color            | string | "#ffffff"  |
+| flakeSize        | number | 0.01       |
+| minFlakeSize     | number | 1.25       |
+| pixelResolution  | number | 200        |
+| speed            | number | 1.25       |
+| density          | number | 0.3        |
+| direction        | number | 125        |
+| brightness       | number | 1          |
+
+Usage:
+```jsx
+<div style={{ width: '100%', height: '600px', position: 'relative' }}>
+  <PixelSnow color="#ffffff" flakeSize={0.01} pixelResolution={200} speed={1.25} density={0.3} />
+</div>
+```
+
+
+################################################################################
+# INSTALLATION
+################################################################################
+
+Install via CLI (recommended):
+  npx jsrepo add github/DavidHDev/react-bits/<component-name>
+
+Or copy-paste from https://reactbits.dev
+
+Each component page at reactbits.dev includes:
+  - Live interactive demo
+  - Copy-paste source code in 4 variants (JS-CSS, JS-TW, TS-CSS, TS-TW)
+  - Prop table and usage examples
+
+Common dependencies used across components:
+  - motion (Framer Motion)
+  - gsap + @gsap/react (GreenSock)
+  - three + @react-three/fiber + @react-three/drei (Three.js)
+  - ogl (lightweight WebGL)
+  - matter-js (physics)
+  - lenis (smooth scroll)
+  - gl-matrix (math)
+  - lucide-react (icons)
+  - postprocessing / @react-three/postprocessing
+
+================================================================================
+END OF DOCUMENTATION
+================================================================================

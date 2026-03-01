@@ -1,0 +1,1508 @@
+================================================================================
+SmoothUI Component Library - Full Documentation
+Source: https://smoothui.dev/docs/components
+Fetched: 2026-02-28
+Total Components: 56
+================================================================================
+
+All components are installed via: npx smoothui-cli add <component-name>
+Built with: React, TypeScript, Tailwind CSS v4, Motion (Framer Motion), some use GSAP
+Compatible with: shadcn/ui ecosystem
+
+
+================================================================================
+CATEGORY: BASIC UI
+================================================================================
+
+## Accordion
+
+Description: Animated React accordion with smooth expand/collapse transitions.
+Accessible, keyboard-navigable FAQ component built on Radix UI with Motion animations.
+
+Installation:
+  npx smoothui-cli add basic-accordion
+
+Features:
+  - Collapsible content sections
+  - Keyboard navigation support
+  - Customizable styling
+  - Single or multiple item selection
+  - Smooth animations
+  - Built on Radix UI Accordion
+
+Dependencies: React, Motion (Framer Motion), Radix UI, Tailwind CSS v4
+
+Usage Example:
+  FAQ-style expandable/collapsible question-answer pairs with smooth motion transitions.
+
+
+--------------------------------------------------------------------------------
+
+## Animated Input
+
+Description: React text input with smooth focus animations, floating labels, and
+visual feedback built with Motion transitions for enhanced UX.
+
+Installation:
+  npx smoothui-cli add animated-input
+
+Features:
+  - Smooth focus animations
+  - Floating label support
+  - Visual feedback on interaction
+  - Customizable animation timing
+
+Usage Examples:
+  - Email Address input
+  - Username input
+  - Password input
+  Tip: "Try focusing on the inputs to see the label animation!"
+
+
+--------------------------------------------------------------------------------
+
+## Animated Progress Bar
+
+Description: A progress bar component featuring smooth animations and customizable
+styling with support for multiple animation types and responsive design.
+
+Installation:
+  npx smoothui-cli add animated-progress-bar
+
+Features:
+  - Smooth progress animations
+  - Customizable colors and styling
+  - Multiple animation types
+  - Responsive design
+  - Accessibility support
+
+Usage Example:
+  Shows "Progress: 40%" with "Custom Color" variant and "Increase" button for
+  interactive progress updates.
+
+
+--------------------------------------------------------------------------------
+
+## Animated Tabs
+
+Description: A tabs component with smooth sliding indicator animations and
+multiple variants.
+
+Installation:
+  npx smoothui-cli add animated-tabs
+
+Features:
+  - Three variants: underline, pill, and segment
+  - Smooth sliding indicator animation
+  - Controlled and uncontrolled modes
+  - Support for icons in tabs
+  - Full keyboard navigation
+  - Accessible with proper ARIA attributes
+  - Respects reduced motion preferences
+
+
+--------------------------------------------------------------------------------
+
+## Animated Toggle
+
+Description: A toggle switch component with smooth animations and multiple
+variants including morph and icon transitions.
+
+Installation:
+  npx smoothui-cli add animated-toggle
+
+Features:
+  - Three variants: default (smooth sliding), morph (shape changes during travel),
+    and icon (transitions between icons)
+  - Three sizes: sm, md, and lg
+  - Controlled and uncontrolled modes
+  - Smooth spring animations with Motion library
+  - Icon variant support with custom icons, crossfade and scale transitions
+  - Morph variant animates borderRadius during travel
+  - Full keyboard accessibility (Space/Enter to toggle)
+  - ARIA attributes with role="switch" and aria-checked
+  - Reduced motion support
+  - Disabled state support
+
+Props (inferred from features):
+  | Prop           | Type                              | Description                    |
+  |----------------|-----------------------------------|--------------------------------|
+  | variant        | "default" | "morph" | "icon"      | Toggle animation style         |
+  | size           | "sm" | "md" | "lg"                | Toggle size                    |
+  | checked        | boolean                           | Controlled mode value          |
+  | defaultChecked | boolean                           | Uncontrolled mode default      |
+  | onChange        | function                          | Change callback                |
+  | disabled       | boolean                           | Disable toggle                 |
+  | icons          | object                            | Custom icons (icon variant)    |
+
+
+--------------------------------------------------------------------------------
+
+## Animated Tooltip
+
+Description: A spring-animated tooltip component with smooth enter/exit
+transitions and multiple placement options built for React with Motion animations.
+
+Installation:
+  npx smoothui-cli add animated-tooltip
+
+Features:
+  - Four placement options (top, bottom, left, right)
+  - Spring-animated enter/exit transitions
+  - Keyboard accessible with Escape to dismiss
+  - Hover device detection
+  - Respects reduced motion preferences
+  - Arrow indicator pointing to trigger
+  - Supports rich content via ReactNode
+  - Optional show delay
+
+Props (inferred):
+  | Prop          | Type                                    | Description              |
+  |---------------|-----------------------------------------|--------------------------|
+  | placement     | "top" | "bottom" | "left" | "right"    | Tooltip position         |
+  | children      | ReactNode                               | Trigger element          |
+  | content       | ReactNode                               | Tooltip content          |
+  | delay         | number (optional)                       | Show delay (ms)          |
+  | onOpenChange  | function (optional)                     | Open/close callback      |
+
+
+--------------------------------------------------------------------------------
+
+## Basic Dropdown
+
+Description: A simple dropdown menu with label, items, and change callbacks.
+
+Installation:
+  npx smoothui-cli add basic-dropdown
+
+Features:
+  - Toggleable menu with keyboard navigation
+  - Customizable label and items with optional icons
+  - onChange callback with selected item
+  - Compact, accessible, and easy to style
+  - Works with any React content
+
+
+--------------------------------------------------------------------------------
+
+## Basic Modal
+
+Description: A minimal modal dialog with title, sizes, and action content.
+
+Installation:
+  npx smoothui-cli add basic-modal
+
+Features:
+  - Controlled state via isOpen and onClose props
+  - Customizable header (title slot)
+  - Flexible body content area
+  - Multiple size options
+  - Focus trap friendly / accessible
+  - Composable action area
+
+Props:
+  | Prop     | Type         | Description                        |
+  |----------|--------------|------------------------------------|
+  | isOpen   | boolean      | Controls modal visibility state    |
+  | onClose  | () => void   | Callback when modal should close   |
+  | title    | ReactNode    | Header/title content               |
+  | children | ReactNode    | Main body content                  |
+  | size     | string       | Layout size variant                |
+
+
+--------------------------------------------------------------------------------
+
+## Basic Toast
+
+Description: A lightweight notification system with support for multiple types
+and auto-dismiss functionality.
+
+Installation:
+  npx smoothui-cli add basic-toast
+
+Features:
+  - Multiple toast types: success, error, warning, and info variants
+  - Configurable messaging per toast
+  - Auto-dismiss after configurable duration
+  - Manual close by user
+  - Portal-friendly rendering for proper stacking
+  - Stackable design (multiple toasts without overlap)
+  - Minimal styling, easy customization
+  - Accessible ARIA-compliant announcements
+
+Props (inferred):
+  | Prop     | Type                                      | Description              |
+  |----------|-------------------------------------------|--------------------------|
+  | type     | "success" | "error" | "warning" | "info"  | Toast variant            |
+  | message  | string                                    | Notification content     |
+  | duration | number                                    | Auto-dismiss ms          |
+  | onClose  | function                                  | Manual dismissal handler |
+
+
+--------------------------------------------------------------------------------
+
+## Notification Badge
+
+Description: Animated React component for displaying alerts and user presence
+indicators with smooth Motion animations.
+
+Installation:
+  npx smoothui-cli add notification-badge
+
+Features:
+  - Three variants: dot (simple indicator), count (number badge),
+    status (presence indicator)
+  - Animated count changes with scale pop effect
+  - Ping animation for attention-grabbing alerts
+  - Status colors: online (green), offline (gray), busy (red), away (yellow)
+  - Flexible positioning in all four corners
+  - Wraps any element as children
+  - Respects reduced motion preferences
+  - Accessible with proper ARIA attributes
+
+
+--------------------------------------------------------------------------------
+
+## Searchable Dropdown
+
+Description: A dropdown menu with search/filter functionality and smooth
+animations, featuring real-time filtering, keyboard navigation, and staggered
+animations for results.
+
+Installation:
+  npx smoothui-cli add searchable-dropdown
+
+Item Props:
+  | Property    | Type              | Description                         |
+  |-------------|-------------------|-------------------------------------|
+  | id          | string | number   | Unique identifier for each item     |
+  | label       | string            | Display text shown in the dropdown  |
+  | icon        | React.ReactNode   | Optional icon before the label      |
+  | description | string            | Optional descriptive text below     |
+
+Features:
+  - Real-time search filtering with smooth transitions
+  - Keyboard navigation (Escape to close)
+  - Animated clear button for search input
+  - Staggered animation on filtered results
+  - Empty state messaging when no matches
+  - Click outside detection to close
+  - Fully accessible and customizable
+
+Dependencies: React, Motion, Tailwind CSS, TypeScript, Lucide icons
+
+
+--------------------------------------------------------------------------------
+
+## Skeleton Loader
+
+Description: An auto-adaptive skeleton loader that matches your UI's exact
+dimensions, with smooth animations using Tailwind's animate-pulse.
+
+Installation:
+  npx smoothui-cli add skeleton-loader
+
+Props:
+  | Prop      | Type      | Default | Description                                  |
+  |-----------|-----------|---------|----------------------------------------------|
+  | loading   | boolean   | --      | Controls visibility of skeleton vs content   |
+  | className | string    | --      | Custom Tailwind classes for skeleton blocks   |
+  | children  | ReactNode | --      | Component to wrap; skeleton matches its shape |
+
+Features:
+  - Auto-adaptive: matches wrapped component dimensions
+  - Uses Tailwind's animate-pulse
+  - Works without children for custom skeleton shapes
+  - Accessible with ARIA attributes
+
+Usage Examples:
+
+  Wrapping a Component:
+    <Skeleton loading={isLoading}>
+      <UserCard user={user} />
+    </Skeleton>
+
+  Basic Skeleton Blocks:
+    <div className="flex items-center gap-4">
+      <Skeleton className="size-12 rounded-full" />
+      <div className="space-y-2">
+        <Skeleton className="h-4 w-[200px]" />
+        <Skeleton className="h-4 w-[160px]" />
+      </div>
+    </div>
+
+
+--------------------------------------------------------------------------------
+
+## Tweet Card
+
+Description: A customizable component for displaying Twitter/X posts with
+full-width images and hover interactions.
+
+Installation:
+  npx smoothui-cli add tweet-card
+
+Props:
+  | Prop              | Type                                              | Default    | Description                       |
+  |-------------------|---------------------------------------------------|------------|-----------------------------------|
+  | id                | string                                            | Required   | Tweet ID to fetch and display     |
+  | fallback          | ReactNode                                         | --         | Loading skeleton (ClientTweetCard)|
+  | userInfoPosition  | "top" | "bottom"                                  | "bottom"   | Avatar and name placement         |
+  | avatarRounded     | "rounded" | "rounded-full" | "rounded-lg" | "rounded-md" | "rounded" | Avatar border radius style  |
+
+Features:
+  - Beautiful tweet card design with full-width images
+  - Hover-activated external link button (bottom-right)
+  - Support for tweets with images, videos, and text
+  - Server-side (TweetCard) and client-side (ClientTweetCard) rendering
+  - Loading and error states included
+  - Fully customizable styling
+  - Accessible with proper ARIA labels
+  - Consistent 24px padding on all sides
+
+Usage Examples:
+
+  Client-side rendering (recommended):
+    import { ClientTweetCard, TweetSkeleton } from "@repo/smoothui/components";
+
+    export function MyComponent() {
+      return (
+        <ClientTweetCard
+          id="1944804313156419771"
+          fallback={<TweetSkeleton />}
+        />
+      );
+    }
+
+  Server-side rendering:
+    import { TweetCard } from "@repo/smoothui/components";
+
+    export default async function MyPage() {
+      return (
+        <TweetCard id="1944804313156419771" />
+      );
+    }
+
+  User info at top with circular avatar:
+    <ClientTweetCard
+      id="1944804313156419771"
+      userInfoPosition="top"
+      avatarRounded="rounded-full"
+      fallback={<TweetSkeleton />}
+    />
+
+  Grid Layout:
+    <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      <ClientTweetCard id="1944804313156419771" fallback={<TweetSkeleton />} />
+      <ClientTweetCard id="2010439383795810775" userInfoPosition="top" avatarRounded="rounded-full" fallback={<TweetSkeleton />} />
+      <ClientTweetCard id="1785225558818771172" avatarRounded="rounded-lg" fallback={<TweetSkeleton />} />
+    </div>
+
+Powered by: react-tweet library
+
+
+================================================================================
+CATEGORY: BUTTON
+================================================================================
+
+## Button Copy
+
+Description: Animated copy-to-clipboard React button featuring smooth success
+feedback, tooltip support, and accessibility features. Designed for code snippets
+and shareable content.
+
+Installation:
+  npx smoothui-cli add button-copy
+
+Features:
+  - One-click copy with success state
+  - Optional tooltip and label support
+  - Accessible with aria-live attributes
+  - Themable and lightweight design
+  - Built with Motion animations and Lucide icons
+
+
+--------------------------------------------------------------------------------
+
+## Clip Corners Button
+
+Description: Geometric button with clipped corners and hover sheen.
+
+Installation:
+  npx smoothui-cli add clip-corners-button
+
+Features:
+  - Unique clipped-corners geometric styling
+  - Hover/press micro-interactions with visual feedback
+  - Compatible with icons and text labels
+  - Easy theming and customization support
+  - Corner variants: top-left, top-right, bottom-left, bottom-right triangle clipping
+
+
+--------------------------------------------------------------------------------
+
+## Dot Morph Button
+
+Description: Button with morphing dots for progress/confirmation states with
+smooth animations.
+
+Installation:
+  npx smoothui-cli add dot-morph-button
+
+Features:
+  - Morphing dot animations for visual feedback
+  - Multiple states: idle, loading, success
+  - Accessibility support with keyboard navigation and ARIA attributes
+  - Themeable and customizable
+
+
+--------------------------------------------------------------------------------
+
+## Magnetic Button
+
+Description: A React button that subtly follows the cursor with a magnetic
+effect, providing interactive visual feedback through spring physics.
+
+Installation:
+  npx smoothui-cli add magnetic-button
+
+Props:
+  | Prop         | Type    | Default   | Description                                        |
+  |--------------|---------|-----------|----------------------------------------------------|
+  | strength     | number  | 0.3       | Cursor-following magnetic pull intensity (0-1)      |
+  | radius       | number  | 150       | Activation distance in pixels for magnetic trigger  |
+  | springConfig | object  | undefined | Spring animation: { duration, bounce }              |
+  | asChild      | boolean | false     | Polymorphic: renders child element instead          |
+  | disabled     | boolean | false     | Disables magnetic effect and interaction            |
+
+Features:
+  - Cursor-following magnetic effect
+  - Configurable strength and activation radius
+  - Spring physics for natural movement
+  - Respects reduced motion preferences
+  - Touch device detection (effect disabled on touch)
+  - GPU-accelerated transforms
+  - Polymorphic with asChild prop
+
+Usage Examples:
+
+  Basic:
+    import MagneticButton from "@/components/magnetic-button";
+    <MagneticButton>Click me</MagneticButton>
+
+  Custom Strength:
+    <MagneticButton strength={0.5}>Strong magnetic effect</MagneticButton>
+
+  Custom Activation Radius:
+    <MagneticButton radius={200}>Large activation area</MagneticButton>
+
+  Spring Configuration:
+    <MagneticButton springConfig={{ duration: 0.6, bounce: 0.2 }}>Bouncy</MagneticButton>
+
+  Polymorphic Usage:
+    <MagneticButton asChild>
+      <a href="/docs">Go to Docs</a>
+    </MagneticButton>
+
+
+================================================================================
+CATEGORY: TEXT
+================================================================================
+
+## Wave Text
+
+Description: An animated text component that creates a smooth wave effect
+across characters.
+
+Installation:
+  npx smoothui-cli add wave-text
+
+Props:
+  | Prop         | Type      | Default  | Description                         |
+  |--------------|-----------|----------|-------------------------------------|
+  | amplitude    | number    | 8        | Controls wave height intensity      |
+  | duration     | number    | 0.8      | Animation cycle time in seconds     |
+  | staggerDelay | number    | 0.05     | Delay between character animations  |
+  | children     | ReactNode | required | Text content to animate             |
+
+Features:
+  - Continuous smooth wave motion across characters
+  - Customizable amplitude, duration, and stagger timing
+  - Natural bounce effect with custom easing curves
+  - GPU-accelerated rendering for performance
+
+Usage Examples:
+
+  Basic:
+    import WaveText from "@repo/smoothui/components/wave-text";
+    <WaveText>Hello World</WaveText>
+
+  Large Bold Text:
+    <div className="font-bold text-3xl">
+      <WaveText amplitude={12} duration={1.0} staggerDelay={0.04}>
+        SmoothUI Components
+      </WaveText>
+    </div>
+
+  Subtle Wave:
+    <WaveText amplitude={6} duration={1.4} staggerDelay={0.06}>
+      Smooth wave animations for your text!
+    </WaveText>
+
+
+--------------------------------------------------------------------------------
+
+## Reveal Text
+
+Description: Animates text into view from different directions with staggered
+character animations.
+
+Installation:
+  npx smoothui-cli add reveal-text
+
+Features:
+  - Enter animations from up, down, left, or right directions
+  - Stagger options for characters or words
+  - Customizable delay and duration controls
+  - Accessible and performant
+
+Props (inferred):
+  | Prop      | Type                                  | Description                |
+  |-----------|---------------------------------------|----------------------------|
+  | direction | "up" | "down" | "left" | "right"     | Animation entry direction  |
+  | text      | string                                | Content to animate         |
+  | stagger   | "character" | "word"                  | Stagger granularity        |
+  | delay     | number                                | Initial animation delay    |
+  | duration  | number                                | Animation duration (ms)    |
+
+
+--------------------------------------------------------------------------------
+
+## Typewriter Text
+
+Description: Animated typewriter text effect for React with character-by-character
+reveal and looping support. Ideal for hero sections, landing pages, and AI chat
+interfaces.
+
+Installation:
+  npx smoothui-cli add typewriter-text
+
+Features:
+  - Progressive character reveal with configurable speed
+  - Optional looping with pauses
+  - Works with headings, paragraphs, and inline text
+  - Accessible and performant
+
+
+--------------------------------------------------------------------------------
+
+## Scramble Hover
+
+Description: Animated text scramble effect on hover for React. Creates playful,
+Matrix-style character animations with customizable speed and duration. Built
+with Motion.
+
+Installation:
+  npx smoothui-cli add scramble-hover
+
+Features:
+  - Character scrambling animation triggered on hover
+  - Customizable speed and duration controls
+  - Compatible with headings and inline text
+  - Smooth, performant animations
+  - Accessible fallback implementations
+
+
+--------------------------------------------------------------------------------
+
+## Scroll Reveal Paragraph
+
+Description: Reveals paragraphs as they enter the viewport with subtle motion
+and fade.
+
+Installation:
+  npx smoothui-cli add scroll-reveal-paragraph
+
+Features:
+  - Reveal on scroll with smooth fade and translate animations
+  - Per-paragraph stagger for long-form content
+  - Configurable thresholds and offsets
+  - Built with Framer Motion + Intersection Observer
+  - Accessible and performant
+
+
+================================================================================
+CATEGORY: AI
+================================================================================
+
+## Agent Avatar
+
+Description: Canvas-based generative pixel avatar for AI agents. Each seed
+produces a unique, deterministic pattern with animated color shifts.
+
+Installation:
+  npx smoothui-cli add agent-avatar
+
+Features:
+  - Deterministic pixel patterns generated from a seed string
+  - Animated color oscillation with per-pixel phase offsets
+  - Retina-ready with devicePixelRatio scaling
+  - Circular clipping with outer glow
+  - Respects prefers-reduced-motion
+
+Inspired by: grok.com
+
+
+--------------------------------------------------------------------------------
+
+## AI Branch
+
+Description: An animated AI branch component with smooth transitions and
+interactive elements.
+
+Installation:
+  npx smoothui-cli add ai-branch
+
+Features:
+  - Smooth animated transitions
+  - Interactive branch elements
+  - Customizable animations
+  - Responsive design
+  - AI-themed visual elements
+
+
+--------------------------------------------------------------------------------
+
+## AI Input
+
+Description: Text input with command parser and AI-friendly UX, designed
+specifically for AI applications and interfaces.
+
+Installation:
+  npx smoothui-cli add ai-input
+
+Features:
+  - Command parsing capabilities
+  - Keyboard shortcuts and focus states
+  - Clear/submit actions
+  - Smooth micro-interactions
+  - Accessible and themable
+
+Dependencies: Motion, CVA (Class Variance Authority), TypeScript, Tailwind CSS v4
+
+
+================================================================================
+CATEGORY: OTHERS
+================================================================================
+
+## Animated Avatar Group
+
+Description: A stack of overlapping avatars that smoothly expand on hover with
+staggered spring animations.
+
+Installation:
+  npx smoothui-cli add animated-avatar-group
+
+Features:
+  - Overlapping avatar stack with smooth expand animation
+  - Staggered spring animations on hover
+  - Configurable max visible count with "+N" indicator
+  - Adjustable size and overlap
+  - Hover device detection
+  - Respects reduced motion preferences
+  - Optional link support per avatar
+
+
+--------------------------------------------------------------------------------
+
+## Animated OTP Input
+
+Description: One-time-password input with focus and reveal animations.
+
+Installation:
+  npx smoothui-cli add animated-o-t-p-input
+
+Features:
+  - Auto-advance to next field after input
+  - Backspace support for backward navigation
+  - Animated focus and validation transitions
+  - Masking options to hide sensitive input
+  - Accessible and mobile-friendly
+  - Keyboard navigable, touch-optimized
+
+Dependencies: Motion, Lucide icons, input-otp library
+
+
+--------------------------------------------------------------------------------
+
+## Animated Tags
+
+Description: A collection of tags featuring smooth animations and interactive
+effects for add/remove operations.
+
+Installation:
+  npx smoothui-cli add animated-tags
+
+Features:
+  - Smooth tag animations between states
+  - Interactive hover effects
+  - Customizable styling via props and CSS
+  - Add/remove animations with dynamic management
+  - Responsive layout
+  - Compatible with shadcn/ui ecosystem
+
+
+--------------------------------------------------------------------------------
+
+## App Download Stack
+
+Description: Store badges with animated layout for app download CTAs.
+
+Installation:
+  npx smoothui-cli add app-download-stack
+
+Features:
+  - iOS/Android store badges
+  - Subtle entrance animations
+  - Flexible layout and copy
+  - Responsive and accessible design
+
+
+--------------------------------------------------------------------------------
+
+## Apple Invites
+
+Description: Apple-like invite list with smooth presence and gestures.
+
+Installation:
+  npx smoothui-cli add apple-invites
+
+Features:
+  - Animated add/remove of invitees
+  - Drag and reorder friendly
+  - Presence transitions
+  - Keyboard and screen reader support
+  - Three visual states: "Interested," "Hosting," and "Going"
+  - Event information display (image, title, date/time, location)
+  - Participant avatar visualization
+
+
+--------------------------------------------------------------------------------
+
+## Contribution Graph
+
+Description: GitHub-like heatmap component for visualizing activity data
+over time.
+
+Installation:
+  npx smoothui-cli add contribution-graph
+
+Features:
+  - Heatmap cells with tooltips
+  - Animations on load and hover
+  - Custom color scales
+  - Responsive grid
+
+Dependencies: Motion, GSAP animations
+
+
+--------------------------------------------------------------------------------
+
+## Cursor Follow
+
+Description: Smooth, animated blob that follows the user's pointer position,
+providing delightful visual feedback.
+
+Installation:
+  npx smoothui-cli add cursor-follow
+
+Features:
+  - Spring-animated pointer tracking
+  - Blend/blur styling effects
+  - Performance optimized
+  - Easy theming and customization
+
+
+--------------------------------------------------------------------------------
+
+## Dynamic Island
+
+Description: Apple-inspired Dynamic Island React component with smooth spring
+animations. Expandable notification pill for alerts, music players, and status
+updates.
+
+Installation:
+  npx smoothui-cli add dynamic-island
+
+Features:
+  - Expand/collapse with spring motion
+  - Queue multiple messages
+  - Supports icons and actions
+  - Accessible announcements
+
+
+--------------------------------------------------------------------------------
+
+## Expandable Cards
+
+Description: Interactive React cards that expand to reveal content with smooth
+Motion animations. Designed for portfolios and product showcases.
+
+Installation:
+  npx smoothui-cli add expandable-cards
+
+Features:
+  - Expand/collapse animations with smooth layout transitions
+  - Keyboard navigation and full accessibility support
+  - Flexible layouts supporting grid or list arrangements
+  - Easy theming and customization
+
+Example cards: "Summer Opening," "Fashion," "Gallery Art," "Dreams"
+
+
+--------------------------------------------------------------------------------
+
+## Figma Comment
+
+Description: Animated comment bubble inspired by Figma's comment system. Expands
+from a small avatar to show full comment details with smooth spring animations.
+
+Installation:
+  npx smoothui-cli add figma-comment
+
+Features:
+  - Smooth spring animations for expand/collapse
+  - Click outside to close
+  - Customizable width and content dimensions
+  - Notification indicator support
+  - Responsive height measurement
+  - Accessible with reduced motion support
+
+
+--------------------------------------------------------------------------------
+
+## Glow Hover Cards
+
+Description: Cards with a glowing hover effect that follows your cursor, creating
+an interactive spotlight effect.
+
+Installation:
+  npx smoothui-cli add glow-hover-card
+
+Props:
+  | Prop           | Type        | Default | Description                          |
+  |----------------|-------------|---------|--------------------------------------|
+  | color          | string (HSL)| --      | Card's glow color in HSL format      |
+  | (reduced motion)| boolean    | true    | Respects prefers-reduced-motion      |
+
+Features:
+  - Cursor-following glow via CSS mask-image
+  - Customizable HSL-based colors per card
+  - Spring physics and GPU-accelerated effects
+  - Reduced motion support
+  - Hardware acceleration for performance
+
+
+--------------------------------------------------------------------------------
+
+## GitHub Stars Animation
+
+Description: Displays GitHub stargazers with animated avatars and a countdown
+star counter. Optimized for hero sections and landing pages.
+
+Installation:
+  npx smoothui-cli add github-stars-animation
+
+Features:
+  - Animated countdown from 0 to star count
+  - Displays avatars of users who starred the repo
+  - Staggered entrance animations for avatars
+  - Fetches data from GitHub API or custom endpoint
+  - Supports both client-side and server-side data fetching
+  - Loading and error states
+  - Perfect for hero sections and landing pages
+
+
+--------------------------------------------------------------------------------
+
+## Gooey Popover
+
+Description: A popover component with a viscous gooey blob morphing animation.
+Uses an SVG filter and GSAP to create a liquid-like transition between the
+trigger button and content panel.
+
+Installation:
+  npx smoothui-cli add gooey-popover
+
+Features:
+  - SVG Goo Filter for viscous liquid morphing
+  - GSAP-powered precise smooth open/close transitions
+  - Dual modes: controlled and uncontrolled
+  - Customizable trigger size, content width, speed, and placement side
+  - Click outside and Escape key close
+  - Full ARIA attributes and keyboard support
+  - Reduced motion support (skips filter effects)
+
+Inspired by: @jh3yy (Twitter), codepen.io/jh3y
+
+
+--------------------------------------------------------------------------------
+
+## Grid Loader
+
+Description: A 3x3 grid-based loading animation with preset patterns,
+customizable colors, and multiple animation modes.
+
+Installation:
+  npx smoothui-cli add grid-loader
+
+Props:
+  | Prop     | Type                                          | Default  | Description                          |
+  |----------|-----------------------------------------------|----------|--------------------------------------|
+  | pattern  | string | number[][]                         | "pulse"  | Preset name or custom 3x3 matrix     |
+  | mode     | "pulse" | "stagger" | "sequence"           | "pulse"  | Animation behavior mode              |
+  | sequence | string[]                                      | --       | Array of patterns for sequence mode  |
+  | color    | string                                        | "white"  | Color value (preset or CSS)          |
+  | size     | "sm" | "md" | "lg" | "xl" | number          | "md"     | Loader dimensions                    |
+
+Animation Modes:
+  - pulse: All active cells glow together in a breathing animation
+  - stagger: Active cells reveal one-by-one in reading order
+  - sequence: Cycles through an array of patterns
+
+60+ Preset Patterns (categories):
+  Solo, Lines, Waves, Corners, Plus & Cross, Shapes, L/T-shapes, Stripes,
+  Spirals, Snake, Rain, Duo, Frame/Border, Effects, Edge, Sparse
+  Examples: solo-center, wave-lr, diamond, checkerboard, spiral-cw,
+  breathing, heartbeat
+
+Color Presets: white, red, blue, green, amber
+Custom CSS colors supported: color="#a855f7" or color="rgb(168, 85, 247)"
+
+Sizes: sm (24px), md (32px), lg (48px), xl (64px), or custom number
+
+Usage Examples:
+
+  Pulse mode (default):
+    <GridLoader pattern="plus-hollow" mode="pulse" />
+
+  Stagger mode:
+    <GridLoader pattern="frame" mode="stagger" />
+
+  Sequence mode:
+    <GridLoader mode="sequence" sequence={["corners-only", "cross", "frame"]} />
+
+  Custom 3x3 pattern:
+    <GridLoader
+      pattern={[
+        [1, 0, 1],
+        [0, 1, 0],
+        [1, 0, 1],
+      ]}
+    />
+
+  Custom size:
+    <GridLoader size={40} />
+
+Features:
+  - Respects reduced motion preferences
+  - Accessible with proper ARIA attributes
+  - Glow effect scales with size
+
+
+--------------------------------------------------------------------------------
+
+## Image Metadata Preview
+
+Description: A React component that reveals EXIF and metadata for images on
+hover, displaying a metadata panel with smooth entrance animations.
+
+Installation:
+  npx smoothui-cli add image-metadata-preview
+
+Features:
+  - On-hover metadata panel
+  - Smooth entrance animations via Motion
+  - Custom fields and layout
+  - Static or dynamic data support
+
+Dependencies: Motion, Lucide icons, useHooks
+
+
+--------------------------------------------------------------------------------
+
+## Infinite Slider
+
+Description: Seamless scrolling marquee component for React with customizable
+speed and pause-on-hover. Ideal for logo carousels, testimonials, brand showcases.
+
+Installation:
+  npx smoothui-cli add infinite-slider
+
+Props:
+  | Prop         | Type                          | Description                    |
+  |--------------|-------------------------------|--------------------------------|
+  | speed        | number                        | Animation speed                |
+  | gap          | number                        | Spacing between items          |
+  | pauseOnHover | boolean                       | Pause animation when hovering  |
+  | direction    | "horizontal" | "vertical"    | Scroll direction               |
+  | reverse      | boolean                       | Reverse scroll direction       |
+
+Features:
+  - Smooth infinite scrolling
+  - Customizable speed and gap
+  - Pause on hover
+  - Horizontal and vertical directions
+  - Reverse capability
+  - Seamless looping without visual jumps
+
+Dependencies: Motion, react-use-measure
+
+
+--------------------------------------------------------------------------------
+
+## Interactive Image Selector
+
+Description: Selectable image grid with animated selection states.
+
+Installation:
+  npx smoothui-cli add interactive-image-selector
+
+Features:
+  - Toggle selection with keyboard and pointer input
+  - Animated selection ring and scales
+  - Custom renderers and captions support
+  - Responsive grid layout
+  - Reset button to clear selections
+  - Select button for bulk operations
+
+
+--------------------------------------------------------------------------------
+
+## Job Listing Component
+
+Description: Animated job listing cards with filters and tags for displaying
+employment opportunities.
+
+Installation:
+  npx smoothui-cli add job-listing-component
+
+Features:
+  - Animated card entrance and hover effects
+  - Filter/tags-friendly layout
+  - Accessible focus states for keyboard navigation
+  - Responsive grid/list view options
+
+Dependencies: Motion, GSAP animations
+
+Example data:
+  - Resend: Senior Frontend Engineer ($120k-$180k, Hybrid/San Francisco)
+  - Turso: Backend Developer ($100k-$150k, Remote)
+  - Supabase: Developer Advocate ($90k-$130k, Remote)
+
+
+--------------------------------------------------------------------------------
+
+## Number Flow
+
+Description: Smooth animated number transitions for React dashboards, counters,
+and KPIs. Features rolling digit animations, locale formatting, and customizable
+easing.
+
+Installation:
+  npx smoothui-cli add number-flow
+
+Features:
+  - Smooth counting animations
+  - Locale-aware formatting
+  - Easing and duration controls
+  - Accessible labels
+
+Use cases: Dashboard metrics, counter displays, KPI indicators, financial data
+
+
+--------------------------------------------------------------------------------
+
+## Phototab
+
+Description: Tabbed photo gallery with animated transitions.
+
+Installation:
+  npx smoothui-cli add phototab
+
+Features:
+  - Tab navigation between photos
+  - Swipe gesture support
+  - Lazy loading friendly
+  - Keyboard navigation and ARIA tab compliance
+  - Responsive grid-based layout
+  - Smooth animated transitions
+
+Dependencies: Motion, Radix UI, Tailwind CSS
+
+
+--------------------------------------------------------------------------------
+
+## Power Off Slide
+
+Description: iOS-style power slider interaction with haptics support, designed
+for confirming actions through drag-to-confirm mechanics.
+
+Installation:
+  npx smoothui-cli add power-off-slide
+
+Features:
+  - Drag to confirm interaction
+  - Spring physics and rubber-banding
+  - Accessible labels and states
+  - Theming options
+
+Dependencies: Motion, GSAP
+
+
+--------------------------------------------------------------------------------
+
+## Price Flow
+
+Description: Animated price transitions for plans and toggles, enabling smooth
+number animations when prices change.
+
+Installation:
+  npx smoothui-cli add price-flow
+
+Features:
+  - Smooth number swaps for pricing displays
+  - Monthly/annual toggle compatibility
+  - Locale formatting support for international pricing
+  - Accessible labeling for screen readers
+
+
+--------------------------------------------------------------------------------
+
+## Rich Popover
+
+Description: Popover with media, actions, and animated positioning.
+
+Installation:
+  npx smoothui-cli add rich-popover
+
+Features:
+  - Animated entrance and smart positioning
+  - Media, lists, and actions support
+  - Keyboard and screen reader accessibility
+  - Theming and size customization
+
+Dependencies: Motion, Lucide icons, Radix UI
+
+
+--------------------------------------------------------------------------------
+
+## Reviews Carousel
+
+Description: Elegant carousel component for displaying testimonials and reviews
+with smooth spring animations and keyboard navigation.
+
+Installation:
+  npx smoothui-cli add reviews-carousel
+
+Features:
+  - Smooth spring-based card transition animations
+  - Keyboard navigation (Arrow keys)
+  - Auto-play support with configurable interval
+  - Customizable indicators and navigation buttons
+  - Respects prefers-reduced-motion
+  - Stack-based card layout with depth effect
+  - Blur and opacity effects for inactive cards
+
+Display: Review quote text, author name, author title/role, navigation controls
+
+
+--------------------------------------------------------------------------------
+
+## Siri Orb
+
+Description: Animated Siri-style audio visualizer orb with reactive wave
+animations and glowing effects. Built with Motion for smooth, customizable
+AI assistant UIs.
+
+Installation:
+  npx smoothui-cli add siri-orb
+
+Features:
+  - Animated waves and glow effects
+  - Reacts to input levels
+  - Smooth looping animations
+  - Easy customization via CSS custom properties
+
+CSS Custom Properties:
+  | Property             | Purpose                                    |
+  |----------------------|--------------------------------------------|
+  | --angle              | Controls rotation animation (0-360deg)     |
+  | --c1, --c2, --c3     | Color variables for gradient layers        |
+  | --bg                 | Background color                           |
+  | --shadow-spread      | Inset shadow spread distance               |
+  | --blur-amount        | Blur filter intensity                      |
+  | --contrast-amount    | Contrast filter adjustment                 |
+  | --dot-size           | Size of dot pattern overlay                |
+  | --mask-radius        | Radial mask radius percentage              |
+  | --animation-duration | Duration of rotation animation             |
+
+Technical Implementation:
+  - Grid layout with stacked pseudo-elements (::before, ::after)
+  - Six layered conic-gradient backgrounds with multiplied angle values
+  - Backdrop filters for depth effects
+  - CSS animation for continuous rotation
+  - Mask images for edge effects
+  - Respects prefers-reduced-motion: reduce
+
+
+--------------------------------------------------------------------------------
+
+## Social Selector
+
+Description: Select social accounts with animated selection states.
+
+Installation:
+  npx smoothui-cli add social-selector
+
+Features:
+  - Animated select/deselect interactions
+  - Icon and label variants
+  - Keyboard and screen reader support
+  - Responsive layout
+
+Example platforms: X (Twitter), Bluesky, Threads
+
+
+--------------------------------------------------------------------------------
+
+## Scrubber
+
+Description: Design-tool style slider with animated thumb, label, value display,
+and tick marks.
+
+Installation:
+  npx smoothui-cli add scrubber
+
+Features:
+  - Dark, self-contained slider with built-in label and value display
+  - Animated thumb (appears on hover/drag) with spring physics
+  - Subtle scrub indicator for position feedback at rest
+  - Configurable tick marks for visual reference
+  - Keyboard accessible (arrow keys, Home, End)
+  - Controlled and uncontrolled usage patterns
+  - Respects prefers-reduced-motion
+
+Inspired by: joshpuckett.me/dialkit
+
+
+--------------------------------------------------------------------------------
+
+## Scrollable Card Stack
+
+Description: Interactive stacked card carousel with scroll-snap navigation and
+smooth parallax reveal animations. Touch-friendly React component for showcases
+and galleries.
+
+Installation:
+  npx smoothui-cli add scrollable-card-stack
+
+Features:
+  - Stacked, snap-scrolling layout
+  - Parallax and reveal motion effects
+  - Keyboard and touch-friendly navigation
+  - Arrow key support for card-by-card navigation
+  - Dot navigation for direct card selection
+  - "Card X of Y selected" indicator
+  - Theming options
+
+
+--------------------------------------------------------------------------------
+
+## Switchboard Card
+
+Description: A feature card component with an animated light grid illustration
+that can display patterns or random lights.
+
+Installation:
+  npx smoothui-cli add switchboard-card
+
+Props:
+  | Prop          | Type                    | Description                               |
+  |---------------|-------------------------|-------------------------------------------|
+  | title         | string                  | Card title text                           |
+  | subtitle      | string                  | Card subtitle/description text            |
+  | variant       | string                  | Visual variant (e.g., "next")             |
+  | columns       | number                  | Grid column count                         |
+  | rows          | number                  | Grid row count                            |
+  | gridPattern   | 2D array or flat array  | Light pattern: 0 (off) or 1 (high)       |
+  | word          | string                  | Display word pattern automatically        |
+  | pattern       | array                   | Array of light indices to activate        |
+  | randomLights  | boolean                 | Enable dynamic random light cycling       |
+  | href          | string                  | Make card clickable with navigation       |
+  | onButtonClick | function                | Custom click handler                      |
+
+Features:
+  - Animated light grid with configurable dimensions
+  - Three light states: off, medium, high (all use brand color)
+  - Word pattern support for short words (e.g., "NEXT", "REACT", "VUE")
+  - Supported letters: N, E, X, T, R, A, C, V, U
+  - Custom pattern support via light indices array
+  - Random light generation for dynamic effects
+  - Next.js-style variant with dark gradient background
+  - Smooth transitions and animations
+
+Usage Examples:
+
+  Basic:
+    <SwitchboardCard
+      title="Next.js 16"
+      subtitle="The power of full-stack to the frontend."
+      variant="next"
+    />
+
+  Word Pattern (simplest):
+    <SwitchboardCard
+      title="Next.js 16"
+      subtitle="The power of full-stack to the frontend."
+      word="NEXT"
+      columns={18}
+      rows={5}
+    />
+
+  2D Grid Pattern:
+    const nextPattern = [
+      [1,1,0,0,0,0,0,1,1,1,0,0,0,1,1,1,1,1],
+      [1,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0],
+      [1,0,0,1,0,0,0,1,1,1,0,0,0,0,0,0,1,0],
+      [1,0,0,0,1,0,0,1,0,0,0,0,0,0,0,0,1,0],
+      [1,1,1,1,1,0,0,1,1,1,0,0,0,1,1,1,1,1],
+    ];
+    <SwitchboardCard
+      title="Custom Pattern"
+      subtitle="Define your own pattern."
+      gridPattern={nextPattern}
+      columns={18}
+      rows={5}
+    />
+
+  Custom Light Indices:
+    const customPattern = [15, 19, 26, 29, 34, 55, 60, 70, 74, 83];
+    <SwitchboardCard
+      title="Custom Pattern"
+      subtitle="Display a custom light pattern."
+      pattern={customPattern}
+      columns={18}
+      rows={5}
+    />
+
+  Random Lights:
+    <SwitchboardCard
+      title="React 19"
+      subtitle="Latest features and improvements."
+      randomLights
+      columns={18}
+      rows={5}
+    />
+
+  Interactive (navigable):
+    <SwitchboardCard
+      title="Documentation"
+      subtitle="Read the full documentation."
+      href="/docs"
+      variant="next"
+    />
+
+Inspired by: nextjs.org
+
+
+--------------------------------------------------------------------------------
+
+## User Account Avatar
+
+Description: An image element with a fallback for representing the user.
+
+Installation:
+  npx smoothui-cli add user-account-avatar
+
+Features:
+  - Image with fallback support
+  - Multiple sizes
+  - Customizable fallback text
+  - Group avatars support
+  - Status indicators
+  - Built on Radix UI Avatar
+
+Dependencies: Radix UI Avatar, React, TypeScript, Tailwind CSS
+
+
+================================================================================
+END OF DOCUMENTATION
+================================================================================
+
+Quick Reference - All Install Commands:
+
+  # Basic UI
+  npx smoothui-cli add basic-accordion
+  npx smoothui-cli add animated-input
+  npx smoothui-cli add animated-progress-bar
+  npx smoothui-cli add animated-tabs
+  npx smoothui-cli add animated-toggle
+  npx smoothui-cli add animated-tooltip
+  npx smoothui-cli add basic-dropdown
+  npx smoothui-cli add basic-modal
+  npx smoothui-cli add basic-toast
+  npx smoothui-cli add notification-badge
+  npx smoothui-cli add searchable-dropdown
+  npx smoothui-cli add skeleton-loader
+  npx smoothui-cli add tweet-card
+
+  # Button
+  npx smoothui-cli add button-copy
+  npx smoothui-cli add clip-corners-button
+  npx smoothui-cli add dot-morph-button
+  npx smoothui-cli add magnetic-button
+
+  # Text
+  npx smoothui-cli add wave-text
+  npx smoothui-cli add reveal-text
+  npx smoothui-cli add typewriter-text
+  npx smoothui-cli add scramble-hover
+  npx smoothui-cli add scroll-reveal-paragraph
+
+  # AI
+  npx smoothui-cli add agent-avatar
+  npx smoothui-cli add ai-branch
+  npx smoothui-cli add ai-input
+
+  # Others
+  npx smoothui-cli add animated-avatar-group
+  npx smoothui-cli add animated-o-t-p-input
+  npx smoothui-cli add animated-tags
+  npx smoothui-cli add app-download-stack
+  npx smoothui-cli add apple-invites
+  npx smoothui-cli add contribution-graph
+  npx smoothui-cli add cursor-follow
+  npx smoothui-cli add dynamic-island
+  npx smoothui-cli add expandable-cards
+  npx smoothui-cli add figma-comment
+  npx smoothui-cli add glow-hover-card
+  npx smoothui-cli add github-stars-animation
+  npx smoothui-cli add gooey-popover
+  npx smoothui-cli add grid-loader
+  npx smoothui-cli add image-metadata-preview
+  npx smoothui-cli add infinite-slider
+  npx smoothui-cli add interactive-image-selector
+  npx smoothui-cli add job-listing-component
+  npx smoothui-cli add number-flow
+  npx smoothui-cli add phototab
+  npx smoothui-cli add power-off-slide
+  npx smoothui-cli add price-flow
+  npx smoothui-cli add rich-popover
+  npx smoothui-cli add reviews-carousel
+  npx smoothui-cli add siri-orb
+  npx smoothui-cli add social-selector
+  npx smoothui-cli add scrubber
+  npx smoothui-cli add scrollable-card-stack
+  npx smoothui-cli add switchboard-card
+  npx smoothui-cli add user-account-avatar
