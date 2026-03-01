@@ -31,13 +31,13 @@ Bedrock is a curated skill that gives Claude Code access to 150+ production-grad
 
 ```bash
 # Clone into your Claude Code skills directory
-git clone https://github.com/OWNER/bedrock.git ~/.claude/skills/bedrock
+git clone https://github.com/Jacknelson6/bedrock.git ~/.claude/skills/bedrock
 ```
 
 ### Manual Install
 
 ```bash
-git clone https://github.com/OWNER/bedrock.git /tmp/bedrock
+git clone https://github.com/Jacknelson6/bedrock.git /tmp/bedrock
 cp -r /tmp/bedrock ~/.claude/skills/bedrock
 ```
 
