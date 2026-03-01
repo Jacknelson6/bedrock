@@ -1,149 +1,350 @@
-# Features Grid — Bedrock Template
+# Features Section — Bedrock Composition Guide
 
-The features section communicates product capabilities. It must be scannable (users skim), beautiful (establishes quality), and indexable (SEO value from feature descriptions).
+The features section communicates product capabilities. It must be scannable (users skim), visually varied (not a wall of identical cards), and indexable (SEO value from descriptions).
 
-## Standard 3-Column Grid
+> **Insight from Unicorn Studio:** Their features use a 2x2 grid with `gap: 0.5rem` — cards nearly touch, creating a "card sheet" effect. Each card has DIFFERENT content types (static image, WebGL embed, video, illustration). Variety within a grid > identical cards with identical layouts.
 
-```
-┌────────────────────────────────────────────┐
-│    Section Title (TextEffect, h2)          │
-│    Section Description (motion.p)          │
-│                                            │
-│  ┌──────────┐ ┌──────────┐ ┌──────────┐   │
-│  │ Icon     │ │ Icon     │ │ Icon     │   │
-│  │ Title    │ │ Title    │ │ Title    │   │
-│  │ Desc     │ │ Desc     │ │ Desc     │   │
-│  └──────────┘ └──────────┘ └──────────┘   │
-│  ┌──────────┐ ┌──────────┐ ┌──────────┐   │
-│  │ Icon     │ │ Icon     │ │ Icon     │   │
-│  │ Title    │ │ Title    │ │ Title    │   │
-│  │ Desc     │ │ Desc     │ │ Desc     │   │
-│  └──────────┘ └──────────┘ └──────────┘   │
-└────────────────────────────────────────────┘
-```
+## Decision Framework: Which Layout?
 
-**Components:** InView (section trigger), AnimatedGroup (staggered entrance), GlowHoverCard (each card)
+| Scenario | Layout | Why |
+|----------|--------|-----|
+| 1 hero feature + supporting | **Bento Grid (A)** | Visual hierarchy — the big card draws the eye first |
+| Each feature has a screenshot/visual | **Alternating Rows (B)** | Full-width visuals get space to breathe |
+| All features are equal weight | **Unified Grid (C)** | Clean, democratic, scannable |
+| 4 compact features | **Feature Strip (D)** | Tight, icon-led, doesn't need a full section |
+| 1 feature to spotlight | **Feature Showcase (E)** | Full-width, immersive, like a mini-hero |
 
-### Implementation Pattern
+---
+
+## Layout A: Bento Grid (Asymmetric)
+
+The hero card draws the eye. Supporting cards fill the remaining space. **This is NOT a uniform grid.**
 
 ```tsx
 'use client';
 import { InView } from '@/components/ui/in-view';
-import { AnimatedGroup } from '@/components/ui/animated-group';
-import { GlowHoverCard } from '@/components/ui/glow-hover-card';
+import Image from 'next/image';
 
-export function Features({ title, description, features }) {
+const ENTRANCE = { type: "spring" as const, stiffness: 200, damping: 25 };
+
+export function Features({ heroFeature, features }) {
   return (
-    <section className="py-24 px-4" id="features">
+    <section className="py-20 md:py-32 px-6">
       <div className="max-w-7xl mx-auto">
-        {/* Section header — scroll triggered */}
+        {/* Section header — left-aligned, not centered */}
         <InView
-          variants={{ hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0 } }}
-          transition={{ duration: 0.6 }}
-          viewOptions={{ once: true, margin: "-100px" }}
+          variants={{ hidden: { opacity: 0, y: 24 }, visible: { opacity: 1, y: 0 } }}
+          viewOptions={{ once: true, margin: "-80px" }}
+          transition={ENTRANCE}
         >
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold">{title}</h2>
-            <p className="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto">
-              {description}
-            </p>
-          </div>
+          <p className="font-mono text-xs tracking-widest uppercase text-muted-foreground mb-4">
+            Capabilities
+          </p>
+          <h2 className="font-display text-3xl md:text-5xl tracking-tight max-w-xl">
+            Everything you need, nothing you don't
+          </h2>
         </InView>
 
-        {/* Feature cards — staggered entrance */}
-        <InView
-          variants={{ hidden: { opacity: 0 }, visible: { opacity: 1 } }}
-          viewOptions={{ once: true, margin: "-50px" }}
-        >
-          <AnimatedGroup
-            preset="blur"
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+        {/* Bento grid — tight gaps like Unicorn Studio */}
+        <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-1.5">
+          {/* Hero card — 2 cols, 2 rows */}
+          <InView
+            variants={{ hidden: { opacity: 0, y: 32 }, visible: { opacity: 1, y: 0 } }}
+            viewOptions={{ once: true }}
+            transition={ENTRANCE}
           >
-            {features.map((feature) => (
-              <GlowHoverCard key={feature.title} className="p-8 rounded-xl">
-                <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-5">
-                  <feature.icon className="w-6 h-6 text-primary" />
-                </div>
-                <h3 className="text-xl font-semibold mb-3">{feature.title}</h3>
-                <p className="text-muted-foreground leading-relaxed">
-                  {feature.description}
+            <div className="md:col-span-2 md:row-span-2 rounded-2xl border border-border/30 bg-muted/20 overflow-hidden">
+              <div className="p-8 md:p-12">
+                <p className="font-mono text-xs text-primary/70 tracking-wider uppercase">Core</p>
+                <h3 className="text-2xl md:text-3xl font-semibold mt-3 tracking-tight">
+                  {heroFeature.title}
+                </h3>
+                <p className="text-muted-foreground mt-3 max-w-md leading-relaxed">
+                  {heroFeature.description}
                 </p>
-              </GlowHoverCard>
-            ))}
-          </AnimatedGroup>
-        </InView>
+              </div>
+              {heroFeature.image && (
+                <Image src={heroFeature.image} alt="" className="w-full"
+                       width={700} height={350} />
+              )}
+            </div>
+          </InView>
+
+          {/* Supporting cards */}
+          {features.map((feature, i) => (
+            <InView
+              key={feature.title}
+              variants={{ hidden: { opacity: 0, y: 24 }, visible: { opacity: 1, y: 0 } }}
+              viewOptions={{ once: true }}
+              transition={{ ...ENTRANCE, delay: 0.08 * (i + 1) }}
+            >
+              <div className="p-6 md:p-8 rounded-2xl border border-border/30 bg-muted/20 h-full flex flex-col">
+                <feature.icon className="w-8 h-8 text-foreground/60" />
+                <h3 className="text-lg font-semibold mt-5 tracking-tight">{feature.title}</h3>
+                <p className="text-sm text-muted-foreground mt-2 leading-relaxed">{feature.description}</p>
+              </div>
+            </InView>
+          ))}
+        </div>
       </div>
     </section>
   );
 }
 ```
 
-## Variant: Bento Grid (Asymmetric)
+**Key details:**
+- `gap-1.5` (6px) — tight gaps create a "card sheet" effect (inspired by Unicorn Studio's 0.5rem/8px gaps)
+- `border-border/30` — barely-there borders, not full opacity
+- Icons are `text-foreground/60` not garish `text-primary`
+- Hero card has NO icon — the visual or image does the work
+- Category label uses monospace for texture
 
-For products with a hero feature + supporting features:
+---
 
-```
-┌───────────────────────┬──────────┐
-│                       │          │
-│   HERO FEATURE        │ Feature  │
-│   (large card, 2x2)   │ 2       │
-│                       │          │
-│                       ├──────────┤
-│                       │          │
-│                       │ Feature  │
-│                       │ 3       │
-├───────────┬───────────┴──────────┤
-│ Feature 4 │ Feature 5            │
-└───────────┴──────────────────────┘
-```
+## Layout B: Alternating Rows
+
+Each feature gets a full row with text on one side and a visual on the other. Sides alternate.
 
 ```tsx
-<AnimatedGroup preset="scale" className="grid grid-cols-1 md:grid-cols-3 gap-4">
-  <GlowHoverCard className="md:col-span-2 md:row-span-2 p-10">
-    {/* Hero feature with larger icon, more detail */}
-  </GlowHoverCard>
-  <GlowHoverCard className="p-6">{/* Feature 2 */}</GlowHoverCard>
-  <GlowHoverCard className="p-6">{/* Feature 3 */}</GlowHoverCard>
-  <GlowHoverCard className="p-6">{/* Feature 4 */}</GlowHoverCard>
-  <GlowHoverCard className="md:col-span-2 p-6">{/* Feature 5 */}</GlowHoverCard>
-</AnimatedGroup>
+'use client';
+import { InView } from '@/components/ui/in-view';
+import { Tilt } from '@/components/ui/tilt';
+import Image from 'next/image';
+
+const ENTRANCE = { type: "spring" as const, stiffness: 200, damping: 25 };
+
+export function Features({ features }) {
+  return (
+    <section className="py-20 md:py-32 px-6">
+      <div className="max-w-7xl mx-auto space-y-24 md:space-y-32">
+        {features.map((feature, i) => {
+          const reversed = i % 2 === 1;
+          return (
+            <InView
+              key={feature.title}
+              variants={{ hidden: { opacity: 0, y: 40 }, visible: { opacity: 1, y: 0 } }}
+              viewOptions={{ once: true, margin: "-100px" }}
+              transition={ENTRANCE}
+            >
+              <div className={`grid lg:grid-cols-2 gap-12 lg:gap-20 items-center ${reversed ? 'lg:[direction:rtl]' : ''}`}>
+                <div className={reversed ? 'lg:[direction:ltr]' : ''}>
+                  <p className="font-mono text-xs tracking-widest uppercase text-primary/70 mb-4">
+                    {feature.label}
+                  </p>
+                  <h3 className="text-2xl md:text-4xl font-semibold tracking-tight">
+                    {feature.title}
+                  </h3>
+                  <p className="mt-4 text-muted-foreground text-lg leading-relaxed max-w-lg">
+                    {feature.description}
+                  </p>
+                  {feature.bullets && (
+                    <ul className="mt-6 space-y-3">
+                      {feature.bullets.map(b => (
+                        <li key={b} className="flex items-start gap-3 text-sm">
+                          <span className="w-1.5 h-1.5 rounded-full bg-primary/50 mt-2 shrink-0" />
+                          <span className="text-muted-foreground">{b}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+                <div className={reversed ? 'lg:[direction:ltr]' : ''}>
+                  <Tilt rotationFactor={4}>
+                    <Image
+                      src={feature.image}
+                      alt={feature.title}
+                      className="rounded-2xl border border-border/30 shadow-lg"
+                      width={600}
+                      height={400}
+                    />
+                  </Tilt>
+                </div>
+              </div>
+            </InView>
+          );
+        })}
+      </div>
+    </section>
+  );
+}
 ```
 
-## Variant: Feature with Screenshot
+**Key details:**
+- `[direction:rtl]` trick for alternating sides without duplicate markup
+- Bullets use a tiny dot (`w-1.5 h-1.5 bg-primary/50`) not a CheckCircle icon — subtlety
+- `space-y-24 md:space-y-32` — generous space between rows
+- `Tilt rotationFactor={4}` — gentle, not dramatic (4 < default 8)
 
-For features that benefit from visual proof:
+---
+
+## Layout C: Unified Grid (Cards as a Sheet)
+
+When all features are equal weight. **The key insight: make the grid feel like ONE unit, not scattered cards.**
 
 ```tsx
-<InView variants={{ hidden: { opacity: 0, y: 40 }, visible: { opacity: 1, y: 0 } }}
-        viewOptions={{ once: true }}>
-  <div className="grid md:grid-cols-2 gap-12 items-center">
-    <div>
-      <h3 className="text-3xl font-bold">{feature.title}</h3>
-      <p className="mt-4 text-muted-foreground">{feature.description}</p>
-      <ul className="mt-6 space-y-3">
-        {feature.bullets.map(b => (
-          <li key={b} className="flex items-center gap-3">
-            <CheckCircle className="w-5 h-5 text-primary shrink-0" />
-            <span>{b}</span>
-          </li>
-        ))}
-      </ul>
+'use client';
+import { InView } from '@/components/ui/in-view';
+import { AnimatedGroup } from '@/components/ui/animated-group';
+
+export function Features({ features }) {
+  return (
+    <section className="py-20 md:py-32 px-6">
+      <div className="max-w-6xl mx-auto">
+        {/* Left-aligned header */}
+        <InView
+          variants={{ hidden: { opacity: 0 }, visible: { opacity: 1 } }}
+          viewOptions={{ once: true }}
+        >
+          <div className="max-w-2xl mb-16">
+            <h2 className="font-display text-3xl md:text-5xl tracking-tight">Features</h2>
+            <p className="mt-4 text-lg text-muted-foreground">
+              Built for teams that ship fast.
+            </p>
+          </div>
+        </InView>
+
+        {/* Grid as unified block — gap-px creates hairline dividers */}
+        <AnimatedGroup
+          preset="blur"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-border/40 rounded-2xl overflow-hidden border border-border/30"
+        >
+          {features.map(feature => (
+            <div key={feature.title} className="p-8 md:p-10 bg-background">
+              <feature.icon className="w-8 h-8 text-foreground/60" />
+              <h3 className="text-lg font-semibold mt-5 tracking-tight">{feature.title}</h3>
+              <p className="text-sm text-muted-foreground mt-2 leading-relaxed">
+                {feature.description}
+              </p>
+            </div>
+          ))}
+        </AnimatedGroup>
+      </div>
+    </section>
+  );
+}
+```
+
+**What makes this different from vibe-coded:**
+- `gap-px` with `bg-border/40` — hairline dividers between cells instead of floating cards with shadows
+- `overflow-hidden rounded-2xl` — the grid is ONE block, not scattered cards
+- `border border-border/30` — barely visible outer border
+- Each cell is `bg-background` — clean, no card elevation
+- Icons are `text-foreground/60` — understated
+- NO GlowHoverCard — restraint. Not every grid needs glow effects.
+
+**When to add GlowHoverCard:** Only when the feature cards are interactive (link somewhere, have expandable content, or the product is specifically visual/creative). For informational feature lists, clean dividers > glow.
+
+---
+
+## Layout D: Feature Strip (Compact)
+
+4 quick features in a tight horizontal strip. Good between larger sections.
+
+```tsx
+<section className="py-12 md:py-16 px-6 border-y border-border/20">
+  <div className="max-w-6xl mx-auto">
+    <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
+      {features.map(feature => (
+        <div key={feature.title} className="text-center">
+          <div className="w-12 h-12 mx-auto rounded-xl border border-border/30 bg-muted/20 flex items-center justify-center mb-4">
+            <feature.icon className="w-5 h-5 text-foreground/60" />
+          </div>
+          <h4 className="text-sm font-semibold tracking-tight">{feature.title}</h4>
+          <p className="text-xs text-muted-foreground mt-1">{feature.description}</p>
+        </div>
+      ))}
     </div>
-    <Tilt rotationFactor={6}>
-      <Image src={feature.image} alt={feature.title}
-             className="rounded-xl border shadow-lg" width={600} height={400} />
-    </Tilt>
   </div>
-</InView>
+</section>
 ```
 
-Alternate the image side (left/right) for each feature row to create visual rhythm.
+**Key details:**
+- Compact section padding (`py-12 md:py-16`) — this isn't a major section
+- `border-y border-border/20` — subtle section separation
+- Small text sizes (`text-sm`, `text-xs`) — these are supporting features, not headline features
+- Icon containers with `border-border/30` and `bg-muted/20` — echoes Unicorn Studio's icon treatment
+
+---
+
+## Layout E: Feature Showcase (Spotlight)
+
+One feature gets a full-width immersive treatment. Usually for the #1 capability.
+
+```tsx
+<section className="py-20 md:py-32 px-6">
+  <div className="max-w-7xl mx-auto">
+    <InView
+      variants={{ hidden: { opacity: 0, y: 40 }, visible: { opacity: 1, y: 0 } }}
+      viewOptions={{ once: true, margin: "-50px" }}
+      transition={{ type: "spring", stiffness: 150, damping: 25 }}
+    >
+      <div className="rounded-3xl border border-border/30 bg-muted/10 overflow-hidden">
+        <div className="p-8 md:p-16">
+          <p className="font-mono text-xs tracking-widest uppercase text-primary/70 mb-4">
+            {feature.label}
+          </p>
+          <h2 className="font-display text-3xl md:text-5xl tracking-tight max-w-2xl">
+            {feature.title}
+          </h2>
+          <p className="mt-4 text-lg text-muted-foreground max-w-xl leading-relaxed">
+            {feature.description}
+          </p>
+        </div>
+        <div className="px-4 md:px-8 pb-4 md:pb-8">
+          <Image
+            src={feature.image}
+            alt={feature.title}
+            className="rounded-xl w-full"
+            width={1200}
+            height={600}
+          />
+        </div>
+      </div>
+    </InView>
+  </div>
+</section>
+```
+
+---
+
+## Mixing Layouts on One Page
+
+Premium pages use multiple feature patterns to create visual variety:
+
+```
+Section 3: Feature Showcase (E) — spotlight the #1 feature
+Section 4: Feature Strip (D) — 4 compact secondary features
+Section 5: Alternating Rows (B) — 2-3 features with visuals
+```
+
+Or:
+
+```
+Section 3: Bento Grid (A) — hero feature + 3-4 supporting
+Section 5: Feature Showcase (E) — deep dive on one feature
+```
+
+**Never use the same layout twice on one page.** The variation creates visual chapters and prevents the "wall of cards" feel.
+
+---
+
+## Common Anti-Patterns
+
+| Anti-Pattern | Why It's Wrong | What to Do |
+|-------------|---------------|------------|
+| 6 identical cards in a 3x2 grid | Monotonous, feels generated | Use Bento (hero card + small cards) |
+| Every card has GlowHoverCard | Overkill, draws attention everywhere | Clean borders for info cards, glow only for interactive |
+| TextEffect on section heading + card titles | Animation fatigue | TextEffect on heading only, card titles are static |
+| `gap-8` on everything | Loose, unfocused | Tighter gaps (`gap-1.5` to `gap-4`) for card grids |
+| All cards have icons from the same icon set at the same size | Feels templated | Vary: some cards with icons, hero card with image, one with illustration |
+| Centered section heading for every section | Repetitive, AI-default | Alternate: left-aligned vs centered |
 
 ---
 
 ## SEO Notes
 
-- Each feature's `title` and `description` should contain relevant keywords
-- Use proper heading hierarchy: `<h2>` for section, `<h3>` for each feature
-- Feature descriptions should be substantive (2-3 sentences minimum) for indexable content
+- `<h2>` for section title, `<h3>` for each feature — proper heading hierarchy
+- Feature descriptions should be 2-3 sentences minimum for indexable content
+- Use meaningful icon `alt` text or `aria-label` for accessibility
 - The grid is fully server-rendered — all text is in the HTML
+- `InView` and `AnimatedGroup` render content immediately, animation is progressive enhancement

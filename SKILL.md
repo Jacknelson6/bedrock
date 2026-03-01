@@ -14,15 +14,17 @@ Bedrock is a curated "best of" collection from **AnimateUI**, **SmoothUI**, **Mo
 
 ## Primary Focus: SaaS Landing Pages & Marketing Sites
 
-Bedrock is optimized for building the kind of high-converting, visually stunning landing pages seen on sites like Linear, Vercel, Stripe, Clerk, and Resend. These pages share common patterns that Bedrock provides components for:
+Bedrock is optimized for building the kind of high-converting, visually stunning landing pages seen on sites like Unicorn Studio, Linear, Vercel, Stripe, and Resend. Premium sites share these principles:
 
-- **Hero sections** with animated text reveals + ambient backgrounds + magnetic CTAs
-- **Feature grids** with glow hover cards + staggered scroll entrance
-- **Social proof** with infinite-scrolling logo bars + animated testimonials
-- **Pricing tables** with animated number transitions + toggle animations
-- **Footer CTAs** with text effects + gradient backgrounds
+**1. Typography carries the design.** The right font pairing with proper tracking and scale does 60% of the work — before any animation runs.
 
-See `templates/` for complete SaaS page blueprints.
+**2. Restraint signals confidence.** NOT every headline needs TextEffect. NOT every card needs GlowHoverCard. NOT every section needs a background. The best sites are defined by what they DON'T animate.
+
+**3. Spacing creates rhythm.** Variable section heights (alternating generous and compact) create breathing. Uniform `py-24` everywhere is the #1 tell of an AI-built page.
+
+**4. Composition beats components.** Individual components are interchangeable. What makes a site premium is HOW sections are composed: tight grid gaps (cards as a sheet, not scattered), asymmetric layouts (bento > uniform grid), left-aligned headlines (editorial > generic), and visual variety section-to-section.
+
+See `templates/` for composition guides with multiple layout variants per section type.
 
 ---
 
@@ -130,15 +132,15 @@ Use `Grep pattern="=== FILE:.*ComponentName" path="..."` to find the start of an
 
 These rules exist to prevent falling back to generic code when Bedrock components are available.
 
-### MANDATORY TEMPLATE-FIRST WORKFLOW
+### COMPOSITION-FIRST WORKFLOW
 **When building a full page or section, you MUST:**
-1. `Read ~/.claude/skills/bedrock/templates/saas-landing.md` (or the relevant template) FIRST
-2. Use the template as your base structure — do NOT design your own layout
-3. Adapt the template's content (text, colors, data) to the user's project
-4. Only deviate from the template structure if the user explicitly requests it
-5. If no template exists for the request, compose using the catalog — but always wrap sections in `InView` and use the Motion Timing system below
+1. `Read ~/.claude/skills/bedrock/templates/saas-landing.md` (or the relevant template) FIRST — these contain multiple layout variants per section type
+2. **Choose the right variant** for the product type (the template includes decision frameworks)
+3. **Vary the composition** — never use the same layout pattern twice on one page
+4. Start with typography decisions (font pairing, scale, tracking) BEFORE choosing animations
+5. Apply the principle: "one dramatic moment per page, everything else is controlled"
 
-**You are an assembler, not an architect.** The templates encode the composition knowledge. Your job is to adapt them to the project, not reinvent them.
+**You are a compositor, not a template filler.** The templates provide a vocabulary of patterns. Your job is to compose the right patterns for the product's story, varying rhythm and layout to prevent the "AI-built-this" uniformity.
 
 ### ALWAYS DO:
 - **Read a template before building ANY page or section** — templates are the source of truth for composition
@@ -175,12 +177,24 @@ These rules exist to prevent falling back to generic code when Bedrock component
 --space-lg:   1.5rem   (24px)   ← card padding, form gaps
 --space-xl:   2rem     (32px)   ← section sub-spacing
 --space-2xl:  3rem     (48px)   ← between content blocks
---space-3xl:  4rem     (64px)   ← between major sections
---space-4xl:  6rem     (96px)   ← section top/bottom padding (py-24)
---space-5xl:  8rem     (128px)  ← hero vertical padding
+--space-3xl:  4rem     (64px)   ← compact sections
+--space-4xl:  6rem     (96px)   ← standard sections
+--space-5xl:  8rem     (128px)  ← generous sections
+--space-6xl: 10rem     (160px)  ← dramatic CTA sections
 ```
 
-**Section padding is ALWAYS `py-24` (96px).** Hero is `min-h-screen`. Never use `py-12` or `py-16` for major sections — it looks cramped.
+**Section padding MUST vary.** Uniform py-24 everywhere is the #1 tell of an AI-built page:
+```
+Hero:             min-h-screen or min-h-[90vh]
+Logo bar:         py-12 md:py-16  (compact, not a real section)
+Feature sections: py-20 md:py-32  (generous)
+Product showcase: py-16 md:py-24  (tighter — visual does the work)
+Stats:            py-12 md:py-20  (compact, border-y for separation)
+Pricing:          py-20 md:py-32  (generous — big decision needs room)
+FAQ:              py-16 md:py-24  (standard)
+Footer CTA:       py-24 md:py-40  (dramatic final moment)
+```
+**Rule:** Alternate between generous and compact. Never three "generous" sections in a row.
 
 ### Motion Timing Tokens
 ```tsx
@@ -207,17 +221,37 @@ const SCROLL_ENTER = {
 
 **Use these constants. Do NOT type `{ opacity: 0, y: 20, transition: { duration: 0.3 } }` inline.** That's vibe coding. Duration-based animations feel robotic. Spring-based animations feel alive.
 
-### Typography Scale
+### Typography System
+
+**Font pairing is the FIRST design decision, not an afterthought.**
+
+Three-voice system (display + body + mono):
 ```
-Hero headline:       text-5xl md:text-7xl font-bold tracking-tight
-Section headline:    text-3xl md:text-4xl font-bold
-Card title:          text-xl font-semibold
-Body large:          text-xl md:text-2xl text-muted-foreground
-Body:                text-base text-muted-foreground
-Small/label:         text-sm text-muted-foreground
+Display font:   Headlines and hero text. Choose based on product personality:
+                - Confident/clean: Geist, Cabinet Grotesk, General Sans
+                - Expressive/creative: Sprat, Cal Sans, Instrument Serif
+                - Authoritative/enterprise: Söhne, Founders Grotesk
+Body font:      Inter, Geist, Overused Grotesk (clean geometric/grotesk)
+Mono accent:    Geist Mono, JetBrains Mono, IBM Plex Mono
+                Use for: labels, badges, category tags, metadata
 ```
 
-**Headlines are ALWAYS `tracking-tight`.** Body text is ALWAYS `text-muted-foreground`. Never use gray-500 or gray-600 directly — use the semantic color tokens.
+Typography scale:
+```
+Hero headline:       font-display text-5xl sm:text-7xl lg:text-8xl tracking-tighter leading-[0.9]
+Section headline:    font-display text-3xl md:text-5xl tracking-tight
+Card title:          text-lg font-semibold tracking-tight
+Body large:          text-lg md:text-xl text-muted-foreground leading-relaxed
+Body:                text-base text-muted-foreground
+Label/badge:         font-mono text-xs tracking-widest uppercase text-muted-foreground
+```
+
+**Rules:**
+- Headlines ALWAYS use `tracking-tighter` or `tracking-tight` — never default tracking
+- Display text uses `leading-[0.9]` or `leading-tight` — compact, dramatic (like Unicorn Studio's `line-height: 1`)
+- Body text ALWAYS uses `text-muted-foreground` — never raw gray classes
+- Use monospace (`font-mono text-xs tracking-widest uppercase`) for labels and badges — this creates the third voice
+- Two-tone headlines (foreground + muted-foreground) create depth without gradient text
 
 ### Color Discipline
 ```
@@ -340,16 +374,33 @@ DON'T: Use full-opacity backgrounds on floating elements (use backdrop-blur + lo
 
 **If your output has ANY of these, you're falling back to training data. Stop and fix it:**
 
-1. `bg-gradient-to-br from-purple-600 to-blue-500` — use Aurora or AnimatedGradient
-2. `hover:shadow-lg transition` — use GlowHoverCard or GlowEffect
-3. `animate-bounce` or `animate-pulse` — use Motion springs
+1. `bg-gradient-to-br from-purple-600 to-blue-500` — use Aurora or AnimatedGradient, or better: NO background
+2. `hover:shadow-lg transition` — use GlowHoverCard or clean border hover
+3. `animate-bounce` or `animate-pulse` — use Motion springs, or better: no animation at all
 4. `setTimeout(() => setVisible(true), 500)` — use motion `transition.delay`
 5. Raw color values (text-gray-600, bg-white) — use semantic tokens
 6. `transition-all duration-300` — use `transition={{ type: "spring", ... }}`
-7. Static numbers — use AnimatedNumber or SlidingNumber
-8. No scroll triggers — wrap every section in InView
+7. Static numbers where animation would add meaning — use AnimatedNumber
+8. Uniform spacing (py-24 everywhere) — vary section padding
 9. `@keyframes fadeIn` — use motion `initial`/`animate`
-10. Uniform spacing (py-12 everywhere) — use the spacing scale
+10. **Every headline uses TextEffect** — sometimes a well-set `<h1>` with the right font is enough
+11. **Every card uses GlowHoverCard** — clean borders > glow for informational content
+12. **Aurora/Particles in multiple sections** — ONE ambient background per page, maximum
+13. **Centered text in every section** — alternate left-aligned and centered
+14. **gap-8 on every grid** — tighter gaps (gap-1.5 to gap-4) create a "card sheet" effect
+
+### The "Conspicuous Absence" Test (Inspired by Unicorn Studio)
+
+**Premium sites are defined by what they DON'T include:**
+- No gradient text effects (despite having the capability)
+- No glass/frosted cards (despite being trendy)
+- No parallax scrolling (despite it being easy to add)
+- No scroll-triggered fade-ins on EVERY element (reserve for key moments)
+- No chat widget / notification popup on load
+- No "trusted by 10,000+ users" vanity metrics
+- No comparison tables with competitors
+
+**Before adding any decorative element, ask: "Does Unicorn Studio's homepage have this?"** If a WebGL company doesn't need particles on their homepage, your SaaS probably doesn't either.
 
 ---
 
@@ -671,15 +722,15 @@ Step 9: COMPOSE     → Wire into page with scroll triggers, stagger, and motion
 
 | User Says | You Do |
 |-----------|--------|
-| "Build a landing page" | `Read ~/.claude/skills/bedrock/templates/saas-landing.md` → implement full page |
-| "Make this look better" | Add InView scroll triggers, TextEffect on headlines, GlowHoverCard on cards |
+| "Build a landing page" | `Read ~/.claude/skills/bedrock/templates/saas-landing.md` → choose variants per section |
+| "Make this look better" | Start with typography (font pairing, tracking, scale). THEN add selective animation. |
 | "Add animation to X" | Find X in catalog → `Grep` source file → `Read` component → implement |
-| "Hero section" | `Read ~/.claude/skills/bedrock/templates/hero-section.md` |
-| "Feature grid" | `Read ~/.claude/skills/bedrock/templates/features-grid.md` |
-| "I need a cool background" | `Read ~/.claude/skills/bedrock/references/backgrounds.md` → Aurora or Particles |
-| "Animated text" | `Read ~/.claude/skills/bedrock/references/text-effects.md` → TextEffect (default) |
-| "Hover effects" | `Read ~/.claude/skills/bedrock/references/interactive-elements.md` → GlowEffect or Tilt |
-| "Make it premium" | Add Magnetic on buttons, GlowHoverCard on cards, TextShimmer on CTAs |
+| "Hero section" | `Read ~/.claude/skills/bedrock/templates/hero-section.md` → choose variant for product type |
+| "Feature grid" | `Read ~/.claude/skills/bedrock/templates/features-grid.md` → choose layout for feature hierarchy |
+| "I need a cool background" | `Read ~/.claude/skills/bedrock/references/backgrounds.md` → but first ask: does it NEED a background? |
+| "Animated text" | `Read ~/.claude/skills/bedrock/references/text-effects.md` → but first: is the typography strong enough without animation? |
+| "Hover effects" | `Read ~/.claude/skills/bedrock/references/interactive-elements.md` → GlowEffect or Tilt for key cards only |
+| "Make it premium" | Fix typography first (font pairing, tracking-tighter, leading-[0.9]). Then vary spacing. Then add 1-2 strategic animations. |
 | "Dashboard UI" | `Read ~/.claude/skills/bedrock/templates/dashboard-shell.md` |
 | "3D globe" or "WebGL" | `Read ~/.claude/skills/bedrock/references/threed-webgl.md` → Globe with SSR: false |
 
