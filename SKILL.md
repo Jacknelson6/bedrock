@@ -126,7 +126,11 @@ Every source file uses this delimiter pattern:
 
 Use `Grep pattern="=== FILE:.*ComponentName" path="..."` to find the start of any component, then Read from that line.
 
-⚠️ **PascalCase→kebab-case:** The catalog uses PascalCase names (e.g., InView, TiltedCard, SkeletonLoader) but source files use kebab-case paths (e.g., `in-view.tsx`, `tilted-card.tsx`). When grepping, **lowercase and hyphenate**: `Grep pattern="=== FILE:.*in-view"` NOT `"=== FILE:.*InView"`.
+⚠️ **File naming varies by library:**
+- **Motion Primitives & SmoothUI** use kebab-case paths (e.g., `in-view.tsx`, `skeleton-loader.tsx`). Grep with kebab-case: `Grep pattern="=== FILE:.*in-view"`
+- **ReactBits** uses PascalCase paths (e.g., `BlurText/BlurText.tsx`, `Aurora/Aurora.tsx`). Grep with PascalCase: `Grep pattern="=== FILE:.*BlurText"`
+- **AnimateUI** uses kebab-case. Grep with kebab-case.
+- When in doubt, try PascalCase first (it works as a substring match on both styles), then fall back to kebab-case.
 
 ---
 
@@ -285,7 +289,7 @@ DO:  Limit accent colors to 1-2 from the brand palette
 DO:  Use opacity for depth (bg-muted/30, border-border/50)
 DO:  Aurora/gradient backgrounds use 3 colors max, opacity 0.2-0.4
 
-DON'T: Use raw hex codes (no #3b82f6 in components — use CSS vars or Tailwind tokens)
+DON'T: Use raw hex codes in components — use CSS vars or Tailwind tokens (exception: WebGL/OGL props like Aurora's colorStops REQUIRE hex strings for shader uniforms)
 DON'T: Use more than 2 gradient stops in text
 DON'T: Mix warm and cool tones in the same gradient
 DON'T: Use full-opacity backgrounds on floating elements (use backdrop-blur + low opacity)

@@ -213,7 +213,7 @@ This is compact. Not a full section. 48-64px of breathing room, not 96px.
   <InfiniteSlider speed={25} gap={56}>
     {logos.map(logo => (
       <img key={logo.name} src={logo.src} alt={logo.name}
-           className="h-6 md:h-7 opacity-40 grayscale hover:opacity-80 hover:grayscale-0 transition-all duration-300" />
+           className="h-6 md:h-7 opacity-40 grayscale hover:opacity-80 hover:grayscale-0 transition-[opacity,filter]" />
     ))}
   </InfiniteSlider>
 </div>
