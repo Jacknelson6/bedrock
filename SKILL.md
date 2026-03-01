@@ -8,6 +8,8 @@ description: >
 
 > **CRITICAL RULE: If you are building ANY React frontend and this skill is loaded, you MUST consult this skill's component catalog before writing UI code. Do NOT write generic motion/animation code from training data when Bedrock has a production-tested component for that exact use case.**
 
+> **CONTEXT MANAGEMENT: The source files are 40,000-70,000 lines each. NEVER read a full source file. ALWAYS use Grep to find the exact line number first, then Read with offset + limit (max 300 lines). One component at a time. This skill is designed as an index + surgical lookup system, NOT a bulk loader.**
+
 Bedrock is a curated "best of" collection from **AnimateUI**, **SmoothUI**, **Motion Primitives**, and **ReactBits** — four leading open-source animated component libraries. Every component has been selected for API quality, animation smoothness, and real-world production readiness.
 
 ## Primary Focus: SaaS Landing Pages & Marketing Sites
@@ -69,25 +71,36 @@ All Bedrock files live at `~/.claude/skills/bedrock/`. When this skill is loaded
 
 **Step-by-step for every component you implement:**
 
+⚠️ **NEVER do `Read source/xyz-components.txt` without offset+limit. These files are 40K-70K lines. You will destroy context.**
+
 1. **Find the component in the catalog below** → note which library it's from (e.g., "Motion Primitives")
-2. **Read the reference guide** using the Read tool:
+
+2. **Read the reference guide** (these are small, ~100 lines, safe to read fully):
    ```
    Read ~/.claude/skills/bedrock/references/text-effects.md
    ```
-3. **Search the source file** for the exact component using Grep:
+
+3. **Grep the source file** to find the exact line number (use `output_mode: "content"` with `-n` for line numbers):
    ```
-   Grep pattern="TextEffect" path="~/.claude/skills/bedrock/source/motion-primitives-components.txt"
+   Grep pattern="=== FILE:.*text-effect" path="~/.claude/skills/bedrock/source/motion-primitives-components.txt" output_mode="content" -n=true
    ```
-   Each component in the source files is delimited by `// === FILE: path/to/ComponentName.tsx ===`
-4. **Read the component source** — use the Read tool with offset/limit to grab the full component:
+   This returns something like: `line 4521: // === FILE: components/core/text-effect.tsx ===`
+
+4. **Read ONLY that component** using offset + limit (most components are 50-200 lines):
    ```
-   Read ~/.claude/skills/bedrock/source/motion-primitives-components.txt (at the line Grep found)
+   Read ~/.claude/skills/bedrock/source/motion-primitives-components.txt offset=4521 limit=200
    ```
-5. **Check the docs file** for props and usage:
+   If the component is longer, you'll see the next `// === FILE:` delimiter — read more if needed.
+
+5. **Grep the docs file** for props (also use offset+limit):
    ```
-   Grep pattern="## TextEffect" path="~/.claude/skills/bedrock/source/motion-primitives-docs.txt"
+   Grep pattern="## TextEffect" path="~/.claude/skills/bedrock/source/motion-primitives-docs.txt" output_mode="content" -n=true -A=50
    ```
+   This gives you the props table and usage examples (~50 lines of context after the match).
+
 6. **Adapt** the source to the target project (add `'use client'`, fix imports, match conventions)
+
+**Context budget per component: ~250 lines of source + ~50 lines of docs = ~300 lines. That's manageable. Even 5 components is only ~1,500 lines.**
 
 ### Source File → Library Mapping
 
@@ -429,12 +442,14 @@ Step 2: READ REF    → Read the reference guide for each component category you
 
 Step 3: DETECT      → Check target project: package.json, framework, existing deps.
 
-Step 4: FIND SOURCE → For EVERY component, search its source file:
-                      Grep pattern="=== FILE:.*TextEffect" path="~/.claude/skills/bedrock/source/motion-primitives-components.txt"
-                      Then Read the file at that line offset to get full source.
-                      Also check the docs file for props:
-                      Grep pattern="## TextEffect" path="~/.claude/skills/bedrock/source/motion-primitives-docs.txt"
-                      ⚠️ DO NOT SKIP THIS STEP. DO NOT WRITE FROM MEMORY.
+Step 4: FIND SOURCE → For EVERY component:
+                      a) Grep source file for line number (NEVER read the full file):
+                         Grep pattern="=== FILE:.*TextEffect" path="~/.claude/skills/bedrock/source/motion-primitives-components.txt" -n=true
+                      b) Read with offset+limit (max 300 lines per component):
+                         Read path offset=LINE_NUMBER limit=200
+                      c) Grep docs file for props (use -A for context):
+                         Grep pattern="## TextEffect" path="...docs.txt" -A=50
+                      ⚠️ DO NOT SKIP THIS. DO NOT WRITE FROM MEMORY. DO NOT READ FULL FILES.
 
 Step 5: INSTALL     → Auto-install missing deps.
                       Read ~/.claude/skills/bedrock/references/dependency-map.md
