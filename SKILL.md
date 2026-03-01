@@ -735,6 +735,17 @@ Step 4: IMPLEMENT   → Adapt source to project: add 'use client', fix imports, 
 
 Step 5: COMPOSE     → Wire sections into page with scroll triggers (InView), stagger timing,
                       and variable spacing. Run the smell test (see above).
+
+Step 6: VERIFY      → Visual check is NON-OPTIONAL after implementation:
+                      a) Run `npm run build` to catch TypeScript/compilation errors.
+                      b) Start dev server (`npm run dev`).
+                      c) Use Playwright MCP to navigate to the page and take screenshots:
+                         - Viewport screenshot (hero above fold)
+                         - Scroll to each section, screenshot each
+                         - Mobile viewport (375×812) screenshot of hero + key sections
+                      d) Check: fonts rendering correctly, layout matches spec, animations trigger,
+                         mobile stacks properly, no visual regressions.
+                      e) Fix any issues found, re-screenshot to confirm.
 ```
 
 ---
