@@ -13,17 +13,19 @@ Use sparingly. One WebGL element per page max. Always lazy-load.
 
 | Need | Component | Dep | Bundle Size |
 |------|-----------|-----|-------------|
-| Warp speed stars | **Hyperspeed** ⭐ (ReactBits) | three | ~150KB |
-| Flowing 3D lines | **Threads** (ReactBits) | three | ~150KB |
-| Cinematic rays | **Beams** (ReactBits) | three | ~150KB |
-| Blurred shapes | **ShapeBlur** (ReactBits) | three | ~150KB |
-| AI orb (no Three!) | **SiriOrb** (SmoothUI) | motion | ~0KB |
-| Bot avatar | **AgentAvatar** (SmoothUI) | motion | ~0KB |
-| AI branching viz | **AIBranch** (SmoothUI) | motion | ~0KB |
-| Grid loading | **GridLoader** (SmoothUI) | motion | ~0KB |
-| Star particles | **GithubStarsAnimation** (SmoothUI) | motion | ~0KB |
+| Warp speed stars | **Hyperspeed** ⭐ | three | ~150KB |
+| Flowing 3D lines | **Threads** | three | ~150KB |
+| Cinematic rays | **Beams** | three | ~150KB |
+| Blurred shapes | **ShapeBlur** | three | ~150KB |
+| Interactive particles | **Particles** | three | ~150KB |
+| Galaxy starfield | **Galaxy** | three | ~150KB |
+| 3D ball pit | **Ballpit** | three | ~150KB |
+| 3D model viewer | **ModelViewer** | three | ~150KB |
+| Flowing silk | **Silk** | three | ~150KB |
+| Grid distortion | **GridDistortion** | three | ~150KB |
+| Northern lights | **Aurora** | ogl | ~5KB |
 
-**SiriOrb is the secret weapon** — achieves convincing 3D with pure CSS/Motion. Use when you want "3D-looking" without the Three.js payload.
+All components are from ReactBits.
 
 ## Dynamic Import Pattern (Next.js)
 ```tsx

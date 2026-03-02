@@ -2,28 +2,20 @@
 
 **The definitive animated frontend component system for Claude Code.**
 
-Bedrock is a curated skill that gives Claude Code access to 150+ production-grade animated components from four leading open-source libraries — ready to compose into SaaS landing pages, marketing sites, and web applications.
+Bedrock is a curated skill that gives Claude Code access to 120+ production-grade animated components from ReactBits — ready to compose into SaaS landing pages, marketing sites, and web applications.
 
 ## What's Inside
 
 | Library | Components | Stack |
 |---------|-----------|-------|
-| [AnimateUI](https://github.com/imskyleen/animate-ui) | ~40 | Motion, Radix, shadcn |
-| [SmoothUI](https://github.com/educlopez/smoothui) | ~50 | Motion, GSAP, shadcn |
-| [Motion Primitives](https://github.com/ibelick/motion-primitives) | ~35 | Motion |
-| [ReactBits](https://github.com/DavidHDev/react-bits) | ~135 | Motion, GSAP, Three.js |
+| [ReactBits](https://github.com/DavidHDev/react-bits) | ~122 | Motion, GSAP, Three.js, OGL |
 
 ### Component Categories
 
-- **Text Effects** (24) — Hero headlines, typing, scramble, shimmer, morph, wave
-- **Backgrounds** (15) — Aurora, particles, beams, gradients, noise, waves
-- **Interactive Elements** (15) — Magnetic, cursor, tilt, glow, spotlight, dock
-- **Cards & Content** (12) — Glow hover, expandable, tweet, spotlight cards
-- **Buttons & Inputs** (11) — Magnetic, copy, morph, animated inputs
-- **Numbers & Data** (5) — Animated numbers, sliding digits, price flow
-- **Toolbars & Menus** (10) — Dynamic toolbars, morphing dialogs, popovers
-- **Layout & Navigation** (11) — Accordion, carousel, scroll-triggered, transitions
-- **3D & WebGL** (8) — Globe, hyperspeed, threads, orbs
+- **Text Effects** (23) — Hero headlines, split text, blur reveal, decrypt, scramble, count up
+- **Animations** (28) — Magnetic, cursor effects, transitions, trails, ribbons
+- **Components** (35) — Cards, docks, carousels, galleries, menus, navigation
+- **Backgrounds** (36) — Aurora, particles, beams, silk, waves, noise, and 30+ more
 
 ## Install
 
@@ -47,7 +39,7 @@ After installing, restart Claude Code. The skill auto-triggers when you ask to b
 
 When you ask Claude Code to build a landing page, hero section, feature grid, or any animated UI:
 
-1. **Catalog lookup** — Matches your request to 150+ curated components
+1. **Catalog lookup** — Matches your request to 120+ curated components
 2. **Reference guides** — Reads category-specific implementation guides
 3. **Source code** — Pulls exact component source (not generic training data)
 4. **Project detection** — Adapts to your framework (Next.js, Vite, etc.)
@@ -69,19 +61,18 @@ bedrock/
 │   ├── layout-navigation.md
 │   ├── threed-webgl.md
 │   ├── dependency-map.md
-│   └── ssr-prerender.md
+│   ├── ssr-prerender.md
+│   ├── style-profiles.md
+│   ├── typography-recipes.md
+│   ├── design-tokens.md
+│   └── motion-theory.md
 ├── templates/            # Full page composition blueprints
+│   ├── complete-examples.md
 │   ├── saas-landing.md
 │   ├── hero-section.md
 │   ├── features-grid.md
 │   └── dashboard-shell.md
-├── source/               # Raw component source from all 4 libraries
-│   ├── animate-ui-components.txt
-│   ├── animate-ui-docs.txt
-│   ├── smoothui-components.txt
-│   ├── smoothui-docs.txt
-│   ├── motion-primitives-components.txt
-│   ├── motion-primitives-docs.txt
+├── source/               # Raw component source from ReactBits
 │   ├── reactbits-components.txt
 │   └── reactbits-docs.txt
 └── scripts/
@@ -96,11 +87,8 @@ Bedrock activates when you mention: animation, motion, micro-interactions, "make
 
 ## Credits
 
-Bedrock curates components from these excellent open-source projects:
+Bedrock curates components from:
 
-- [AnimateUI](https://animate-ui.com) by imskyleen
-- [SmoothUI](https://smoothui.dev) by educlopez
-- [Motion Primitives](https://motion-primitives.com) by ibelick
 - [ReactBits](https://reactbits.dev) by DavidHDev
 
 ## License

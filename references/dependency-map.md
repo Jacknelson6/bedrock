@@ -17,12 +17,12 @@ export function cn(...inputs: ClassValue[]) {
 
 ## Dependency Groups
 
-**Motion Only** (most components): `npm install motion clsx tailwind-merge`
-**CSS Only** (ShinyText, GradientText, Noise, Squares, Waves, LetterGlitch): No animation deps needed
+**Motion Only** (many components): `npm install motion clsx tailwind-merge`
+**CSS Only** (ShinyText, GradientText, Noise, Squares, Waves, LetterGlitch, Iridescence, etc.): No animation deps needed
 **OGL** (Aurora): `npm install ogl`
-**Three.js** (Particles, Hyperspeed, Threads, Beams, ShapeBlur): `npm install three @react-three/fiber @react-three/drei`
-**GSAP** (BlobCursor, some SmoothUI internals): `npm install gsap`
-**Icons** (ButtonCopy, toolbars, etc.): `npm install lucide-react`
+**Three.js** (Particles, Hyperspeed, Threads, Beams, ShapeBlur, Silk, Ballpit, Galaxy, GridDistortion): `npm install three @react-three/fiber @react-three/drei`
+**GSAP** (BlobCursor, AnimatedContent): `npm install gsap`
+**Icons** (optional UI): `npm install lucide-react`
 
 ## Version Pins
 ```json

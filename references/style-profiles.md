@@ -26,7 +26,7 @@
 ```
 
 **Background:** Aurora (violet/indigo, opacity 0.2–0.3)
-**Animation:** Expressive — TextEffect on hero, Aurora ambient, staggered entrances
+**Animation:** Expressive — SplitText on hero, Aurora ambient, staggered entrances
 
 **When to use:** AI tools, developer platforms with premium positioning, crypto/fintech dashboards
 
@@ -34,9 +34,9 @@
 ```tsx
 'use client';
 import { motion } from 'motion/react';
-import { TextEffect } from '@/components/ui/text-effect';
+import { SplitText } from '@/components/ui/split-text';
 import { Aurora } from '@/components/ui/aurora';
-import { Magnetic } from '@/components/ui/magnetic';
+import { Magnet } from '@/components/ui/magnet';
 import { Playfair_Display, Inter } from 'next/font/google';
 
 const playfair = Playfair_Display({ subsets: ['latin'], variable: '--font-serif', style: ['italic'] });
@@ -63,14 +63,10 @@ export default function Hero() {
         </motion.p>
 
         <h1 className="text-5xl sm:text-7xl lg:text-8xl tracking-tighter leading-[0.9] font-semibold">
-          <TextEffect per="word" preset="blur" delay={0.2}>
-            Engineering Air
-          </TextEffect>
+          <SplitText text="Engineering Air" delay={30} className="inline" />
           <br />
           <span className={`${playfair.className} italic text-violet-400 font-normal`}>
-            <TextEffect per="word" preset="blur" delay={0.6}>
-              Superiority
-            </TextEffect>
+            <SplitText text="Superiority" delay={30} className="inline" />
           </span>
         </h1>
 
@@ -87,11 +83,11 @@ export default function Hero() {
           transition={{ delay: 1.0, ...ENTRANCE }}
           className="mt-10 flex gap-4"
         >
-          <Magnetic intensity={0.15}>
+          <Magnet>
             <a href="/start" className="px-7 py-3.5 bg-violet-600 hover:bg-violet-500 text-white rounded-full text-sm font-medium transition-colors">
               Request access
             </a>
-          </Magnetic>
+          </Magnet>
           <a href="/docs" className="px-7 py-3.5 border border-white/10 text-white/70 hover:text-white rounded-full text-sm font-medium transition-colors">
             Documentation
           </a>
@@ -126,7 +122,7 @@ export default function Hero() {
 ```
 
 **Background:** None. Clean white/off-white. Maybe a subtle `border-b` between sections.
-**Animation:** Minimal — InView fade-ups only, no text effects, no backgrounds
+**Animation:** Minimal — FadeContent fade-ups only, no text effects, no backgrounds
 
 **When to use:** Developer tools, API platforms, infra products, anything where credibility > flash
 
@@ -134,7 +130,6 @@ export default function Hero() {
 ```tsx
 'use client';
 import { motion } from 'motion/react';
-import { InView } from '@/components/ui/in-view';
 
 const ENTRANCE = { type: "spring" as const, stiffness: 200, damping: 25 };
 
@@ -211,7 +206,7 @@ export default function Hero() {
 ```
 
 **Background:** Radial gradient (subtle, centered behind dashboard mockup)
-**Animation:** Moderate — AnimatedNumber on stats, staggered card entrance, InView reveals
+**Animation:** Moderate — CountUp on stats, staggered card entrance, FadeContent reveals
 
 **When to use:** Analytics products, dashboards, data-heavy SaaS, monitoring tools
 
@@ -219,9 +214,7 @@ export default function Hero() {
 ```tsx
 'use client';
 import { motion } from 'motion/react';
-import { AnimatedNumber } from '@/components/ui/animated-number';
-import { AnimatedGroup } from '@/components/ui/animated-group';
-import { InView } from '@/components/ui/in-view';
+import { CountUp } from '@/components/ui/count-up';
 import { Instrument_Serif, DM_Sans } from 'next/font/google';
 
 const instrumentSerif = Instrument_Serif({ subsets: ['latin'], weight: '400', style: ['italic'], variable: '--font-serif' });
@@ -277,7 +270,7 @@ export default function Hero() {
           ].map((stat) => (
             <div key={stat.label}>
               <div className="font-mono text-3xl md:text-4xl font-bold tracking-tight tabular-nums text-foreground">
-                <AnimatedNumber value={stat.value} springOptions={{ stiffness: 80, damping: 25 }} />{stat.suffix}
+                <CountUp from={0} to={stat.value} duration={1.5} />{stat.suffix}
               </div>
               <p className="mt-1 text-xs text-muted-foreground font-mono tracking-wider uppercase">{stat.label}</p>
             </div>
@@ -313,7 +306,7 @@ export default function Hero() {
 ```
 
 **Background:** Particles (slow, blue-tinted, low density) or subtle dot grid
-**Animation:** Moderate — InView for sections, AnimatedNumber for metrics, Particles ambient
+**Animation:** Moderate — FadeContent for sections, CountUp for metrics, Particles ambient
 
 **When to use:** Enterprise SaaS, security tools, infrastructure, compliance products
 
@@ -322,8 +315,7 @@ export default function Hero() {
 'use client';
 import { motion } from 'motion/react';
 import { Particles } from '@/components/ui/particles';
-import { AnimatedGroup } from '@/components/ui/animated-group';
-import { Magnetic } from '@/components/ui/magnetic';
+import { Magnet } from '@/components/ui/magnet';
 
 const ENTRANCE = { type: "spring" as const, stiffness: 200, damping: 25 };
 
@@ -370,11 +362,11 @@ export default function Hero() {
           transition={{ delay: 0.7, ...ENTRANCE }}
           className="mt-10 flex items-center justify-center gap-4"
         >
-          <Magnetic intensity={0.1}>
+          <Magnet>
             <a href="/demo" className="px-8 py-3.5 bg-blue-600 hover:bg-blue-500 text-white rounded-lg text-sm font-medium transition-colors">
               Schedule demo
             </a>
-          </Magnetic>
+          </Magnet>
           <a href="/pricing" className="px-8 py-3.5 border border-slate-700 text-slate-300 hover:text-white hover:border-slate-600 rounded-lg text-sm font-medium transition-colors">
             View pricing
           </a>
@@ -418,7 +410,7 @@ export default function Hero() {
 ```
 
 **Background:** None, or a single oversized image/video. Let content and whitespace do the work.
-**Animation:** Expressive but sparse — one dramatic TextEffect per page, magnetic on CTAs, large scale transitions
+**Animation:** Expressive but sparse — one dramatic SplitText per page, Magnet on CTAs, large scale transitions
 
 **When to use:** Design tools, creative agencies, portfolio-style products, anything where artistry matters
 
@@ -426,8 +418,8 @@ export default function Hero() {
 ```tsx
 'use client';
 import { motion } from 'motion/react';
-import { TextEffect } from '@/components/ui/text-effect';
-import { Magnetic } from '@/components/ui/magnetic';
+import { SplitText } from '@/components/ui/split-text';
+import { Magnet } from '@/components/ui/magnet';
 import { Instrument_Serif, Spline_Sans } from 'next/font/google';
 
 const instrumentSerif = Instrument_Serif({ subsets: ['latin'], weight: '400', style: ['italic'], variable: '--font-serif' });
@@ -447,19 +439,12 @@ export default function Hero() {
       {/* Main headline — full width, oversized */}
       <div className="flex-1 flex items-center -mx-6 md:-mx-12">
         <h1 className="text-[clamp(3rem,12vw,12rem)] font-medium tracking-tighter leading-[0.85] w-full">
-          <TextEffect per="char" preset="blur" delay={0.1}>
-            We make
-          </TextEffect>
-          <br />
+          <SplitText text="We make" delay={20} className="block" />
           <span className="flex items-baseline gap-[0.5em]">
             <span className={`${instrumentSerif.className} italic text-[#ff4d00] font-normal`}>
-              <TextEffect per="char" preset="blur" delay={0.5}>
-                beautiful
-              </TextEffect>
+              <SplitText text="beautiful" delay={20} className="inline" />
             </span>
-            <TextEffect per="char" preset="blur" delay={0.8}>
-              things
-            </TextEffect>
+            <SplitText text="things" delay={20} className="inline" />
           </span>
         </h1>
       </div>
@@ -473,12 +458,12 @@ export default function Hero() {
         <p className="text-sm text-muted-foreground max-w-xs leading-relaxed">
           A design studio crafting digital experiences for brands that refuse to blend in.
         </p>
-        <Magnetic intensity={0.2}>
+        <Magnet>
           <a href="/work" className="group flex items-center gap-2 text-sm font-medium">
             View our work
             <span className="group-hover:translate-x-1 transition-transform" aria-hidden>→</span>
           </a>
-        </Magnetic>
+        </Magnet>
       </motion.div>
     </section>
   );

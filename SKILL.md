@@ -1,7 +1,7 @@
 ---
 name: bedrock
 description: >
-  The definitive animated frontend component system for building production-grade SaaS landing pages, marketing sites, and web applications with Motion, GSAP, Three.js, and 150+ curated components. ALWAYS use this skill when the user asks to build ANY frontend UI, landing page, marketing page, hero section, feature grid, pricing table, or web application interface. Also trigger when the user mentions animation, motion, micro-interactions, "make it look good," "not boring," "premium feel," "modern UI," AnimateUI, SmoothUI, Motion Primitives, ReactBits, or any request involving React components that should look polished and professional. This skill contains the actual source code and implementation patterns — do NOT fall back to generic code from training data. If you're writing frontend React code and this skill is available, you should be using it.
+  The definitive animated frontend component system for building production-grade SaaS landing pages, marketing sites, and web applications with Motion, GSAP, Three.js, and 120+ curated ReactBits components. ALWAYS use this skill when the user asks to build ANY frontend UI, landing page, marketing page, hero section, feature grid, pricing table, or web application interface. Also trigger when the user mentions animation, motion, micro-interactions, "make it look good," "not boring," "premium feel," "modern UI," ReactBits, or any request involving React components that should look polished and professional. This skill contains the actual source code and implementation patterns — do NOT fall back to generic code from training data. If you're writing frontend React code and this skill is available, you should be using it.
 ---
 
 # Bedrock — Animated Frontend Component System
@@ -28,7 +28,7 @@ description: >
 
 1. **Typography carries the design.** The right font pairing with proper tracking and scale does 60% of the work — before any animation runs. Mix serif + sans in headlines (see `typography-recipes.md`).
 
-2. **Restraint signals confidence.** NOT every headline needs TextEffect. NOT every card needs GlowHoverCard. The best sites are defined by what they DON'T animate.
+2. **Restraint signals confidence.** NOT every headline needs SplitText. NOT every card needs SpotlightCard. The best sites are defined by what they DON'T animate.
 
 3. **Spacing creates rhythm.** Variable section heights create breathing. Uniform `py-24` everywhere is the #1 tell of an AI-built page (see `design-tokens.md`).
 
@@ -44,18 +44,15 @@ All Bedrock files live at `~/.claude/skills/bedrock/`. Only this SKILL.md is aut
 
 | When catalog says... | Search this source file | Check this docs file |
 |---------------------|------------------------|---------------------|
-| **Motion Primitives** | `source/motion-primitives-components.txt` | `source/motion-primitives-docs.txt` |
-| **SmoothUI** | `source/smoothui-components.txt` | `source/smoothui-docs.txt` |
 | **ReactBits** | `source/reactbits-components.txt` | `source/reactbits-docs.txt` |
-| **AnimateUI** | `source/animate-ui-components.txt` | `source/animate-ui-docs.txt` |
 
 ### Finding Component Source (every time, non-negotiable)
 
-⚠️ **NEVER `Read source/xyz-components.txt` without offset+limit. These files are 40K-70K lines.**
+⚠️ **NEVER `Read source/reactbits-components.txt` without offset+limit. These files are 40K-70K lines.**
 
 1. **Grep** the source file for the line number:
    ```
-   Grep pattern="=== FILE:.*text-effect" path="~/.claude/skills/bedrock/source/motion-primitives-components.txt" -n=true
+   Grep pattern="=== FILE:.*SplitText" path="~/.claude/skills/bedrock/source/reactbits-components.txt" -n=true
    ```
 2. **Read** only that component (50-200 lines):
    ```
@@ -63,10 +60,10 @@ All Bedrock files live at `~/.claude/skills/bedrock/`. Only this SKILL.md is aut
    ```
 3. **Grep docs** for props:
    ```
-   Grep pattern="## TextEffect" path="~/.claude/skills/bedrock/source/motion-primitives-docs.txt" -A=50
+   Grep pattern="## SplitText" path="~/.claude/skills/bedrock/source/reactbits-docs.txt" -A=50
    ```
 
-Source files use `// === FILE: path/to/Component.tsx ===` delimiters. Motion Primitives/SmoothUI use kebab-case, ReactBits uses PascalCase.
+Source files use `// === FILE: path/to/Component.tsx ===` delimiters. ReactBits uses PascalCase.
 
 ---
 
@@ -104,12 +101,12 @@ Source files use `// === FILE: path/to/Component.tsx ===` delimiters. Motion Pri
 **If your output has ANY of these, you're using training data. Fix it:**
 
 1. `bg-gradient-to-br from-purple-600 to-blue-500` — use Aurora, or better: NO background
-2. `hover:shadow-lg transition` — use GlowHoverCard or clean border hover
+2. `hover:shadow-lg transition` — use SpotlightCard or clean border hover
 3. `animate-bounce` or `animate-pulse` — use Motion springs
 4. Raw color values (`text-gray-600`, `bg-white`) — use semantic tokens
 5. `transition-all duration-300` — use spring physics
-6. Every headline uses TextEffect — sometimes a well-set `<h1>` is enough
-7. Every card uses GlowHoverCard — clean borders > glow for informational content
+6. Every headline uses SplitText — sometimes a well-set `<h1>` is enough
+7. Every card uses SpotlightCard — clean borders > glow for informational content
 8. Aurora/Particles in multiple sections — ONE ambient background per page max
 9. Centered text in every section — alternate left-aligned and centered
 10. `gap-8` on every grid — tighter gaps (`gap-px` to `gap-4`) create "card sheet" effect
@@ -136,148 +133,160 @@ Missing deps: npm install motion clsx tailwind-merge (+ three/ogl/gsap as needed
 ## Component Catalog
 
 ### Text Effects (23 components) — `references/text-effects.md`
-| Component | Source | Use For |
-|-----------|--------|---------|
-| **TextEffect** | Motion Primitives | ⭐ Hero headlines, staggered word/char entrance |
-| **TextMorph** | Motion Primitives | Morphing between two strings |
-| **TextScramble** | Motion Primitives | Matrix-style scramble reveal |
-| **TextShimmer** | Motion Primitives | Gradient shimmer sweep |
-| **TextShimmerWave** | Motion Primitives | Wave-pattern shimmer |
-| **TextLoop** | Motion Primitives | Rotating taglines |
-| **TextRoll** | Motion Primitives | Rolling/flipping transitions |
-| **WaveText** | SmoothUI | Per-character wave bounce |
-| **RevealText** | SmoothUI | Scroll-triggered line reveal |
-| **TypewriterText** | SmoothUI | Typing effect with cursor |
-| **ScrambleHover** | SmoothUI | Text scrambles on hover |
-| **ScrollRevealParagraph** | SmoothUI | Word-by-word scroll reveal |
-| **SpinningText** | Motion Primitives | Circular rotating text |
-| **SplitText** | ReactBits | Advanced char/word/line splits |
-| **BlurText** | ReactBits | Blur-to-focus reveal |
-| **ShinyText** | ReactBits | CSS-only shiny sweep |
-| **GradientText** | ReactBits | Animated gradient fill |
-| **FallingText** | ReactBits | Characters fall into place |
-| **DecryptedText** | ReactBits | Character-by-character decrypt |
-| **CircularText** | ReactBits | Text in a circle |
-| **CountUp** | ReactBits | Animated number counting |
-| **FuzzyText** | ReactBits | Glitch/fuzzy effect |
-| **TrueFocus** | ReactBits | Focus highlight across words |
+| Component | Use For |
+|-----------|---------|
+| **SplitText** | ⭐ Hero headlines, staggered word/char entrance |
+| **BlurText** | Blur-to-focus cinematic reveal |
+| **ShinyText** | CSS-only shiny sweep |
+| **GradientText** | Animated gradient fill |
+| **DecryptedText** | Matrix-style character decrypt |
+| **CircularText** | Text in a circle |
+| **TextPressure** | Pressure-responsive text |
+| **FuzzyText** | Glitch/fuzzy effect |
+| **TrueFocus** | Focus highlight across words |
+| **FallingText** | Characters fall into place |
+| **TextCursor** | Blinking cursor effect |
+| **ScrollFloat** | Float on scroll |
+| **ScrollReveal** | Scroll-triggered reveal |
+| **ASCIIText** | ASCII art text rendering |
+| **ScrambledText** | Scramble/decode text |
+| **RotatingText** | Rotating text cycle |
+| **GlitchText** | Glitch distortion |
+| **ScrollVelocity** | Speed-based scroll text |
+| **VariableProximity** | Cursor proximity variable font |
+| **CountUp** | Animated number counting |
+| **CurvedLoop** | Curved looping text |
+| **TextType** | Typewriter effect |
+| **Shuffle** | Shuffle text characters |
 
-### Backgrounds (14) — `references/backgrounds.md`
-| Component | Source | Dep | Use For |
-|-----------|--------|-----|---------|
-| **Aurora** | ReactBits | ogl | ⭐ Northern lights gradient |
-| **Particles** | ReactBits | three | Interactive particle field |
-| **Beams** | ReactBits | three | Light beam rays |
-| **Hyperspeed** | ReactBits | three | Warp-speed starfield |
-| **GridMotion** | ReactBits | motion | Animated image grid |
-| **Noise** | ReactBits | CSS | Grain texture overlay |
-| **Squares** | ReactBits | CSS | Animated square grid |
-| **Waves** | ReactBits | CSS | Flowing wave lines |
-| **Threads** | ReactBits | three | 3D flowing threads |
-| **BlobCursor** | ReactBits | gsap | Blob follows cursor |
-| **LetterGlitch** | ReactBits | CSS | Glitching character bg |
-| **ShapeBlur** | ReactBits | three | Blurred shapes (Stripe-style) |
-| **StarBorder** | ReactBits | motion | Sparkle border |
-| **BorderTrail** | Motion Primitives | motion | Animated border trail |
+### Backgrounds (36) — `references/backgrounds.md`
+| Component | Dep | Use For |
+|-----------|-----|---------|
+| **Aurora** | ogl | ⭐ Northern lights gradient |
+| **Silk** | three | Flowing silk fabric |
+| **Particles** | three | Interactive particle field |
+| **Beams** | three | Light beam rays |
+| **Hyperspeed** | three | Warp-speed starfield |
+| **Squares** | CSS | Animated square grid |
+| **Waves** | CSS | Flowing wave lines |
+| **Noise** | CSS | Grain texture overlay |
+| **Iridescence** | CSS | Rainbow shimmer |
+| **LiquidChrome** | CSS | Chrome liquid effect |
+| **Ballpit** | three | 3D ball pit |
+| **GridMotion** | motion | Animated image grid |
+| **GridDistortion** | three | Grid warp effect |
+| **LetterGlitch** | CSS | Glitching character bg |
+| **Orb** | CSS | Floating orb |
+| **Balatro** | CSS | Psychedelic pattern |
+| **Threads** | three | 3D flowing threads |
+| **Dither** | CSS | Dithered gradient |
+| **Lightning** | CSS | Lightning bolts |
+| **DotGrid** | CSS | Animated dot grid |
+| **RippleGrid** | CSS | Ripple grid effect |
+| **DarkVeil** | CSS | Dark overlay veil |
+| **Galaxy** | three | Galaxy starfield |
+| **LightRays** | CSS | Volumetric light rays |
+| **FaultyTerminal** | CSS | CRT/terminal effect |
+| **Plasma** | CSS | Plasma flow |
+| **Prism** | CSS | Prismatic refraction |
+| **GradientBlinds** | CSS | Venetian blind gradient |
+| **Grainient** | CSS | Grainy gradient |
+| **PrismaticBurst** | CSS | Color burst |
+| **PixelBlast** | CSS | Pixel explosion |
+| **LiquidEther** | CSS | Ethereal liquid |
+| **ColorBends** | CSS | Color bending |
+| **GridScan** | CSS | Scanning grid |
+| **FloatingLines** | CSS | Floating line patterns |
+| **LightPillar** | CSS | Light pillar effect |
+| **PixelSnow** | CSS | Pixel snow particles |
 
-### Interactive Elements (15) — `references/interactive-elements.md`
-| Component | Source | Use For |
-|-----------|--------|---------|
-| **Magnetic** | Motion Primitives | ⭐ Element pulls toward cursor |
-| **Cursor** | Motion Primitives | Custom cursor follower |
-| **Tilt** | Motion Primitives | 3D tilt on hover |
-| **GlowEffect** | Motion Primitives | Glow follows cursor |
-| **Spotlight** | Motion Primitives | Spotlight follows pointer |
-| **ImageComparison** | Motion Primitives | Before/after slider |
-| **ScrollProgress** | Motion Primitives | Scroll progress bar |
-| **Dock** | Motion Primitives | macOS-style dock |
-| **CursorFollow** | SmoothUI | Decorative cursor follower |
-| **SplashCursor** | ReactBits | Fluid splash at cursor |
-| **MagnetLines** | ReactBits | Lines attracted to cursor |
-| **Crosshair** | ReactBits | Crosshair cursor overlay |
-| **InfiniteSlider** | Motion Primitives | Seamless infinite scroll |
-| **AnimatedTabs** | SmoothUI | Tabs with animated indicator |
-| **ProgressiveBlur** | Motion Primitives | Gradient blur effect |
+### Animations (28) — `references/interactive-elements.md`
+| Component | Use For |
+|-----------|---------|
+| **AnimatedContent** | ⭐ Scroll/mount entrance wrapper (gsap) |
+| **FadeContent** | Simple directional fade entrance |
+| **Magnet** | Element pulls toward cursor |
+| **ElectricBorder** | Animated electric border |
+| **ClickSpark** | Spark effect on click |
+| **StarBorder** | Sparkle border effect |
+| **PixelTransition** | Pixel dissolve transition |
+| **GlareHover** | Glare effect on hover |
+| **Ribbons** | Flowing ribbon animation |
+| **SplashCursor** | Fluid splash at cursor |
+| **BlobCursor** | Blob follows cursor (gsap) |
+| **ImageTrail** | Images trail cursor |
+| **PixelTrail** | Pixel trail cursor |
+| **MetaBalls** | Metaball physics |
+| **MetallicPaint** | Metallic paint effect |
+| **GradualBlur** | Gradual blur effect |
+| **Crosshair** | Crosshair cursor overlay |
+| **ShapeBlur** | Blurred shapes (Stripe-style) |
+| **MagnetLines** | Lines attracted to cursor |
+| **Cubes** | 3D cube animation |
+| **TargetCursor** | Target cursor effect |
+| **StickerPeel** | Sticker peel effect |
+| **GhostCursor** | Ghost trail cursor |
+| **LaserFlow** | Laser beam flow |
+| **Antigravity** | Antigravity particle field |
+| **OrbitImages** | Orbiting images |
+| **LogoLoop** | Infinite logo scroll |
 
-### Cards & Content (12) — `references/cards-content.md`
-| Component | Source | Use For |
-|-----------|--------|---------|
-| **GlowHoverCard** | SmoothUI | ⭐ Card with cursor-following glow |
-| **ExpandableCards** | SmoothUI | Cards expand to full view |
-| **TweetCard** | SmoothUI | Social proof tweet card |
-| **SwitchboardCard** | SmoothUI | Toggle-style card |
-| **ScrollableCardStack** | SmoothUI | Stacked cards with scroll |
-| **Phototab** | SmoothUI | Photo gallery tabs |
-| **AppleInvites** | SmoothUI | Apple-style invitation card |
-| **ContributionGraph** | SmoothUI | GitHub heatmap |
-| **AnimatedList** | ReactBits | Staggered list entrance |
-| **TiltedCard** | ReactBits | CSS 3D tilt card |
-| **PixelCard** | ReactBits | Pixel dissolve card |
-| **SpotlightCard** | ReactBits | Spotlight hover card |
+### Components (35) — `references/cards-content.md`
+| Component | Use For |
+|-----------|---------|
+| **Stack** | Stacked card layout |
+| **Dock** | macOS-style dock |
+| **SpotlightCard** | ⭐ Spotlight hover card |
+| **ElasticSlider** | Elastic range slider |
+| **Carousel** | Touch carousel with spring |
+| **TiltedCard** | CSS 3D tilt card |
+| **AnimatedList** | Staggered list entrance |
+| **Masonry** | Masonry grid layout |
+| **Folder** | Folder open/close |
+| **Counter** | Counter component |
+| **Stepper** | Step indicator |
+| **PixelCard** | Pixel dissolve card |
+| **DecayCard** | Decay/erode card |
+| **BounceCards** | Bouncing card stack |
+| **InfiniteMenu** | Infinite scroll menu |
+| **FlyingPosters** | Flying poster gallery |
+| **FlowingMenu** | Flowing nav menu |
+| **CircularGallery** | Circular image gallery |
+| **Lanyard** | Lanyard/badge component |
+| **GlassIcons** | Frosted glass icons |
+| **GooeyNav** | Gooey navigation |
+| **ChromaGrid** | Chromatic grid |
+| **ProfileCard** | Profile card |
+| **CardSwap** | Card swap animation |
+| **ModelViewer** | 3D model viewer |
+| **FluidGlass** | Fluid glass effect |
+| **MagicBento** | Magic bento grid |
+| **ScrollStack** | Scroll-stacking cards |
+| **GlassSurface** | Glass morphism surface |
+| **PillNav** | Pill navigation |
+| **CardNav** | Card-based navigation |
+| **BubbleMenu** | Bubble menu |
+| **DomeGallery** | Dome gallery |
+| **StaggeredMenu** | Staggered menu animation |
+| **ReflectiveCard** | Reflective card |
 
-### Buttons & Inputs (11) — `references/buttons-inputs.md`
-| Component | Source | Use For |
-|-----------|--------|---------|
-| **MagneticButton** | SmoothUI | ⭐ Magnetic pull CTA |
-| **ButtonCopy** | SmoothUI | Click-to-copy with animation |
-| **ClipCornersButton** | SmoothUI | Geometric clipped corners |
-| **DotMorphButton** | SmoothUI | Morphing dot button |
-| **AnimatedInput** | SmoothUI | Floating label input |
-| **AnimatedOTPInput** | SmoothUI | OTP code input |
-| **AnimatedToggle** | SmoothUI | Spring toggle switch |
-| **AnimatedTooltip** | SmoothUI | Animated tooltip |
-| **SearchableDropdown** | SmoothUI | Searchable dropdown |
-| **AIInput** | SmoothUI | AI-style chat input |
-| **AnimatedTags** | SmoothUI | Animated tag chips |
+### Numbers & Data (2) — `references/numbers-data.md`
+| Component | Use For |
+|-----------|---------|
+| **CountUp** | ⭐ Animated number counting (one-directional) |
+| **Counter** | Interactive counter component |
 
-### Numbers & Data (5) — `references/numbers-data.md`
-| Component | Source | Use For |
-|-----------|--------|---------|
-| **AnimatedNumber** | Motion Primitives | ⭐ Smooth number transitions |
-| **SlidingNumber** | Motion Primitives | Slot-machine digit flip |
-| **NumberFlow** | SmoothUI | Rapid-update display |
-| **PriceFlow** | SmoothUI | Animated currency |
-| **AnimatedProgressBar** | SmoothUI | Progress bar with spring |
-
-### Toolbars & Menus (10) — `references/toolbars-menus.md`
-| Component | Source | Use For |
-|-----------|--------|---------|
-| **ToolbarDynamic** | Motion Primitives | ⭐ Context-aware toolbar |
-| **ToolbarExpandable** | Motion Primitives | Expandable toolbar |
-| **MorphingDialog** | Motion Primitives | Dialog morphs from trigger |
-| **MorphingPopover** | Motion Primitives | Popover morphs from trigger |
-| **BasicDropdown** | SmoothUI | Animated dropdown |
-| **BasicModal** | SmoothUI | Smooth modal |
-| **BasicToast** | SmoothUI | Animated toast |
-| **RichPopover** | SmoothUI | Rich content popover |
-| **GooeyPopover** | SmoothUI | Gooey liquid popover |
-| **DynamicIsland** | SmoothUI | iOS-style dynamic island |
-
-### Layout & Navigation (11) — `references/layout-navigation.md`
-| Component | Source | Use For |
-|-----------|--------|---------|
-| **Accordion** | Motion Primitives | ⭐ Animated expand/collapse |
-| **AnimatedBackground** | Motion Primitives | Active-item background |
-| **AnimatedGroup** | Motion Primitives | Orchestrated stagger |
-| **Carousel** | Motion Primitives | Animated carousel |
-| **Dialog** | Motion Primitives | Animated modal |
-| **Disclosure** | Motion Primitives | Single expand/collapse |
-| **InView** | Motion Primitives | Scroll-triggered animation |
-| **TransitionPanel** | Motion Primitives | Panel transitions |
-| **SkeletonLoader** | SmoothUI | Loading placeholder |
-| **NotificationBadge** | SmoothUI | Animated badge |
-| **ReviewsCarousel** | SmoothUI | Testimonial slider |
-
-### 3D & WebGL (7) — `references/threed-webgl.md`
-| Component | Source | Dep | Use For |
-|-----------|--------|-----|---------|
-| **Hyperspeed** | ReactBits | three | ⭐ Warp-speed starfield |
-| **Threads** | ReactBits | three | 3D flowing threads |
-| **SiriOrb** | SmoothUI | motion | Siri-style orb (no Three.js!) |
-| **AgentAvatar** | SmoothUI | motion | AI agent avatar |
-| **AIBranch** | SmoothUI | motion | AI branching visualization |
-| **GridLoader** | SmoothUI | motion | 3D grid loading |
-| **GithubStarsAnimation** | SmoothUI | motion | Star particles |
+### 3D & WebGL (8) — `references/threed-webgl.md`
+| Component | Dep | Use For |
+|-----------|-----|---------|
+| **Hyperspeed** | three | ⭐ Warp-speed starfield |
+| **Threads** | three | 3D flowing threads |
+| **Beams** | three | Light beam rays |
+| **ShapeBlur** | three | Blurred shapes |
+| **Particles** | three | Interactive particles |
+| **Galaxy** | three | Galaxy starfield |
+| **Ballpit** | three | 3D ball pit |
+| **ModelViewer** | three | 3D model viewer |
 
 ---
 
@@ -289,7 +298,7 @@ Step 2: PLAN      → Read the relevant template (saas-landing.md, hero-section.
 Step 3: DETECT    → Check package.json for framework, deps, UI conventions
 Step 4: FIND SRC  → Grep source file → Read with offset+limit (NEVER from memory)
 Step 5: IMPLEMENT → Adapt source: 'use client', fix imports, match conventions
-Step 6: COMPOSE   → Wire sections with InView, stagger timing, variable spacing
+Step 6: COMPOSE   → Wire sections with AnimatedContent/FadeContent, stagger timing, variable spacing
 Step 7: VERIFY    → npm run build, dev server, screenshot hero + sections + mobile
 ```
 
@@ -305,11 +314,8 @@ Step 7: VERIFY    → npm run build, dev server, screenshot hero + sections + mo
 
 ---
 
-## Source Libraries
+## Source Library
 
 | Library | Count | Stack |
 |---------|-------|-------|
-| AnimateUI | ~40 | Motion, Radix, shadcn |
-| SmoothUI | ~50 | Motion, GSAP, shadcn |
-| Motion Primitives | ~35 | Motion |
-| ReactBits | ~135 | Motion, GSAP, Three.js |
+| ReactBits | ~122 | Motion, GSAP, Three.js, OGL |

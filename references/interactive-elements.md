@@ -5,25 +5,32 @@ Interactive elements respond to cursor, hover, scroll, and drag. They make inter
 ## When to Use What
 | Need | Component |
 |------|-----------|
-| Magnetic pull on hover | **Magnetic** ⭐ (Motion Primitives) |
-| Custom cursor | **Cursor** (Motion Primitives) |
-| 3D tilt on hover | **Tilt** (Motion Primitives) |
-| Glow follows cursor | **GlowEffect** (Motion Primitives) |
-| Spotlight on hover | **Spotlight** (Motion Primitives) |
-| Before/after slider | **ImageComparison** (Motion Primitives) |
-| Scroll progress bar | **ScrollProgress** (Motion Primitives) |
-| macOS dock | **Dock** (Motion Primitives) |
-| Decorative cursor follower | **CursorFollow** (SmoothUI) |
+| Magnetic pull on hover | **Magnet** ⭐ (ReactBits) |
 | Fluid cursor splash | **SplashCursor** (ReactBits) — heavy, hero only |
 | Lines to cursor | **MagnetLines** (ReactBits) |
 | Crosshair overlay | **Crosshair** (ReactBits) |
-| Infinite scroll strip | **InfiniteSlider** (Motion Primitives) |
-| Animated tab indicator | **AnimatedTabs** (SmoothUI) |
-| Gradient blur on scroll | **ProgressiveBlur** (Motion Primitives) |
+| Infinite logo scroll | **LogoLoop** (ReactBits) |
+| Scroll/mount entrance | **AnimatedContent** (ReactBits, gsap) |
+| Simple fade entrance | **FadeContent** (ReactBits) |
+| Click spark effect | **ClickSpark** (ReactBits) |
+| Glare on hover | **GlareHover** (ReactBits) |
+| Electric border | **ElectricBorder** (ReactBits) |
+| Sparkle border | **StarBorder** (ReactBits) |
+| Pixel transition | **PixelTransition** (ReactBits) |
+| Image trail | **ImageTrail** (ReactBits) |
+| Pixel trail | **PixelTrail** (ReactBits) |
+| Blob cursor | **BlobCursor** (ReactBits, gsap) |
+| Ghost cursor | **GhostCursor** (ReactBits) |
+| Target cursor | **TargetCursor** (ReactBits) |
+| Metallic paint | **MetallicPaint** (ReactBits) |
+| Gradual blur | **GradualBlur** (ReactBits) |
+| Sticker peel | **StickerPeel** (ReactBits) |
+| Laser flow | **LaserFlow** (ReactBits) |
+| Ribbons | **Ribbons** (ReactBits) |
 
 ## Key Implementation Notes
-- **Magnetic:** Intensity 0.1-0.3 = natural, 0.5+ = feels like a bug. Use on buttons/links only.
-- **Tilt:** rotationFactor 10-20, add `perspective: 1000px` to parent.
-- **InfiniteSlider:** Set `speedOnHover={0}` to pause on hover. Use for logo bars.
-- **ScrollProgress:** Fix to top of viewport with `position: fixed`.
+- **Magnet:** Use on buttons/links for magnetic pull toward cursor. Spring physics built-in.
+- **LogoLoop:** Use for logo bars / infinite scrolling strips. Seamless infinite logo scroll.
+- **AnimatedContent:** Wrapper with configurable direction, distance, duration. Uses gsap.
+- **FadeContent:** Lighter alternative to AnimatedContent — no gsap needed.
 - **SplashCursor:** Uses canvas — heavy GPU. Mobile fallback required.

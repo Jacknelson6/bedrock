@@ -2,18 +2,42 @@
 
 | Need | Component |
 |------|-----------|
-| Expand/collapse FAQ | **Accordion** ⭐ (Motion Primitives) — proper height anim |
-| Active nav indicator | **AnimatedBackground** (Motion Primitives) — sliding bg |
-| Staggered group entrance | **AnimatedGroup** (Motion Primitives) — orchestrated |
-| Carousel/slider | **Carousel** (Motion Primitives) — swipe + spring |
-| Animated modal | **Dialog** (Motion Primitives) |
-| Single disclosure | **Disclosure** (Motion Primitives) |
-| Scroll-triggered anim | **InView** ⭐ (Motion Primitives) — Intersection Observer |
-| Panel transitions | **TransitionPanel** (Motion Primitives) — AnimatePresence |
-| Loading skeleton | **SkeletonLoader** (SmoothUI) — shimmer placeholder |
-| Notification count | **NotificationBadge** (SmoothUI) — spring badge |
-| Testimonial slider | **ReviewsCarousel** (SmoothUI) |
+| Scroll/mount entrance | **AnimatedContent** ⭐ (ReactBits, gsap) — configurable entrance wrapper |
+| Simple fade entrance | **FadeContent** (ReactBits) — lightweight directional fade |
+| Carousel/slider | **Carousel** (ReactBits) — touch gestures + spring |
+| Masonry grid | **Masonry** (ReactBits) — responsive masonry layout |
+| Scroll stacking | **ScrollStack** (ReactBits) — cards stack on scroll |
+| Circular gallery | **CircularGallery** (ReactBits) — circular image gallery |
+| Dome gallery | **DomeGallery** (ReactBits) — dome image gallery |
+| Flying posters | **FlyingPosters** (ReactBits) — floating poster gallery |
+| Lanyard badge | **Lanyard** (ReactBits) — draggable lanyard |
+| Logo loop | **LogoLoop** (ReactBits) — infinite logo scroll |
+| Chroma grid | **ChromaGrid** (ReactBits) — chromatic grid layout |
+| Magic bento | **MagicBento** (ReactBits) — bento grid layout |
 
-**InView is the most important layout component.** Wrap EVERY section in a SaaS landing page with InView for scroll-triggered entrances. Use `viewOptions={{ once: true, margin: "-100px" }}` for responsive triggering.
+**AnimatedContent is the key layout component.** Wrap sections for scroll-triggered entrances. For lightweight cases, use FadeContent (no gsap dependency).
 
-**Accordion for FAQ:** Content stays in the DOM when collapsed — search engines index it. Add FAQPage JSON-LD structured data.
+**For accordion/expand-collapse**, use motion/react's `AnimatePresence` + height animation:
+
+```tsx
+'use client';
+import { motion, AnimatePresence } from 'motion/react';
+
+function Accordion({ open, children }: { open: boolean; children: React.ReactNode }) {
+  return (
+    <AnimatePresence>
+      {open && (
+        <motion.div
+          initial={{ height: 0, opacity: 0 }}
+          animate={{ height: 'auto', opacity: 1 }}
+          exit={{ height: 0, opacity: 0 }}
+          transition={{ type: 'spring', stiffness: 200, damping: 25 }}
+          className="overflow-hidden"
+        >
+          {children}
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
+}
+```

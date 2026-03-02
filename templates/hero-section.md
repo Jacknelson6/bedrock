@@ -24,7 +24,7 @@ The headline IS the hero. No background animation. Massive type, tight tracking,
 
 ```tsx
 'use client';
-import { Magnetic } from '@/components/ui/magnetic';
+import { Magnet } from '@/components/ui/magnet';
 import { motion } from 'motion/react';
 
 export function Hero() {
@@ -65,12 +65,12 @@ export function Hero() {
           transition={{ delay: 0.5, type: "spring", stiffness: 200, damping: 25 }}
           className="mt-10 flex flex-wrap gap-4"
         >
-          <Magnetic intensity={0.15}>
+          <Magnet>
             <a href="/start"
                className="px-7 py-3.5 bg-foreground text-background rounded-full text-sm font-medium">
               Start building
             </a>
-          </Magnetic>
+          </Magnet>
           <a href="/demo"
              className="px-7 py-3.5 border border-border rounded-full text-sm font-medium hover:bg-muted transition-colors">
             Watch demo
@@ -98,9 +98,9 @@ export function Hero() {
 
 ```tsx
 'use client';
-import { TextEffect } from '@/components/ui/text-effect';
+import { SplitText } from '@/components/ui/split-text';
 import { Aurora } from '@/components/ui/aurora';
-import { Magnetic } from '@/components/ui/magnetic';
+import { Magnet } from '@/components/ui/magnet';
 import { motion } from 'motion/react';
 
 export function Hero() {
@@ -116,14 +116,14 @@ export function Hero() {
       </div>
 
       <div className="text-center max-w-4xl">
-        <TextEffect
+        <SplitText text="
           as="h1"
           per="word"
           preset="blur"
           className="font-display text-5xl md:text-7xl lg:text-8xl tracking-tighter leading-[0.9]"
         >
           Create enchanting visual experiences
-        </TextEffect>
+        /" delay={30} />
 
         <motion.p
           initial={{ opacity: 0, y: 20 }}
@@ -140,12 +140,12 @@ export function Hero() {
           transition={{ delay: 0.7, type: "spring", stiffness: 200, damping: 25 }}
           className="mt-10"
         >
-          <Magnetic intensity={0.2}>
+          <Magnet>
             <a href="/start"
                className="inline-flex px-8 py-4 bg-primary text-primary-foreground rounded-full text-base font-medium">
               Start creating — free
             </a>
-          </Magnetic>
+          </Magnet>
         </motion.div>
       </div>
     </section>
@@ -171,8 +171,8 @@ export function Hero() {
 
 ```tsx
 'use client';
-import { Tilt } from '@/components/ui/tilt';
-import { Magnetic } from '@/components/ui/magnetic';
+import { TiltedCard } from '@/components/ui/tilted-card';
+import { Magnet } from '@/components/ui/magnet';
 import { motion } from 'motion/react';
 import Image from 'next/image';
 
@@ -192,12 +192,12 @@ export function Hero() {
           with a unified API.
         </p>
         <div className="mt-8 flex gap-4">
-          <Magnetic intensity={0.15}>
+          <Magnet>
             <a href="/docs"
                className="px-7 py-3.5 bg-foreground text-background rounded-full text-sm font-medium">
               Read the docs
             </a>
-          </Magnetic>
+          </Magnet>
           <a href="/contact"
              className="px-7 py-3.5 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
             Contact sales →
@@ -212,7 +212,7 @@ export function Hero() {
         transition={{ delay: 0.3, type: "spring", stiffness: 150, damping: 25 }}
         className="relative"
       >
-        <Tilt rotationFactor={6}>
+        <TiltedCard>
           <Image
             src="/product-hero.png"
             alt="Product interface"
@@ -221,7 +221,7 @@ export function Hero() {
             className="rounded-2xl border border-border/50 shadow-2xl"
             priority
           />
-        </Tilt>
+        </TiltedCard>
       </motion.div>
     </section>
   );
@@ -268,12 +268,12 @@ export function Hero() {
       The creative tool for teams who move fast.
     </p>
     <div className="mt-10">
-      <Magnetic intensity={0.2}>
+      <Magnet>
         <a href="/start"
            className="px-8 py-4 bg-foreground text-background rounded-full text-base font-medium">
           Try it free
         </a>
-      </Magnetic>
+      </Magnet>
     </div>
   </div>
 </section>
@@ -311,7 +311,7 @@ export function Hero() {
 </section>
 ```
 
-**No animations. No backgrounds. No Magnetic. No TextEffect.** Just clean type, proper hierarchy, and space. This is the hardest variant to execute because there's nothing to hide behind.
+**No animations. No backgrounds. No Magnet. No SplitText.** Just clean type, proper hierarchy, and space. This is the hardest variant to execute because there's nothing to hide behind.
 
 ---
 
@@ -365,7 +365,7 @@ export function Hero() {
 ## Checklists
 
 ### SSR/SEO
-1. `<h1>` tag for main headline (TextEffect renders text server-side)
+1. `<h1>` tag for main headline (SplitText renders text server-side)
 2. Headline text is in the DOM — not hidden behind JS-only rendering
 3. CTA uses `<a>` with `href`, not `<button>` with onClick
 4. Background component doesn't contain indexable content

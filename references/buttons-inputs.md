@@ -1,19 +1,12 @@
 # Buttons & Inputs — Bedrock Reference
 
-All SmoothUI-sourced — they dominate this category across all four libraries.
+ReactBits focuses on animation components rather than form inputs. For buttons, use Magnet wrapper + styled buttons. For form inputs, use shadcn/ui or plain Tailwind.
 
 | Need | Component |
 |------|-----------|
-| Magnetic CTA | **MagneticButton** ⭐ — cursor-pull button |
-| Copy to clipboard | **ButtonCopy** — icon morphs to checkmark |
-| Geometric style | **ClipCornersButton** — clipped corners CSS |
-| Morphing interaction | **DotMorphButton** — dots morph on interact |
-| Floating label input | **AnimatedInput** ⭐ — label transitions on focus |
-| OTP/verification | **AnimatedOTPInput** — animated digit boxes |
-| Toggle switch | **AnimatedToggle** — spring physics thumb |
-| Tooltip | **AnimatedTooltip** — spring entrance |
-| Search dropdown | **SearchableDropdown** — filterable with motion |
-| AI chat input | **AIInput** — glowing border, typing indicator |
-| Tag/chip manager | **AnimatedTags** — spring add/remove |
+| Magnetic CTA | **Magnet** — wrap any button for cursor-pull effect |
+| Elastic slider | **ElasticSlider** (ReactBits) — elastic range control |
+| Step indicator | **Stepper** (ReactBits) — multi-step progress |
+| Counter control | **Counter** (ReactBits) — increment/decrement |
 
-**Guidance:** Pair MagneticButton with Magnetic wrapper for double-layer effect: magnetic pull + scale on hover + press feedback.
+**Guidance:** Pair Magnet with a styled button for magnetic pull + scale on hover + press feedback. For form inputs (text fields, toggles, dropdowns), use your UI framework (shadcn/ui, Radix, etc.) — Bedrock focuses on animation, not form primitives.

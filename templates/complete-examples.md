@@ -31,19 +31,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 ```tsx
 'use client';
 import { motion } from 'motion/react';
-import { TextEffect } from '@/components/ui/text-effect';
+import { SplitText } from '@/components/ui/split-text';
 import { Aurora } from '@/components/ui/aurora';
-import { InView } from '@/components/ui/in-view';
-import { AnimatedGroup } from '@/components/ui/animated-group';
-import { AnimatedNumber } from '@/components/ui/animated-number';
-import { Magnetic } from '@/components/ui/magnetic';
-import { InfiniteSlider } from '@/components/ui/infinite-slider';
+import { FadeContent } from '@/components/ui/fade-content';
+import { CountUp } from '@/components/ui/count-up';
+import { Magnet } from '@/components/ui/magnet';
+import { LogoLoop } from '@/components/ui/logo-loop';
 
 const ENTRANCE = { type: "spring" as const, stiffness: 200, damping: 25 };
-const SCROLL_ENTER = {
-  hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { type: "spring" as const, stiffness: 200, damping: 25 } },
-};
 
 const features = [
   { icon: '⚡', title: 'Sub-100ms inference', description: 'Deploy models at the edge with automatic optimization and zero cold starts.' },
@@ -73,11 +68,11 @@ export default function Home() {
           </motion.p>
 
           <h1 className="text-5xl sm:text-7xl lg:text-8xl tracking-tighter leading-[0.9] font-semibold">
-            <TextEffect per="word" preset="blur" delay={0.2}>AI infrastructure</TextEffect>
+            <SplitText text="AI infrastructure" delay={30} className="inline" />
             <br />
             <span className="text-muted-foreground">that{' '}</span>
             <span className="font-serif italic font-normal text-violet-400">
-              <TextEffect per="word" preset="blur" delay={0.7}>just works.</TextEffect>
+              <SplitText text="just works." delay={30} className="inline" />
             </span>
           </h1>
 
@@ -88,11 +83,11 @@ export default function Home() {
 
           <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1.1, ...ENTRANCE }}
             className="mt-10 flex gap-4">
-            <Magnetic intensity={0.15}>
+            <Magnet>
               <a href="/start" className="px-7 py-3.5 bg-violet-600 hover:bg-violet-500 text-white rounded-full text-sm font-medium transition-colors">
                 Start building
               </a>
-            </Magnetic>
+            </Magnet>
             <a href="/docs" className="px-7 py-3.5 border border-white/10 text-white/70 hover:text-white rounded-full text-sm font-medium transition-colors">
               Documentation
             </a>
@@ -103,7 +98,7 @@ export default function Home() {
       {/* ── Features ── */}
       <section className="py-20 md:py-32 px-6 md:px-12">
         <div className="max-w-6xl mx-auto">
-          <InView variants={SCROLL_ENTER} viewOptions={{ once: true, margin: "-50px" }}>
+          <FadeContent blur direction="up">
             <div className="max-w-xl mb-16">
               <p className="font-mono text-xs tracking-widest uppercase text-violet-400 mb-4">Platform</p>
               <h2 className="text-3xl md:text-5xl font-semibold tracking-tighter">
@@ -111,43 +106,49 @@ export default function Home() {
                 <span className="text-zinc-500">Nothing you don't.</span>
               </h2>
             </div>
-          </InView>
+          </FadeContent>
 
-          <InView variants={SCROLL_ENTER} viewOptions={{ once: true, margin: "-50px" }}>
-            <AnimatedGroup preset="blur"
-              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-white/5 rounded-2xl overflow-hidden border border-white/5">
-              {features.map((f) => (
-                <div key={f.title} className="p-8 md:p-10 bg-[#09090b]">
+          <FadeContent blur direction="up">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-white/5 rounded-2xl overflow-hidden border border-white/5">
+              {features.map((f, i) => (
+                <motion.div
+                  key={f.title}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.1, ...ENTRANCE }}
+                  className="p-8 md:p-10 bg-[#09090b]"
+                >
                   <span className="text-2xl">{f.icon}</span>
                   <h3 className="text-lg font-semibold mt-5 tracking-tight">{f.title}</h3>
                   <p className="text-sm text-zinc-500 mt-2 leading-relaxed">{f.description}</p>
-                </div>
+                </motion.div>
               ))}
-            </AnimatedGroup>
-          </InView>
+            </div>
+          </FadeContent>
         </div>
       </section>
 
       {/* ── Social Proof ── */}
       <section className="py-12 md:py-16 border-y border-white/5">
         <div className="max-w-6xl mx-auto px-6 md:px-12">
-          <InView variants={SCROLL_ENTER} viewOptions={{ once: true }}>
+          <FadeContent blur direction="up">
             <p className="font-mono text-xs tracking-widest uppercase text-zinc-600 text-center mb-10">
               Trusted by engineering teams at
             </p>
-            <InfiniteSlider gap={64} speed={30} className="opacity-40">
+            <div className="flex gap-16 items-center justify-center opacity-40 overflow-hidden">
               {logos.map((logo) => (
                 <span key={logo} className="text-lg font-semibold text-zinc-400 whitespace-nowrap">{logo}</span>
               ))}
-            </InfiniteSlider>
-          </InView>
+            </div>
+          </FadeContent>
         </div>
       </section>
 
       {/* ── CTA ── */}
       <section className="py-24 md:py-40 px-6 md:px-12">
         <div className="max-w-3xl mx-auto text-center">
-          <InView variants={SCROLL_ENTER} viewOptions={{ once: true }}>
+          <FadeContent blur direction="up">
             <h2 className="text-4xl md:text-6xl font-semibold tracking-tighter leading-[0.9]">
               Ready to ship{' '}
               <span className="font-serif italic font-normal text-violet-400">faster</span>?
@@ -156,13 +157,13 @@ export default function Home() {
               Join 2,000+ teams already building with Nexus. Free tier, no credit card.
             </p>
             <div className="mt-10">
-              <Magnetic intensity={0.15}>
+              <Magnet>
                 <a href="/start" className="inline-flex px-8 py-4 bg-violet-600 hover:bg-violet-500 text-white rounded-full text-sm font-medium transition-colors">
                   Get started free
                 </a>
-              </Magnetic>
+              </Magnet>
             </div>
-          </InView>
+          </FadeContent>
         </div>
       </section>
     </main>
@@ -198,15 +199,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 ```tsx
 'use client';
 import { motion } from 'motion/react';
-import { InView } from '@/components/ui/in-view';
-import { AnimatedGroup } from '@/components/ui/animated-group';
-import { AnimatedNumber } from '@/components/ui/animated-number';
+import { FadeContent } from '@/components/ui/fade-content';
+import { CountUp } from '@/components/ui/count-up';
 
 const ENTRANCE = { type: "spring" as const, stiffness: 200, damping: 25 };
-const SCROLL_ENTER = {
-  hidden: { opacity: 0, y: 24 },
-  visible: { opacity: 1, y: 0, transition: { type: "spring" as const, stiffness: 200, damping: 25 } },
-};
 
 const features = [
   { title: 'Deploy in seconds', description: 'Push to git, we handle the rest. Zero-config builds for every framework.' },
@@ -260,7 +256,7 @@ export default function Home() {
       {/* ── Features ── */}
       <section className="py-16 md:py-24 px-6 md:px-12 lg:px-20 border-t border-zinc-200">
         <div className="max-w-6xl">
-          <InView variants={SCROLL_ENTER} viewOptions={{ once: true }}>
+          <FadeContent blur direction="up">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-16">
               {features.map((f, i) => (
                 <div key={f.title}>
@@ -273,13 +269,13 @@ export default function Home() {
                 </div>
               ))}
             </div>
-          </InView>
+          </FadeContent>
         </div>
       </section>
 
       {/* ── Stats (Social Proof) ── */}
       <section className="py-12 md:py-20 px-6 md:px-12 lg:px-20 border-y border-zinc-200">
-        <InView variants={SCROLL_ENTER} viewOptions={{ once: true }}>
+        <FadeContent blur direction="up">
           <div className="max-w-6xl flex flex-col md:flex-row md:items-end gap-12 md:gap-24">
             <div className="max-w-xs">
               <p className="font-mono text-xs tracking-widest uppercase text-zinc-400 mb-3">By the numbers</p>
@@ -291,20 +287,20 @@ export default function Home() {
               {stats.map((stat) => (
                 <div key={stat.label}>
                   <div className="text-4xl md:text-5xl font-bold tracking-tighter tabular-nums">
-                    <AnimatedNumber value={stat.value} springOptions={{ stiffness: 80, damping: 25 }} />{stat.suffix}
+                    <CountUp from={0} to={stat.value} duration={1.5} />{stat.suffix}
                   </div>
                   <p className="mt-1 text-xs text-zinc-400 font-mono tracking-wider uppercase">{stat.label}</p>
                 </div>
               ))}
             </div>
           </div>
-        </InView>
+        </FadeContent>
       </section>
 
       {/* ── CTA ── */}
       <section className="py-24 md:py-40 px-6 md:px-12 lg:px-20">
         <div className="max-w-2xl">
-          <InView variants={SCROLL_ENTER} viewOptions={{ once: true }}>
+          <FadeContent blur direction="up">
             <h2 className="text-4xl md:text-6xl font-semibold tracking-tighter leading-[0.9]">
               Start building<br />
               <span className="text-zinc-400">in 30 seconds.</span>
@@ -317,7 +313,7 @@ export default function Home() {
                 Get started free
               </a>
             </div>
-          </InView>
+          </FadeContent>
         </div>
       </section>
     </main>
@@ -354,17 +350,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 ```tsx
 'use client';
 import { motion } from 'motion/react';
-import { InView } from '@/components/ui/in-view';
-import { AnimatedGroup } from '@/components/ui/animated-group';
-import { AnimatedNumber } from '@/components/ui/animated-number';
-import { Magnetic } from '@/components/ui/magnetic';
-import { InfiniteSlider } from '@/components/ui/infinite-slider';
+import { FadeContent } from '@/components/ui/fade-content';
+import { CountUp } from '@/components/ui/count-up';
+import { Magnet } from '@/components/ui/magnet';
 
 const ENTRANCE = { type: "spring" as const, stiffness: 200, damping: 25 };
-const SCROLL_ENTER = {
-  hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { type: "spring" as const, stiffness: 200, damping: 25 } },
-};
 
 const features = [
   { title: 'Real-time pipelines', description: 'Stream millions of events per second with sub-millisecond latency.', stat: '2.4M', statLabel: 'events/sec' },
@@ -415,7 +405,7 @@ export default function Home() {
             ].map((s) => (
               <div key={s.label}>
                 <div className="font-mono text-3xl md:text-4xl font-bold tracking-tight tabular-nums">
-                  <AnimatedNumber value={s.value} springOptions={{ stiffness: 80, damping: 25 }} />{s.suffix || ''}
+                  <CountUp from={0} to={s.value} duration={1.5} />{s.suffix || ''}
                 </div>
                 <p className="mt-1 text-xs text-neutral-600 font-mono tracking-wider uppercase">{s.label}</p>
               </div>
@@ -424,11 +414,11 @@ export default function Home() {
 
           <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.8, ...ENTRANCE }}
             className="mt-10 flex gap-4">
-            <Magnetic intensity={0.15}>
+            <Magnet>
               <a href="/start" className="px-7 py-3.5 bg-cyan-500 hover:bg-cyan-400 text-black rounded-full text-sm font-semibold transition-colors">
                 Start free trial
               </a>
-            </Magnetic>
+            </Magnet>
             <a href="/demo" className="px-7 py-3.5 border border-white/10 text-white/70 hover:text-white rounded-full text-sm font-medium transition-colors">
               Book a demo
             </a>
@@ -439,54 +429,68 @@ export default function Home() {
       {/* ── Features with inline stats ── */}
       <section className="py-20 md:py-32 px-6 md:px-12">
         <div className="max-w-6xl mx-auto">
-          <InView variants={SCROLL_ENTER} viewOptions={{ once: true, margin: "-50px" }}>
+          <FadeContent blur direction="up">
             <p className="font-mono text-xs tracking-widest uppercase text-cyan-400 mb-4">Capabilities</p>
             <h2 className="text-3xl md:text-5xl font-bold tracking-tighter mb-16">
               Built for{' '}<span className="font-serif italic font-normal text-cyan-400">speed.</span>
             </h2>
-          </InView>
+          </FadeContent>
 
-          <InView variants={SCROLL_ENTER} viewOptions={{ once: true, margin: "-50px" }}>
-            <AnimatedGroup preset="blur" className="grid grid-cols-1 md:grid-cols-3 gap-px bg-white/5 rounded-2xl overflow-hidden border border-white/5">
-              {features.map((f) => (
-                <div key={f.title} className="p-8 md:p-10 bg-[#0a0a0a] flex flex-col">
+          <FadeContent blur direction="up">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-white/5 rounded-2xl overflow-hidden border border-white/5">
+              {features.map((f, i) => (
+                <motion.div
+                  key={f.title}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.1, ...ENTRANCE }}
+                  className="p-8 md:p-10 bg-[#0a0a0a] flex flex-col"
+                >
                   <div className="mb-6">
                     <span className="font-mono text-3xl font-bold text-cyan-400 tabular-nums">{f.stat}</span>
                     <span className="font-mono text-xs text-neutral-600 ml-2 tracking-wider uppercase">{f.statLabel}</span>
                   </div>
                   <h3 className="text-lg font-semibold tracking-tight">{f.title}</h3>
                   <p className="text-sm text-neutral-500 mt-2 leading-relaxed flex-1">{f.description}</p>
-                </div>
+                </motion.div>
               ))}
-            </AnimatedGroup>
-          </InView>
+            </div>
+          </FadeContent>
         </div>
       </section>
 
       {/* ── Testimonials ── */}
       <section className="py-16 md:py-24 border-y border-white/5">
         <div className="max-w-6xl mx-auto px-6 md:px-12">
-          <InView variants={SCROLL_ENTER} viewOptions={{ once: true }}>
+          <FadeContent blur direction="up">
             <p className="font-mono text-xs tracking-widest uppercase text-neutral-600 mb-12">What teams say</p>
-            <AnimatedGroup preset="blur" className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {testimonials.map((t) => (
-                <div key={t.name} className="flex flex-col">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {testimonials.map((t, i) => (
+                <motion.div
+                  key={t.name}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.1, ...ENTRANCE }}
+                  className="flex flex-col"
+                >
                   <p className="text-sm text-neutral-300 leading-relaxed flex-1">&ldquo;{t.quote}&rdquo;</p>
                   <div className="mt-6 pt-4 border-t border-white/5">
                     <p className="text-sm font-medium">{t.name}</p>
                     <p className="text-xs text-neutral-600 mt-0.5">{t.role}</p>
                   </div>
-                </div>
+                </motion.div>
               ))}
-            </AnimatedGroup>
-          </InView>
+            </div>
+          </FadeContent>
         </div>
       </section>
 
       {/* ── CTA ── */}
       <section className="py-24 md:py-40 px-6 md:px-12">
         <div className="max-w-3xl mx-auto text-center">
-          <InView variants={SCROLL_ENTER} viewOptions={{ once: true }}>
+          <FadeContent blur direction="up">
             <h2 className="text-4xl md:text-6xl font-bold tracking-tighter leading-[0.9]">
               Your data is{' '}
               <span className="font-serif italic font-normal text-cyan-400">talking.</span>
@@ -494,13 +498,13 @@ export default function Home() {
               <span className="text-neutral-500 font-medium">Are you listening?</span>
             </h2>
             <div className="mt-10">
-              <Magnetic intensity={0.15}>
+              <Magnet>
                 <a href="/start" className="inline-flex px-8 py-4 bg-cyan-500 hover:bg-cyan-400 text-black rounded-full text-sm font-semibold transition-colors">
                   Start free trial
                 </a>
-              </Magnetic>
+              </Magnet>
             </div>
-          </InView>
+          </FadeContent>
         </div>
       </section>
     </main>

@@ -2,17 +2,21 @@
 
 | Need | Component |
 |------|-----------|
-| Premium hover card | **GlowHoverCard** ⭐ (SmoothUI) — cursor-following glow |
-| Expand to full view | **ExpandableCards** (SmoothUI) — layout animation expand |
-| Social proof | **TweetCard** (SmoothUI) — styled tweet card |
-| Toggle card | **SwitchboardCard** (SmoothUI) |
-| Stacked scroll | **ScrollableCardStack** (SmoothUI) |
-| Photo gallery | **Phototab** (SmoothUI) |
-| Invitation style | **AppleInvites** (SmoothUI) |
-| GitHub heatmap | **ContributionGraph** (SmoothUI) |
+| Spotlight hover card | **SpotlightCard** ⭐ (ReactBits) |
 | Staggered list | **AnimatedList** (ReactBits) |
-| CSS 3D tilt | **TiltedCard** (ReactBits) — lighter than Motion Tilt |
+| CSS 3D tilt | **TiltedCard** (ReactBits) |
 | Pixel dissolve | **PixelCard** (ReactBits) |
-| Spotlight hover | **SpotlightCard** (ReactBits) |
+| Decay/erode card | **DecayCard** (ReactBits) |
+| Bouncing card stack | **BounceCards** (ReactBits) |
+| Reflective card | **ReflectiveCard** (ReactBits) |
+| Profile card | **ProfileCard** (ReactBits) |
+| Card swap | **CardSwap** (ReactBits) |
+| Glass surface | **GlassSurface** (ReactBits) |
+| Fluid glass | **FluidGlass** (ReactBits) |
+| Magic bento grid | **MagicBento** (ReactBits) |
+| Scroll stacking | **ScrollStack** (ReactBits) |
+| Stacked layout | **Stack** (ReactBits) |
+| Masonry grid | **Masonry** (ReactBits) |
+| Folder card | **Folder** (ReactBits) |
 
-**Composition:** Wrap in AnimatedGroup for staggered entrance, InView for scroll trigger.
+**Composition:** Wrap cards in `FadeContent` or `AnimatedContent` for scroll-triggered entrance. Use motion `staggerChildren` for grid stagger.

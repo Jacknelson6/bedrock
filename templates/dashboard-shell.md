@@ -10,7 +10,7 @@ For app interfaces, dashboards, and internal tools. Focuses on functional animat
 │  Logo · Search · Notifications · Avatar      │
 ├────────┬─────────────────────────────────────┤
 │        │  BREADCRUMBS / PAGE TITLE           │
-│  SIDE  │  (AnimatedBackground tab indicator) │
+│  SIDE  │  (motion active indicator) │
 │  BAR   ├─────────────────────────────────────┤
 │        │                                     │
 │  Nav   │  CONTENT AREA                       │
@@ -21,11 +21,11 @@ For app interfaces, dashboards, and internal tools. Focuses on functional animat
 │        │  └─────────┘ └─────────┘           │
 │        │  ┌──────────────────────┐           │
 │        │  │  Data Table / Chart  │           │
-│        │  │  (AnimatedGroup)     │           │
+│        │  │  (motion stagger)     │           │
 │        │  └──────────────────────┘           │
 │        │                                     │
 ├────────┴─────────────────────────────────────┤
-│  TOOLBAR (ToolbarDynamic, context-aware)     │
+│  TOOLBAR (Dock or custom toolbar)     │
 └──────────────────────────────────────────────┘
 ```
 
@@ -33,12 +33,12 @@ For app interfaces, dashboards, and internal tools. Focuses on functional animat
 
 ### Stat Cards
 ```tsx
-<AnimatedGroup preset="fade" className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+<div>
   {stats.map(stat => (
     <div key={stat.label} className="p-6 rounded-xl border bg-card">
       <p className="text-sm text-muted-foreground">{stat.label}</p>
       <div className="mt-2 flex items-baseline gap-2">
-        <AnimatedNumber
+        <CountUp from={0} to=
           value={stat.value}
           springOptions={{ stiffness: 150, damping: 25 }}
           className="text-3xl font-bold tabular-nums"
@@ -49,13 +49,13 @@ For app interfaces, dashboards, and internal tools. Focuses on functional animat
       </div>
     </div>
   ))}
-</AnimatedGroup>
+</div>
 ```
 
 ### Sidebar Navigation
 ```tsx
 <nav className="w-64 border-r bg-card p-4">
-  <AnimatedBackground
+  <div
     defaultValue={currentPage}
     className="rounded-lg bg-muted"
     transition={{ type: "spring", stiffness: 300, damping: 30 }}
@@ -65,16 +65,16 @@ For app interfaces, dashboards, and internal tools. Focuses on functional animat
          className="flex items-center gap-3 px-3 py-2.5 text-sm rounded-lg">
         <item.icon className="w-4 h-4" />
         {item.label}
-        {item.badge && <NotificationBadge count={item.badge} />}
+        {item.badge && <span className="badge"={item.badge} />}
       </a>
     ))}
-  </AnimatedBackground>
+  </div>
 </nav>
 ```
 
 ### Floating Toolbar
 ```tsx
-<ToolbarDynamic className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 bg-card border rounded-full px-4 py-2 shadow-xl">
+<div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 bg-card border rounded-full px-4 py-2 shadow-xl">
   {selectedItems.length > 0 ? (
     // Context: items selected
     <div className="flex items-center gap-3">
@@ -90,12 +90,12 @@ For app interfaces, dashboards, and internal tools. Focuses on functional animat
       <button>Export</button>
     </div>
   )}
-</ToolbarDynamic>
+</div>
 ```
 
 ### Page Transitions
 ```tsx
-<TransitionPanel
+<motion.div
   variants={{
     enter: { opacity: 0, x: 20, filter: "blur(4px)" },
     center: { opacity: 1, x: 0, filter: "blur(0px)" },
@@ -104,7 +104,7 @@ For app interfaces, dashboards, and internal tools. Focuses on functional animat
   transition={{ duration: 0.3 }}
 >
   {/* Current page content */}
-</TransitionPanel>
+</motion.div>
 ```
 
 ## Dashboard Motion Guidelines

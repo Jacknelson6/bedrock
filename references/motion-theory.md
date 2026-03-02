@@ -27,10 +27,10 @@ transition={{ type: "spring", stiffness: 100, damping: 20 }}
 ## SaaS Landing Page Motion Rhythm
 ```
 Hero:       Immediate — text animates on load (0ms delay), background is ambient
-Section 2:  Scroll-triggered — feature cards stagger in (InView + AnimatedGroup)
-Section 3:  Scroll-triggered — social proof slides (InfiniteSlider for logos)
-Section 4:  Scroll-triggered — pricing numbers animate (AnimatedNumber on InView)
-Section 5:  Scroll-triggered — testimonials carousel (ReviewsCarousel)
+Section 2:  Scroll-triggered — feature cards stagger in (FadeContent + motion stagger)
+Section 3:  Scroll-triggered — social proof slides (LogoLoop for logos)
+Section 4:  Scroll-triggered — pricing numbers animate (CountUp on scroll)
+Section 5:  Scroll-triggered — testimonials carousel (Carousel)
 Footer CTA: Scroll-triggered — text effect + magnetic button
-Optional: ScrollProgress bar at top (for content-heavy pages only)
+Optional: scroll progress bar at top (for content-heavy pages only)
 ```

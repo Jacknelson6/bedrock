@@ -39,9 +39,9 @@ const mono = localFont({
 ```
 
 ### 2. Restraint Signals Confidence
-- **NOT every headline needs TextEffect.** A well-set `<h1>` with `tracking-tighter` and the right font is enough.
+- **NOT every headline needs SplitText.** A well-set `<h1>` with `tracking-tighter` and the right font is enough.
 - **NOT every section needs a background.** White/dark space IS the design.
-- **NOT every card needs GlowHoverCard.** A clean border with subtle hover is often better.
+- **NOT every card needs SpotlightCard.** A clean border with subtle hover is often better.
 - **Ambient animation (Aurora, Particles) belongs in ONE section** — usually the hero. Using it in multiple sections creates visual noise.
 - **Motion should reward scrolling, not punish it.** If everything animates, nothing stands out.
 
@@ -105,11 +105,11 @@ The headline IS the hero. No background animation. Just beautiful type at massiv
       transition={{ delay: 0.5, type: "spring", stiffness: 200, damping: 25 }}
       className="mt-10 flex flex-wrap gap-4"
     >
-      <Magnetic intensity={0.15}>
+      <Magnet>
         <a href="/start" className="px-7 py-3.5 bg-foreground text-background rounded-full text-sm font-medium">
           Start building
         </a>
-      </Magnetic>
+      </Magnet>
       <a href="/demo" className="px-7 py-3.5 border border-border rounded-full text-sm font-medium hover:bg-muted transition-colors">
         Watch demo
       </a>
@@ -131,10 +131,10 @@ Use when the product is visual or the brand energy is high.
   </div>
 
   <div className="text-center max-w-4xl">
-    <TextEffect as="h1" per="word" preset="blur"
+    <h1><SplitText text="
       className="font-display text-5xl md:text-7xl lg:text-8xl tracking-tighter leading-[0.9]">
       Create enchanting visual experiences
-    </TextEffect>
+    /" delay={30} />
 
     <motion.p
       initial={{ opacity: 0, y: 20 }}
@@ -151,11 +151,11 @@ Use when the product is visual or the brand energy is high.
       transition={{ delay: 0.7, type: "spring", stiffness: 200, damping: 25 }}
       className="mt-10"
     >
-      <Magnetic intensity={0.2}>
+      <Magnet>
         <a href="/start" className="inline-flex px-8 py-4 bg-primary text-primary-foreground rounded-full text-base font-medium">
           Start creating — free
         </a>
-      </Magnetic>
+      </Magnet>
     </motion.div>
   </div>
 </section>
@@ -178,11 +178,11 @@ Use when the product is visual or the brand energy is high.
       with our unified platform.
     </p>
     <div className="mt-8 flex gap-4">
-      <Magnetic intensity={0.15}>
+      <Magnet>
         <a href="/docs" className="px-7 py-3.5 bg-foreground text-background rounded-full text-sm font-medium">
           Read the docs
         </a>
-      </Magnetic>
+      </Magnet>
       <a href="/contact" className="px-7 py-3.5 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
         Contact sales →
       </a>
@@ -191,10 +191,10 @@ Use when the product is visual or the brand energy is high.
 
   {/* Right: product visual */}
   <div className="relative">
-    <Tilt rotationFactor={6}>
+    <TiltedCard>
       <Image src="/product-hero.png" alt="Product interface" width={800} height={600}
              className="rounded-2xl border border-border/50 shadow-2xl" priority />
-    </Tilt>
+    </TiltedCard>
   </div>
 </section>
 ```
@@ -210,12 +210,12 @@ This is compact. Not a full section. 48-64px of breathing room, not 96px.
   <p className="text-center font-mono text-xs tracking-widest uppercase text-muted-foreground mb-8">
     Trusted by teams at
   </p>
-  <InfiniteSlider speed={25} gap={56}>
+  <div className="flex gap-14 items-center overflow-hidden">
     {logos.map(logo => (
       <img key={logo.name} src={logo.src} alt={logo.name}
            className="h-6 md:h-7 opacity-40 grayscale hover:opacity-80 hover:grayscale-0 transition-[opacity,filter]" />
     ))}
-  </InfiniteSlider>
+  </div>
 </div>
 ```
 
@@ -233,7 +233,7 @@ When you have 1 hero feature + supporting features:
 ```tsx
 <section className="py-20 md:py-32 px-6">
   <div className="max-w-7xl mx-auto">
-    <InView variants={{ hidden: { opacity: 0, y: 24 }, visible: { opacity: 1, y: 0 } }}
+    <FadeContent blur direction="up">
             viewOptions={{ once: true, margin: "-80px" }}>
       <p className="font-mono text-xs tracking-widest uppercase text-muted-foreground mb-4">
         Capabilities
@@ -241,11 +241,11 @@ When you have 1 hero feature + supporting features:
       <h2 className="font-display text-3xl md:text-5xl tracking-tight max-w-xl">
         Everything you need, nothing you don't
       </h2>
-    </InView>
+    </FadeContent>
 
     <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-4">
       {/* Hero card — spans 2 cols, taller */}
-      <InView variants={{ hidden: { opacity: 0, y: 32 }, visible: { opacity: 1, y: 0 } }}
+      <FadeContent blur direction="up">
               viewOptions={{ once: true }} transition={{ type: "spring", stiffness: 200, damping: 25 }}>
         <div className="md:col-span-2 md:row-span-2 p-8 md:p-12 rounded-2xl border border-border/50 bg-muted/30">
           <div className="flex flex-col justify-between h-full min-h-[320px]">
@@ -257,11 +257,11 @@ When you have 1 hero feature + supporting features:
             <Image src={heroFeature.image} alt="" className="mt-8 rounded-xl" width={600} height={300} />
           </div>
         </div>
-      </InView>
+      </FadeContent>
 
       {/* Supporting cards */}
       {features.slice(1).map((feature, i) => (
-        <InView key={feature.title}
+        <FadeContent blur direction="up">
                 variants={{ hidden: { opacity: 0, y: 24 }, visible: { opacity: 1, y: 0 } }}
                 viewOptions={{ once: true }}
                 transition={{ delay: 0.1 * (i + 1), type: "spring", stiffness: 200, damping: 25 }}>
@@ -270,7 +270,7 @@ When you have 1 hero feature + supporting features:
             <h3 className="text-lg font-semibold mt-4 tracking-tight">{feature.title}</h3>
             <p className="text-sm text-muted-foreground mt-2">{feature.description}</p>
           </div>
-        </InView>
+        </FadeContent>
       ))}
     </div>
   </div>
@@ -284,7 +284,7 @@ When each feature has a screenshot or illustration:
 <section className="py-20 md:py-32 px-6">
   <div className="max-w-7xl mx-auto space-y-24 md:space-y-32">
     {features.map((feature, i) => (
-      <InView key={feature.title}
+      <FadeContent blur direction="up">
               variants={{ hidden: { opacity: 0, y: 40 }, visible: { opacity: 1, y: 0 } }}
               viewOptions={{ once: true, margin: "-100px" }}
               transition={{ type: "spring", stiffness: 200, damping: 25 }}>
@@ -300,12 +300,12 @@ When each feature has a screenshot or illustration:
               {feature.description}
             </p>
           </div>
-          <Tilt rotationFactor={4} className={i % 2 === 1 ? 'lg:[direction:ltr]' : ''}>
+          <TiltedCard>
             <Image src={feature.image} alt={feature.title}
                    className="rounded-2xl border border-border/50 shadow-lg" width={600} height={400} />
-          </Tilt>
+          </TiltedCard>
         </div>
-      </InView>
+      </FadeContent>
     ))}
   </div>
 </section>
@@ -317,7 +317,7 @@ The classic grid — but done right:
 ```tsx
 <section className="py-20 md:py-32 px-6">
   <div className="max-w-6xl mx-auto">
-    <InView variants={{ hidden: { opacity: 0 }, visible: { opacity: 1 } }}
+    <FadeContent blur direction="up">
             viewOptions={{ once: true }}>
       <div className="max-w-2xl mb-16">
         <h2 className="font-display text-3xl md:text-5xl tracking-tight">Features</h2>
@@ -325,9 +325,9 @@ The classic grid — but done right:
           Built for teams that ship fast.
         </p>
       </div>
-    </InView>
+    </FadeContent>
 
-    <AnimatedGroup preset="blur"
+    <div
       className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-border/50 rounded-2xl overflow-hidden border border-border/50">
       {features.map(feature => (
         <div key={feature.title} className="p-8 md:p-10 bg-background">
@@ -338,7 +338,7 @@ The classic grid — but done right:
           </p>
         </div>
       ))}
-    </AnimatedGroup>
+    </div>
   </div>
 </section>
 ```
@@ -354,7 +354,7 @@ Shows the actual product interface. This is where Tilt and subtle glow earn thei
 ```tsx
 <section className="py-16 md:py-24 px-6">
   <div className="max-w-6xl mx-auto">
-    <InView variants={{ hidden: { opacity: 0, y: 40, scale: 0.97 }, visible: { opacity: 1, y: 0, scale: 1 } }}
+    <FadeContent blur direction="up">
             viewOptions={{ once: true, margin: "-50px" }}
             transition={{ type: "spring", stiffness: 150, damping: 25 }}>
       <div className="relative rounded-2xl border border-border/50 overflow-hidden bg-muted/20 p-2 md:p-3">
@@ -363,7 +363,7 @@ Shows the actual product interface. This is where Tilt and subtle glow earn thei
         {/* Optional: subtle gradient overlay at bottom */}
         <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-background/80 to-transparent pointer-events-none" />
       </div>
-    </InView>
+    </FadeContent>
   </div>
 </section>
 ```
@@ -377,21 +377,21 @@ Shows the actual product interface. This is where Tilt and subtle glow earn thei
 ```tsx
 <section className="py-12 md:py-20 px-6 border-y border-border/30">
   <div className="max-w-6xl mx-auto">
-    <InView variants={{ hidden: { opacity: 0 }, visible: { opacity: 1 } }}
+    <FadeContent blur direction="up">
             viewOptions={{ once: true }}>
       <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
         {stats.map(stat => (
           <div key={stat.label}>
             <div className="font-display text-3xl md:text-5xl font-bold tracking-tighter tabular-nums">
-              <AnimatedNumber value={stat.value}
-                springOptions={{ stiffness: 80, damping: 25 }} />
+              <CountUp from={0} to={stat.value}
+                duration={1.5} />
               {stat.suffix}
             </div>
             <p className="mt-2 text-sm text-muted-foreground">{stat.label}</p>
           </div>
         ))}
       </div>
-    </InView>
+    </FadeContent>
   </div>
 </section>
 ```
@@ -406,7 +406,7 @@ Shows the actual product interface. This is where Tilt and subtle glow earn thei
 ```tsx
 <section className="py-20 md:py-32 px-6">
   <div className="max-w-4xl mx-auto text-center">
-    <InView variants={{ hidden: { opacity: 0, y: 24 }, visible: { opacity: 1, y: 0 } }}
+    <FadeContent blur direction="up">
             viewOptions={{ once: true }}>
       <blockquote>
         <p className="text-2xl md:text-4xl font-medium tracking-tight leading-snug">
@@ -420,20 +420,20 @@ Shows the actual product interface. This is where Tilt and subtle glow earn thei
           </div>
         </footer>
       </blockquote>
-    </InView>
+    </FadeContent>
   </div>
 </section>
 ```
 
 **Pattern B: Carousel (3+ testimonials)**
-Use `ReviewsCarousel` — but cap at 5-7 testimonials. More feels desperate.
+Use `Carousel` — but cap at 5-7 testimonials. More feels desperate.
 
 **Pattern C: Grid (Social proof wall)**
 For B2B with many short quotes:
 ```tsx
 <div className="columns-1 md:columns-2 lg:columns-3 gap-4 space-y-4">
   {testimonials.map(t => (
-    <InView key={t.name} variants={{ hidden: { opacity: 0 }, visible: { opacity: 1 } }}
+    <FadeContent blur direction="up">
             viewOptions={{ once: true }}>
       <div className="break-inside-avoid p-6 rounded-xl border border-border/50 bg-muted/20">
         <p className="text-sm leading-relaxed">"{t.quote}"</p>
@@ -445,7 +445,7 @@ For B2B with many short quotes:
           </div>
         </div>
       </div>
-    </InView>
+    </FadeContent>
   ))}
 </div>
 ```
@@ -466,7 +466,7 @@ For B2B with many short quotes:
       {hasBillingToggle && (
         <div className="mt-8 flex items-center justify-center gap-3">
           <span className={`text-sm ${!annual ? 'text-foreground' : 'text-muted-foreground'}`}>Monthly</span>
-          <AnimatedToggle checked={annual} onChange={setAnnual} />
+          <toggle switch checked={annual} onChange={setAnnual} />
           <span className={`text-sm ${annual ? 'text-foreground' : 'text-muted-foreground'}`}>
             Annual <span className="font-mono text-xs text-primary ml-1">-20%</span>
           </span>
@@ -476,7 +476,7 @@ For B2B with many short quotes:
 
     <div className={`grid grid-cols-1 ${plans.length === 3 ? 'md:grid-cols-3' : 'md:grid-cols-2 max-w-3xl mx-auto'} gap-6`}>
       {plans.map((plan, i) => (
-        <InView key={plan.name}
+        <FadeContent blur direction="up">
                 variants={{ hidden: { opacity: 0, y: 24 }, visible: { opacity: 1, y: 0 } }}
                 viewOptions={{ once: true }}
                 transition={{ delay: i * 0.1, type: "spring", stiffness: 200, damping: 25 }}>
@@ -490,8 +490,8 @@ For B2B with many short quotes:
             </p>
             <div className="mt-4 flex items-baseline gap-1">
               <span className="font-display text-4xl md:text-5xl font-bold tracking-tighter tabular-nums">
-                $<AnimatedNumber value={annual ? plan.annualPrice : plan.monthlyPrice}
-                                 springOptions={{ stiffness: 150, damping: 25 }} />
+                $<CountUp from={0} to={annual ? plan.annualPrice : plan.monthlyPrice}
+                                 duration={1.5} />
               </span>
               <span className="text-muted-foreground text-sm">/mo</span>
             </div>
@@ -506,7 +506,7 @@ For B2B with many short quotes:
               ))}
             </ul>
 
-            <Magnetic intensity={0.12}>
+            <Magnet>
               <a href={plan.href} className={`block mt-8 text-center py-3 rounded-full text-sm font-medium transition-colors ${
                 plan.featured
                   ? 'bg-foreground text-background hover:bg-foreground/90'
@@ -514,9 +514,9 @@ For B2B with many short quotes:
               }`}>
                 {plan.cta}
               </a>
-            </Magnetic>
+            </Magnet>
           </div>
-        </InView>
+        </FadeContent>
       ))}
     </div>
   </div>
@@ -536,7 +536,7 @@ For B2B with many short quotes:
       Questions & answers
     </h2>
 
-    {/* Uses Motion Primitives Accordion — NOT shadcn/Radix API */}
+    {/* Uses motion/react AnimatePresence for expand/collapse — NOT shadcn/Radix API */}
     <Accordion expandedValue={expanded} onValueChange={setExpanded}
       className="space-y-0">
       {items.map((item, i) => (
@@ -554,7 +554,7 @@ For B2B with many short quotes:
 </section>
 ```
 
-**No InView here.** FAQ doesn't need scroll animation — it's a utility section. Let content speak.
+**No FadeContent here.** FAQ doesn't need scroll animation — it's a utility section. Let content speak.
 
 Also add FAQPage JSON-LD in the Server Component:
 ```tsx
@@ -581,7 +581,7 @@ This is where ONE dramatic animation earns its place. After a page of restraint,
   <div className="absolute inset-0 -z-10 bg-gradient-to-br from-primary/20 via-purple-500/10 to-background" />
 
   <div className="max-w-3xl mx-auto text-center relative">
-    <InView variants={{ hidden: { opacity: 0, y: 32 }, visible: { opacity: 1, y: 0 } }}
+    <FadeContent blur direction="up">
             viewOptions={{ once: true }}
             transition={{ type: "spring", stiffness: 150, damping: 25 }}>
       <h2 className="font-display text-4xl md:text-6xl tracking-tighter">
@@ -591,13 +591,13 @@ This is where ONE dramatic animation earns its place. After a page of restraint,
         Join thousands of teams shipping faster with our platform.
       </p>
       <div className="mt-10">
-        <Magnetic intensity={0.2}>
+        <Magnet>
           <a href="/start" className="inline-flex px-8 py-4 bg-foreground text-background rounded-full text-base font-medium">
             Get started — free
           </a>
-        </Magnetic>
+        </Magnet>
       </div>
-    </InView>
+    </FadeContent>
   </div>
 </section>
 ```
@@ -671,7 +671,7 @@ export function Navbar() {
 }
 ```
 
-**No AnimatedBackground on nav links** unless the site has 5+ nav items that need active state indication. For 3-4 links, simple text color change is cleaner.
+**No motion active indicator on nav links** unless the site has 5+ nav items that need active state indication. For 3-4 links, simple text color change is cleaner.
 
 ---
 
@@ -721,7 +721,7 @@ export function Navbar() {
 
 ## Global Elements
 
-**ScrollProgress** — Optional. Only use on long-form content pages (blog, docs). On landing pages it's unnecessary.
+**scroll progress bar** — Optional. Only use on long-form content pages (blog, docs). On landing pages it's unnecessary.
 
 **Noise overlay** — Subtle grain adds texture. Keep at opacity 0.02-0.03:
 ```tsx
@@ -742,14 +742,14 @@ app/
     └── components/
         ├── navbar.tsx          ← 'use client'
         ├── hero.tsx            ← 'use client' — choose a variant
-        ├── logo-bar.tsx        ← 'use client' — InfiniteSlider
+        ├── logo-bar.tsx        ← 'use client' — LogoLoop
         ├── features.tsx        ← 'use client' — choose a layout
         ├── showcase.tsx        ← 'use client' — product screenshot
-        ├── stats.tsx           ← 'use client' — AnimatedNumber
+        ├── stats.tsx           ← 'use client' — CountUp
         ├── testimonials.tsx    ← 'use client' — choose a pattern
-        ├── pricing.tsx         ← 'use client' — AnimatedNumber, AnimatedToggle
+        ├── pricing.tsx         ← 'use client' — CountUp, toggle switch
         ├── faq.tsx             ← 'use client' — Accordion
-        ├── footer-cta.tsx      ← 'use client' — Magnetic
+        ├── footer-cta.tsx      ← 'use client' — Magnet
         └── footer.tsx          ← Server Component (no animation needed)
 ```
 

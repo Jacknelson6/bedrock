@@ -22,7 +22,7 @@ The hero card draws the eye. Supporting cards fill the remaining space. **This i
 
 ```tsx
 'use client';
-import { InView } from '@/components/ui/in-view';
+import { FadeContent } from '@/components/ui/fade-content';
 import Image from 'next/image';
 
 const ENTRANCE = { type: "spring" as const, stiffness: 200, damping: 25 };
@@ -32,7 +32,7 @@ export function Features({ heroFeature, features }) {
     <section className="py-20 md:py-32 px-6">
       <div className="max-w-7xl mx-auto">
         {/* Section header — left-aligned, not centered */}
-        <InView
+        <FadeContent blur direction="up"
           variants={{ hidden: { opacity: 0, y: 24 }, visible: { opacity: 1, y: 0 } }}
           viewOptions={{ once: true, margin: "-80px" }}
           transition={ENTRANCE}
@@ -43,12 +43,12 @@ export function Features({ heroFeature, features }) {
           <h2 className="font-display text-3xl md:text-5xl tracking-tight max-w-xl">
             Everything you need, nothing you don't
           </h2>
-        </InView>
+        </FadeContent>
 
         {/* Bento grid — tight gaps like Unicorn Studio */}
         <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-1.5">
           {/* Hero card — 2 cols, 2 rows */}
-          <InView
+          <FadeContent blur direction="up"
             variants={{ hidden: { opacity: 0, y: 32 }, visible: { opacity: 1, y: 0 } }}
             viewOptions={{ once: true }}
             transition={ENTRANCE}
@@ -68,11 +68,11 @@ export function Features({ heroFeature, features }) {
                        width={700} height={350} />
               )}
             </div>
-          </InView>
+          </FadeContent>
 
           {/* Supporting cards */}
           {features.map((feature, i) => (
-            <InView
+            <FadeContent blur direction="up"
               key={feature.title}
               variants={{ hidden: { opacity: 0, y: 24 }, visible: { opacity: 1, y: 0 } }}
               viewOptions={{ once: true }}
@@ -83,7 +83,7 @@ export function Features({ heroFeature, features }) {
                 <h3 className="text-lg font-semibold mt-5 tracking-tight">{feature.title}</h3>
                 <p className="text-sm text-muted-foreground mt-2 leading-relaxed">{feature.description}</p>
               </div>
-            </InView>
+            </FadeContent>
           ))}
         </div>
       </div>
@@ -107,8 +107,8 @@ Each feature gets a full row with text on one side and a visual on the other. Si
 
 ```tsx
 'use client';
-import { InView } from '@/components/ui/in-view';
-import { Tilt } from '@/components/ui/tilt';
+import { FadeContent } from '@/components/ui/fade-content';
+import { TiltedCard } from '@/components/ui/tilted-card';
 import Image from 'next/image';
 
 const ENTRANCE = { type: "spring" as const, stiffness: 200, damping: 25 };
@@ -120,7 +120,7 @@ export function Features({ features }) {
         {features.map((feature, i) => {
           const reversed = i % 2 === 1;
           return (
-            <InView
+            <FadeContent blur direction="up"
               key={feature.title}
               variants={{ hidden: { opacity: 0, y: 40 }, visible: { opacity: 1, y: 0 } }}
               viewOptions={{ once: true, margin: "-100px" }}
@@ -149,7 +149,7 @@ export function Features({ features }) {
                   )}
                 </div>
                 <div className={reversed ? 'lg:[direction:ltr]' : ''}>
-                  <Tilt rotationFactor={4}>
+                  <TiltedCard>
                     <Image
                       src={feature.image}
                       alt={feature.title}
@@ -157,10 +157,10 @@ export function Features({ features }) {
                       width={600}
                       height={400}
                     />
-                  </Tilt>
+                  </TiltedCard>
                 </div>
               </div>
-            </InView>
+            </FadeContent>
           );
         })}
       </div>
@@ -183,15 +183,15 @@ When all features are equal weight. **The key insight: make the grid feel like O
 
 ```tsx
 'use client';
-import { InView } from '@/components/ui/in-view';
-import { AnimatedGroup } from '@/components/ui/animated-group';
+import { FadeContent } from '@/components/ui/fade-content';
+// Use motion stagger for group animations
 
 export function Features({ features }) {
   return (
     <section className="py-20 md:py-32 px-6">
       <div className="max-w-6xl mx-auto">
         {/* Left-aligned header */}
-        <InView
+        <FadeContent blur direction="up"
           variants={{ hidden: { opacity: 0 }, visible: { opacity: 1 } }}
           viewOptions={{ once: true }}
         >
@@ -201,10 +201,10 @@ export function Features({ features }) {
               Built for teams that ship fast.
             </p>
           </div>
-        </InView>
+        </FadeContent>
 
         {/* Grid as unified block — gap-px creates hairline dividers */}
-        <AnimatedGroup
+        <motion stagger
           preset="blur"
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-border/40 rounded-2xl overflow-hidden border border-border/30"
         >
@@ -217,7 +217,7 @@ export function Features({ features }) {
               </p>
             </div>
           ))}
-        </AnimatedGroup>
+        </div>
       </div>
     </section>
   );
@@ -230,9 +230,9 @@ export function Features({ features }) {
 - `border border-border/30` — barely visible outer border
 - Each cell is `bg-background` — clean, no card elevation
 - Icons are `text-foreground/60` — understated
-- NO GlowHoverCard — restraint. Not every grid needs glow effects.
+- NO SpotlightCard — restraint. Not every grid needs glow effects.
 
-**When to add GlowHoverCard:** Only when the feature cards are interactive (link somewhere, have expandable content, or the product is specifically visual/creative). For informational feature lists, clean dividers > glow.
+**When to add SpotlightCard:** Only when the feature cards are interactive (link somewhere, have expandable content, or the product is specifically visual/creative). For informational feature lists, clean dividers > glow.
 
 ---
 
@@ -273,7 +273,7 @@ One feature gets a full-width immersive treatment. Usually for the #1 capability
 ```tsx
 <section className="py-20 md:py-32 px-6">
   <div className="max-w-7xl mx-auto">
-    <InView
+    <FadeContent blur direction="up"
       variants={{ hidden: { opacity: 0, y: 40 }, visible: { opacity: 1, y: 0 } }}
       viewOptions={{ once: true, margin: "-50px" }}
       transition={{ type: "spring", stiffness: 150, damping: 25 }}
@@ -300,7 +300,7 @@ One feature gets a full-width immersive treatment. Usually for the #1 capability
           />
         </div>
       </div>
-    </InView>
+    </FadeContent>
   </div>
 </section>
 ```
@@ -333,8 +333,8 @@ Section 5: Feature Showcase (E) — deep dive on one feature
 | Anti-Pattern | Why It's Wrong | What to Do |
 |-------------|---------------|------------|
 | 6 identical cards in a 3x2 grid | Monotonous, feels generated | Use Bento (hero card + small cards) |
-| Every card has GlowHoverCard | Overkill, draws attention everywhere | Clean borders for info cards, glow only for interactive |
-| TextEffect on section heading + card titles | Animation fatigue | TextEffect on heading only, card titles are static |
+| Every card has SpotlightCard | Overkill, draws attention everywhere | Clean borders for info cards, glow only for interactive |
+| SplitText on section heading + card titles | Animation fatigue | SplitText on heading only, card titles are static |
 | `gap-8` on everything | Loose, unfocused | Tighter gaps (`gap-1.5` to `gap-4`) for card grids |
 | All cards have icons from the same icon set at the same size | Feels templated | Vary: some cards with icons, hero card with image, one with illustration |
 | Centered section heading for every section | Repetitive, AI-default | Alternate: left-aligned vs centered |
@@ -347,4 +347,4 @@ Section 5: Feature Showcase (E) — deep dive on one feature
 - Feature descriptions should be 2-3 sentences minimum for indexable content
 - Use meaningful icon `alt` text or `aria-label` for accessibility
 - The grid is fully server-rendered — all text is in the HTML
-- `InView` and `AnimatedGroup` render content immediately, animation is progressive enhancement
+- `FadeContent` and `motion stagger` render content immediately, animation is progressive enhancement

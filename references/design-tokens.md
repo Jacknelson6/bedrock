@@ -45,7 +45,7 @@ const STAGGER_FAST = 0.04;   // 40ms — rapid cascade (logo bars)
 const STAGGER_NORMAL = 0.08; // 80ms — standard (feature cards)
 const STAGGER_SLOW = 0.15;   // 150ms — dramatic (pricing cards)
 
-// SCROLL ENTRANCE: Standard InView animation
+// SCROLL ENTRANCE: Standard FadeContent/scroll entrance
 const SCROLL_ENTER = {
   hidden: { opacity: 0, y: 30 },
   visible: { opacity: 1, y: 0, transition: ENTRANCE },

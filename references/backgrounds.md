@@ -3,10 +3,10 @@
 One background effect per viewport section max. Layer them for depth (base + texture).
 
 ## Performance Tiers
-**CSS-only (<1KB):** Noise, Squares, Waves, LetterGlitch
+**CSS-only (<1KB):** Noise, Squares, Waves, LetterGlitch, Iridescence, LiquidChrome, Orb, Balatro, Dither, Lightning, DotGrid, RippleGrid, DarkVeil, LightRays, FaultyTerminal, Plasma, Prism, GradientBlinds, Grainient, PrismaticBurst, PixelBlast, LiquidEther, ColorBends, GridScan, FloatingLines, LightPillar, PixelSnow
 **OGL WebGL (<5KB):** Aurora (requires `ogl` package)
-**Motion (2-10KB):** GridMotion, BorderTrail, StarBorder
-**Three.js (50KB+):** Particles, Hyperspeed, Threads, Beams, ShapeBlur — always lazy-load, ssr: false
+**Motion (2-10KB):** GridMotion, StarBorder
+**Three.js (50KB+):** Particles, Hyperspeed, Threads, Beams, ShapeBlur, Silk, Ballpit, GridDistortion, Galaxy — always lazy-load, ssr: false
 **GSAP:** BlobCursor (requires `gsap` package)
 
 ## When to Use What
@@ -24,8 +24,9 @@ One background effect per viewport section max. Layer them for depth (base + tex
 | Cursor interaction | **BlobCursor** (follows mouse, GSAP) |
 | Cyberpunk aesthetic | **LetterGlitch** (glitch chars, CSS) |
 | Soft SaaS bg | **ShapeBlur** (blurred blobs, Three.js) |
-| Sparkle border | **StarBorder** (ReactBits, Motion) |
-| Animated border | **BorderTrail** (Motion Primitives) |
+| Flowing silk | **Silk** (fabric texture, Three.js) |
+| Rainbow shimmer | **Iridescence** (CSS) |
+| Sparkle border | **StarBorder** (Motion) |
 
 ## Layering Recipes
 **Elegant Dark:** Aurora (0.6) + Noise (0.04)
